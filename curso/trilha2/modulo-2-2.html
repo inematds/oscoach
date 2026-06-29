@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 2.2 · Substrato &amp; Contexto — o caminhão de lixo em chamas | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento da trilha (blue) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/30 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .bg-sky-900\/20 { background-color: rgba(3,105,161,0.08); }
+    html:not(.dark) .border-sky-500\/30 { border-color: rgba(3,105,161,0.25); }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m22-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m22-a { animation: m22-pulse 2.8s ease-in-out infinite; }
+      .m22-a:nth-child(2){animation-delay:.25s} .m22-a:nth-child(3){animation-delay:.5s}
+      .m22-a:nth-child(4){animation-delay:.75s} .m22-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T2 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="../trilha1/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="2-2" data-inema-track="2">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-blue-400">Trilha 2</a><span>/</span>
+        <span class="text-blue-400">Módulo 2.2</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.2</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🗑️🔥 Substrato &amp; Contexto — o caminhão de lixo em chamas</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">A segunda camada da base: o conhecimento bruto do domínio. Você começa com um <strong class="text-neutral-300">caminhão de lixo em chamas</strong> — 500 a 5.000 arquivos caóticos. O trabalho é <strong class="text-blue-400">organizar antes de ligar a IA</strong>, colher o que falta e destilar tudo em <em>nuggets</em>. Injete só os nuggets.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">8</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">~55</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Intermed.</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:2-2" class="inema-ring" aria-label="Progresso do módulo 2.2"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:2-2"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 8</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">1. Caminhão de lixo em chamas</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">2. Organizar antes da IA</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">3. Harvesting</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">4. Conhecimento tácito</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">5. Playbooks / compêndios</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">6. Raw vs sintetizado</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">7. Workhorse model</a></li>
+              <li><a href="#topico-8" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">8. Prático: raw → nuggets</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-2-2#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">🚛 A analogia do caminhão de lixo em chamas</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t1-p1" class="text-neutral-300 leading-relaxed mb-6">O <strong class="text-blue-400">Substrato</strong> é o conhecimento bruto do seu domínio — e quase sempre você começa com o que o autor chama de <strong class="text-neutral-100">"um caminhão de lixo em chamas"</strong>. Especialmente num negócio, são <strong class="text-neutral-100">500, 5.000 arquivos</strong> de tipos e estruturas variados: PDFs, planilhas, zips, até arquivos exóticos como Parquet. Caos. O Substrato é a camada que transforma esse caos em algo de que o OS consegue se servir.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-2-t1-p2" class="text-sm text-neutral-300"><strong>Substrato</strong> = o material de referência guardado fora do <span class="font-mono text-xs">CLAUDE.md</span>, que o OS consulta só quando precisa. <strong>Contexto</strong> = o que de fato entra na conversa naquele momento. A diferença é a chave do módulo: você guarda muito (substrato) mas injeta pouco (contexto), para não estourar a <strong>janela de contexto</strong> — o limite de texto que o modelo lê de uma vez.</p>
+              </div>
+
+              <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">🔥</span> O que é</h3>
+                <p class="text-neutral-300 mb-3">A imagem do caminhão de lixo em chamas serve para baixar a ansiedade: é normal começar bagunçado. O trabalho não é "ter dados perfeitos", é <strong class="text-neutral-100">dar forma ao caos</strong> — e isso é <em>design</em>, não engenharia pesada.</p>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-1">•</span><span>Muitos arquivos, muitos formatos, zero ordem: o ponto de partida normal.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-1">•</span><span>O Substrato é onde esse material vira referência consultável.</span></li>
+                </ul>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque a maioria tenta ligar a IA <em>em cima do caos</em> e se frustra com respostas ruins. Aceitar o caminhão de lixo em chamas como ponto de partida — e tratá-lo com método — é o que separa um OS que sabe do seu domínio de um que chuta. Em domínios pesados de contexto (Tax OS ~34%), essa camada é a mais importante de todas.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Substrato</div><div class="text-xs text-neutral-400">referência guardada</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Contexto</div><div class="text-xs text-neutral-400">o que entra na conversa</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">500–5.000 arquivos</div><div class="text-xs text-neutral-400">o caos normal</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Design &gt; engenharia</div><div class="text-xs text-neutral-400">dar forma ao caos</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-2-2#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">🗂️ Organizar ANTES de ligar a IA</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t2-p1" class="text-neutral-300 leading-relaxed mb-6">Antes de pedir qualquer coisa ao Claude Code, faça uma <strong class="text-blue-400">mini engenharia de dados</strong>: organize. O autor descreve dois cortes simples — primeiro <strong class="text-neutral-100">por tipo de arquivo</strong> (PDFs com PDFs, planilhas com planilhas), depois <strong class="text-neutral-100">por idade</strong> (últimos 6 meses vs. últimos 2 anos). Isso isola partes do material e dá ao OS um terreno limpo.</p>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> A IA pode te ajudar a organizar</h3>
+                <p class="text-neutral-300 text-sm">"Organizar antes" não significa fazer tudo à unha: você pode pedir ao Claude Code para <strong class="text-neutral-100">mover cada arquivo para a pasta do seu tipo</strong> e depois bifurcar por idade. O ponto é que essa <em>arrumação</em> aconteça <strong class="text-neutral-100">antes</strong> de qualquer análise — você prepara o terreno, depois usa o terreno.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-4">O fluxo de arrumação em 3 cortes</h3>
+              <div class="space-y-6 mb-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Por tipo</h4><p class="text-neutral-300 text-sm">Cada arquivo vai para a pasta do seu formato: <span class="font-mono text-xs">pdf/</span>, <span class="font-mono text-xs">planilhas/</span>, <span class="font-mono text-xs">transcricoes/</span>.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Por idade</h4><p class="text-neutral-300 text-sm">Dentro de cada tipo, separe o recente (últimos 6 meses) do antigo (até 2 anos). O recente costuma valer mais.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Isolar &amp; nomear</h4><p class="text-neutral-300 text-sm">Com tudo separado, fica óbvio o que é fonte e o que é ruído — e o OS lê só o pedaço certo.</p></div>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t2-p2" class="text-neutral-300 leading-relaxed mb-6">Porque a qualidade do OS é limitada pela qualidade do Substrato. Jogar 5.000 arquivos desorganizados na IA produz respostas vagas e cara (muitos tokens). Organizar primeiro é o passo barato que multiplica tudo que vem depois.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Mini eng. de dados</div><div class="text-xs text-neutral-400">arrumar é design</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Por tipo</div><div class="text-xs text-neutral-400">1º corte</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Por idade</div><div class="text-xs text-neutral-400">recente vs antigo</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Antes da IA</div><div class="text-xs text-neutral-400">prepara o terreno</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-2-2#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">🌾 Harvesting: o que falta pro especialista</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t3-p1" class="text-neutral-300 leading-relaxed mb-6">Depois de arrumar, vem o <strong class="text-blue-400">harvesting</strong> (colheita). A pergunta-guia é: <strong class="text-neutral-100">além do que já tenho, o que falta para criar o "especialista dos sonhos" deste domínio?</strong> Você vai colher de onde o conhecimento mora — YouTube, Instagram, experts, leis, advogados — e trazer para dentro do Substrato.</p>
+
+              <!-- SVG A: pipeline do substrato -->
+              <div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 1000 280" class="w-full h-auto" role="img" aria-label="O pipeline do substrato: o caos de arquivos é organizado por tipo e idade, depois colhido de fontes externas, então destilado por um modelo workhorse em nuggets, separando uma pasta raw guardada de uma pasta synthesized — e só os nuggets entram no contexto.">
+                  <defs>
+                    <linearGradient id="m22a-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+                    <filter id="m22a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m22a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#3b82f6" opacity="0.1"/></pattern>
+                    <marker id="m22a-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#22d3ee"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="1000" height="280" fill="url(#m22a-grid)"/>
+                  <g stroke="#22d3ee" stroke-width="2" opacity="0.7" fill="none">
+                    <path d="M178,140 L232,140" marker-end="url(#m22a-ah)"/>
+                    <path d="M388,140 L442,140" marker-end="url(#m22a-ah)"/>
+                    <path d="M598,140 L652,140" marker-end="url(#m22a-ah)"/>
+                    <path d="M812,108 L862,90" marker-end="url(#m22a-ah)"/>
+                    <path d="M812,172 L862,190" marker-end="url(#m22a-ah)"/>
+                  </g>
+                  <g font-family="Inter,sans-serif">
+                    <g class="m22-a"><rect x="38" y="108" width="140" height="64" rx="12" fill="#2a1410" stroke="#f59e0b" stroke-width="2"/><text x="108" y="136" text-anchor="middle" fill="#fbbf24" font-weight="700" font-size="22">🔥</text><text x="108" y="158" text-anchor="middle" fill="#fcd34d" font-size="11" font-weight="600">caos bruto</text></g>
+                    <g class="m22-a"><rect x="232" y="108" width="156" height="64" rx="12" fill="#0e1f3a" stroke="#3b82f6" stroke-width="2"/><text x="310" y="134" text-anchor="middle" fill="#bfdbfe" font-weight="600" font-size="13">organizar</text><text x="310" y="154" text-anchor="middle" fill="#93c5fd" font-size="11">por tipo + idade</text></g>
+                    <g class="m22-a"><rect x="442" y="108" width="156" height="64" rx="12" fill="#0e1f3a" stroke="#3b82f6" stroke-width="2"/><text x="520" y="134" text-anchor="middle" fill="#bfdbfe" font-weight="600" font-size="13">harvesting</text><text x="520" y="154" text-anchor="middle" fill="#93c5fd" font-size="11">colher o que falta</text></g>
+                    <g class="m22-a"><rect x="652" y="100" width="160" height="80" rx="13" fill="#0e2330" stroke="#22d3ee" stroke-width="2.5"/><text x="732" y="132" text-anchor="middle" fill="#a5f3fc" font-weight="700" font-size="13">⚙️ workhorse</text><text x="732" y="152" text-anchor="middle" fill="#7dd3fc" font-size="11">destila em nuggets</text></g>
+                  </g>
+                  <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+                    <g filter="url(#m22a-glow)"><rect x="862" y="60" width="118" height="58" rx="11" fill="#1f2937" stroke="#6b7280" stroke-width="2"/></g>
+                    <text x="921" y="84" text-anchor="middle" fill="#d1d5db">📁 raw/</text><text x="921" y="102" text-anchor="middle" fill="#9ca3af" font-weight="400" font-size="10.5">guardado</text>
+                    <g filter="url(#m22a-glow)"><rect x="862" y="162" width="118" height="58" rx="11" fill="#0e1f3a" stroke="url(#m22a-grad)" stroke-width="2.5"/></g>
+                    <text x="921" y="186" text-anchor="middle" fill="#93c5fd">📁 synthesized/</text><text x="921" y="204" text-anchor="middle" fill="#bfdbfe" font-weight="400" font-size="10.5">só nuggets ↗ contexto</text>
+                  </g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-blue-400">Como ler:</strong> o caos (laranja) é organizado, depois colhido de fontes externas, então um <em>modelo workhorse</em> destila tudo. Sobram duas pastas: <span class="font-mono text-xs">raw/</span> (guardada por garantia, cinza) e <span class="font-mono text-xs">synthesized/</span> (os nuggets, azul) — só esta entra no contexto.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Porque o que você já tem raramente basta. O especialista de verdade conhece coisas que não estão nos seus arquivos — estão na cabeça de experts e em fontes públicas. Harvesting é o passo que fecha essa lacuna de propósito, em vez de torcer para o modelo "saber".</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Harvesting</div><div class="text-xs text-neutral-400">colher o que falta</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Especialista dos sonhos</div><div class="text-xs text-neutral-400">a meta do domínio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Fontes externas</div><div class="text-xs text-neutral-400">YouTube, experts, leis</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Lacuna proposital</div><div class="text-xs text-neutral-400">o que falta, de propósito</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-2-2#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">🧠 Conhecimento tácito: o que o genérico não tem</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t4-p1" class="text-neutral-300 leading-relaxed mb-6">O alvo do harvesting é o <strong class="text-blue-400">conhecimento tácito</strong>: aquilo que um modelo genérico <strong class="text-neutral-100">não</strong> sabe porque não está bem documentado — está na prática de quem faz. No Freedom OS, por exemplo, são detalhes como <em>quais agências de tradução são confiáveis</em>, o que precisa ser <strong class="text-neutral-100">notarizado</strong> (assinado oficialmente) e quais documentos traduzir para árabe ou francês conforme o país.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-2-t4-p2" class="text-sm text-neutral-300"><strong>Conhecimento tácito</strong> é o oposto do "explícito": é o saber de experiência, raramente escrito — atalhos, exceções, "o que sempre dá errado". O modelo genérico foi treinado em texto público, então ele tem o explícito mas não o tácito do <em>seu</em> caso. O Substrato existe para capturar justamente esse tácito.</p>
+              </div>
+
+              <div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-sky-400 mb-4 flex items-center"><span class="mr-2">🔎</span> Onde o tácito se esconde</h3>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li><strong class="text-neutral-100">Pessoas</strong> — experts, advogados, contadores que respondem "depende" e explicam o porquê.</li>
+                  <li><strong class="text-neutral-100">Vídeos &amp; posts</strong> — YouTube e Instagram de quem vive o domínio, cheios de macetes não-oficiais.</li>
+                  <li><strong class="text-neutral-100">Seus próprios casos</strong> — os e-mails, formulários e perguntas repetidas que você já respondeu.</li>
+                </ul>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t4-p3" class="text-neutral-300 leading-relaxed mb-6">Porque é exatamente o tácito que faz o OS parecer um <em>especialista</em> e não um chatbot. Sem ele, o OS repete o que qualquer modelo diria. Capturar o tácito é a diferença entre "genérico" e "ninguém faz como o meu OS" — o teste que volta na auditoria da Trilha 4.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Tácito</div><div class="text-xs text-neutral-400">saber de prática</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Explícito</div><div class="text-xs text-neutral-400">o que o genérico já tem</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Exceções</div><div class="text-xs text-neutral-400">"o que dá errado"</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Não-genérico</div><div class="text-xs text-neutral-400">o diferencial do OS</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-2-2#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">📚 Playbooks &amp; compêndios</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t5-p1" class="text-neutral-300 leading-relaxed mb-6">Material colhido espalhado ainda não serve. O próximo passo é agregar fontes num <strong class="text-blue-400">compêndio</strong> (um <span class="font-mono text-sm">compendium.md</span>) — um documento de referência destilado — e em <strong class="text-blue-400">playbooks</strong>: roteiros de "como se faz X neste domínio". É o que o OS consulta para responder com a profundidade de um especialista.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+                  <h4 class="font-bold text-blue-400 mb-4">📘 Compêndio</h4>
+                  <p class="text-neutral-300 text-sm mb-3">Referência destilada do domínio: leis, fatos, definições, "como funciona".</p>
+                  <ul class="space-y-2 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Responde "o que é verdade aqui?".</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Agrega muitas fontes num lugar só.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+                  <h4 class="font-bold text-blue-400 mb-4">📗 Playbook</h4>
+                  <p class="text-neutral-300 text-sm mb-3">Roteiro de execução: passos para realizar tarefas recorrentes do domínio.</p>
+                  <ul class="space-y-2 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Responde "como se faz X?".</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Vira matéria-prima das Skills (Trilha 3).</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> O done-check do Substrato</h3>
+                <p class="text-neutral-300 text-sm">A camada está pronta quando existe um <span class="font-mono text-xs">substrate/compendium.md</span> organizado que <strong class="text-neutral-100">responde à pergunta-objetivo</strong> que você definiu para o domínio. Se a pergunta ainda fica sem resposta boa, falta colher ou destilar mais.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t5-p2" class="text-neutral-300 leading-relaxed mb-6">Porque compêndios e playbooks são o formato em que o conhecimento vira utilizável. Eles também são a ponte para a próxima trilha: um bom playbook é quase uma Skill esperando para ser empacotada.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Compêndio</div><div class="text-xs text-neutral-400">referência destilada</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Playbook</div><div class="text-xs text-neutral-400">como se faz X</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Pergunta-objetivo</div><div class="text-xs text-neutral-400">o done-check</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Ponte p/ Skills</div><div class="text-xs text-neutral-400">playbook → verbo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-2-2#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🧊 Raw vs sintetizado — injetar só nuggets</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t6-p1" class="text-neutral-300 leading-relaxed mb-6">O padrão central do Substrato é a separação <strong class="text-blue-400">raw vs sintetizado</strong>. Você mantém uma pasta <span class="font-mono text-sm">raw/</span> com as transcrições e documentos crus (guardados por garantia) e uma pasta <strong class="text-neutral-100">adjacente e complementar</strong> com as versões destiladas — os <strong class="text-blue-400">nuggets</strong>. A regra de ouro: <strong class="text-neutral-100">injete apenas os nuggets</strong> no contexto.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-2-t6-p2" class="text-sm text-neutral-300">Um <strong>nugget</strong> é um resumo super-destilado — pense em 10 bullets que carregam o essencial de uma transcrição de uma hora. <strong>Injetar no contexto</strong> = colocar aquele texto na conversa para o modelo usar. Você quer injetar nuggets (pequenos, densos), não o material cru (gigante, ralo), para o OS ser rápido e barato.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+                  <h4 class="font-bold text-neutral-300 mb-3">📁 raw/ — a despensa</h4>
+                  <ul class="space-y-2 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-neutral-500">•</span><span>Transcrições e documentos crus, do jeito que vieram.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-neutral-500">•</span><span>Guardado por garantia; quase nunca entra no contexto.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-neutral-500">•</span><span>Sua rede de segurança se precisar re-destilar.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+                  <h4 class="font-bold text-blue-400 mb-3">📁 synthesized/ — o prato pronto</h4>
+                  <ul class="space-y-2 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Nuggets: o essencial em poucos bullets.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>É o que de fato se injeta no contexto.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Pequeno, denso, barato em tokens.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t6-p3" class="text-neutral-300 leading-relaxed mb-6">Porque é o padrão que se repete em <em>todo</em> domínio — despensa vs. prato pronto. Confundir os dois (injetar o cru) estoura a janela de contexto, encarece e piora as respostas. Separar raw de sintetizado é o que mantém o OS enxuto e o conhecimento recuperável.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">raw/</div><div class="text-xs text-neutral-400">cru, guardado</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">synthesized/</div><div class="text-xs text-neutral-400">nuggets destilados</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Injetar só nuggets</div><div class="text-xs text-neutral-400">a regra de ouro</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Despensa vs prato</div><div class="text-xs text-neutral-400">a analogia</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 -->
+          <section id="topico-7" data-inema-topic="modulo-2-2#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">⚙️ Workhorse model em loop pra sintetizar</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t7-p1" class="text-neutral-300 leading-relaxed mb-6">Quem faz a destilação não precisa ser o modelo mais caro. O autor usa um <strong class="text-blue-400">workhorse model</strong> (modelo "burro de carga") — barato e eficiente, como o <strong class="text-neutral-100">Gemini Flash</strong> — rodando <strong class="text-neutral-100">em loop</strong> por todos os arquivos: "use este modelo, percorra cada arquivo e crie a síntese dos nuggets centrais destas transcrições".</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-2-t7-p2" class="text-sm text-neutral-300">Um <strong>workhorse model</strong> é um modelo barato escolhido para tarefas repetitivas e em volume — não para raciocínio difícil, mas para "passar o rodo" em muitos arquivos. <strong>Em loop</strong> = repetir a mesma operação arquivo por arquivo. Você gasta pouco por item e processa centenas de fontes sem queimar tokens caros.</p>
+              </div>
+
+              <div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-sky-400 mb-2 flex items-center"><span class="mr-2">🔁</span> A skill "knowledge harvester"</h3>
+                <p class="text-neutral-300 text-sm">Esse loop pode virar uma skill reutilizável: ela pergunta <em>quais handles</em> raspar e <em>quantos vídeos</em>, salva tudo em <span class="font-mono text-xs">raw/</span> e roda o workhorse para gerar a versão sintetizada. Vira um sistema <strong class="text-neutral-100">auto-melhorável com humano no loop</strong>: você agrega cada vez mais, destila e ainda faz backup (cópia privada no GitHub, com <span class="font-mono text-xs">.gitignore</span> do que é sensível).</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t7-p3" class="text-neutral-300 leading-relaxed mb-6">Porque destilar à mão não escala, e usar o modelo topo-de-linha para isso é desperdício. O par "workhorse barato + loop" é o que torna a síntese viável em volume — e quando você generaliza o script, ganha um motor de Substrato que roda toda vez que chega material novo.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Workhorse</div><div class="text-xs text-neutral-400">modelo barato</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Gemini Flash</div><div class="text-xs text-neutral-400">exemplo do autor</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Em loop</div><div class="text-xs text-neutral-400">arquivo por arquivo</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Humano no loop</div><div class="text-xs text-neutral-400">auto-melhora guiada</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 8 (PRÁTICO — copy-run) -->
+          <section id="topico-8" data-inema-topic="modulo-2-2#topico-8" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">8</span>
+              <h2 class="text-2xl font-bold pt-1">⚡ Prático: varrer raw/ e gerar nuggets</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-2-t8-p1" class="text-neutral-300 leading-relaxed mb-6">Vamos montar o motor de síntese. O <strong class="text-blue-400">prompt copy-run</strong> abaixo manda o Claude Code rodar um <strong class="text-neutral-100">modelo workhorse em loop</strong> sobre tudo que está em <span class="font-mono text-sm">raw/</span> e escrever um nugget por arquivo em <span class="font-mono text-sm">synthesized/</span>. Troque só os trechos entre <span class="font-mono text-xs text-blue-400">&lt;colchetes&gt;</span>.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-5 mb-4">
+                <p class="text-sm font-semibold text-blue-400 mb-1">🎯 Objetivo</p>
+                <p class="text-sm text-neutral-300">Transformar a pasta <span class="font-mono text-xs">raw/</span> (cru) numa pasta <span class="font-mono text-xs">synthesized/</span> de nuggets prontos para injetar — usando um modelo barato, sem queimar tokens caros.</p>
+              </div>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <p class="text-xs text-neutral-500 font-semibold">Cole no Claude Code — prompt copy-run</p>
+                  <span class="text-xs text-neutral-500 font-mono">prompt</span>
+                </div>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed whitespace-pre-wrap">Você é meu pipeline de Substrato. Use o modelo workhorse
+<span class="text-blue-400">&lt;modelo barato: ex. gemini-flash&gt;</span> para destilar meu material bruto.
+
+Passos:
+1. Liste todos os arquivos em <span class="text-blue-400">./raw/</span> (transcrições, PDFs já em texto,
+   posts). NÃO modifique nada em raw/ — é a minha despensa.
+2. Para CADA arquivo, chame o modelo workhorse e gere um nugget:
+   - no máximo <span class="text-blue-400">&lt;N: ex. 10&gt;</span> bullets com o essencial;
+   - capture o conhecimento tácito (exceções, "o que dá errado",
+     atalhos), não só o resumo óbvio;
+   - foque no que responde à minha pergunta-objetivo:
+     "<span class="text-blue-400">&lt;sua pergunta-objetivo do domínio&gt;</span>".
+3. Salve cada nugget em <span class="text-blue-400">./synthesized/</span> com o MESMO nome do
+   arquivo de origem + sufixo ".nugget.md".
+4. Ao final, gere <span class="text-blue-400">./synthesized/compendium.md</span> agregando os
+   nuggets por tema, e me diga quantos arquivos processou.
+
+Regra: só os arquivos de synthesized/ entram no contexto depois.
+Nunca injete o conteúdo de raw/ diretamente.</pre>
+              </div>
+
+              <div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-sky-400 mb-2 flex items-center"><span class="mr-2">✔️</span> Como verificar</h3>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">1.</span><span>A pasta <span class="font-mono text-xs">raw/</span> ficou <strong class="text-neutral-100">intacta</strong> (mesma contagem de arquivos de antes).</span></li>
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">2.</span><span>Há um <span class="font-mono text-xs">.nugget.md</span> em <span class="font-mono text-xs">synthesized/</span> para cada arquivo de <span class="font-mono text-xs">raw/</span>.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">3.</span><span>Cada nugget cabe em poucos bullets e traz pelo menos 1 detalhe tácito (não só o óbvio).</span></li>
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">4.</span><span>O <span class="font-mono text-xs">compendium.md</span> responde à sua pergunta-objetivo (done-check do Substrato).</span></li>
+                </ul>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-2-t8-p2" class="text-neutral-300 leading-relaxed mb-6">Porque este é o coração operacional da camada de Substrato. Rodar uma vez já te dá o <span class="font-mono text-sm">synthesized/</span>; generalizar o prompt te dá a skill "knowledge harvester" que reaproveita toda vez que chega material novo — o sistema auto-melhorável com você no loop.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">raw/ intacto</div><div class="text-xs text-neutral-400">nunca modificar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">1 nugget / arquivo</div><div class="text-xs text-neutral-400">loop do workhorse</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">compendium.md</div><div class="text-xs text-neutral-400">agrega por tema</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">&lt;colchetes&gt;</div><div class="text-xs text-neutral-400">o que você troca</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Você começa com um caminhão de lixo em chamas</strong><span class="text-neutral-400"> — 500–5.000 arquivos caóticos; é normal.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Organize antes de ligar a IA</strong><span class="text-neutral-400"> — por tipo e por idade; mini engenharia de dados.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Harvesting colhe o tácito</strong><span class="text-neutral-400"> — o que o modelo genérico não tem, vindo de experts e fontes.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Compêndios &amp; playbooks</strong><span class="text-neutral-400"> — o conhecimento vira referência consultável.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">raw vs sintetizado; workhorse em loop</strong><span class="text-neutral-400"> — destile barato, injete só os nuggets.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-blue-400 mb-2">Próximo módulo:</h3>
+                <p class="text-neutral-300">2.3 — Regras &amp; Ganchos: as cercas 🚧</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="modulo-2-1.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo anterior</a>
+                <a href="modulo-2-3.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo módulo →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

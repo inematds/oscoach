@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 5.1 · Tax &amp; Bookkeeping OS | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (teal) */
+    html:not(.dark) .text-teal-400 { color: #0d9488; }
+    html:not(.dark) .bg-teal-500\/20 { background-color: rgba(13,148,136,0.12); }
+    html:not(.dark) .bg-teal-500\/10 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/20 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/30 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .border-teal-500\/30 { border-color: rgba(13,148,136,0.25); }
+    html:not(.dark) .hover\:bg-teal-500\/30:hover { background-color: rgba(13,148,136,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    .copy-btn.copied { color: #2dd4bf; }
+
+    @keyframes m51-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m51-a { animation: m51-pulse 2.8s ease-in-out infinite; }
+      .m51-a:nth-child(2){animation-delay:.25s} .m51-a:nth-child(3){animation-delay:.5s}
+      .m51-a:nth-child(4){animation-delay:.75s} .m51-a:nth-child(5){animation-delay:1s}
+    }
+    @media (prefers-reduced-motion: reduce) { .m51-a { animation: none !important; } }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T5 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="../trilha1/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="../trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-teal-400 bg-teal-500/10 whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="5-1" data-inema-track="5">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-teal-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-teal-400">Trilha 5</a><span>/</span>
+        <span class="text-teal-400">Módulo 5.1</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-teal-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-teal-500/20 text-teal-400 text-xs font-semibold rounded-full mb-4">MÓDULO 5.1</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🧾 Tax &amp; Bookkeeping OS</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">O primeiro domínio onde a "pizza" muda de cara: aqui o <strong class="text-teal-400">contexto pesa ~34%</strong> e a identidade quase some. Você vai ver como um compêndio de leis, um pipeline de PDFs e um revisor cético transformam o medo do <em>taxman</em> em rotina mensal.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">7</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">~45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Avançado</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:5-1" class="inema-ring" aria-label="Progresso do módulo 5.1"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:5-1"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 7</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">1. A pizza do Tax OS</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">2. Contexto: auditoria + leis</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">3. Pipeline PDF→texto</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">4. Skill: revisão mensal</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">5. Regras &amp; ganchos</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">6. Agentes</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400">7. Prático: pipeline PDF→md</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-5-1#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">🍕 A pizza do Tax OS — ~34% contexto</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t1-p1" class="text-neutral-300 leading-relaxed mb-6">Lembra da metáfora do gráfico de pizza da Trilha 1? Aqui ela ganha números. No <strong class="text-teal-400">Tax &amp; Bookkeeping OS</strong>, a maior fatia não é "agentes" nem "skills" — é <strong class="text-neutral-100">contexto, com ~34%</strong>. A identidade, que parecia o ponto de partida natural, vira a menor fatia (8%). Saber ler essa distribuição é o que evita gastar energia na camada errada.</p>
+
+              <div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-teal-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m5-1-t1-p2" class="text-sm text-neutral-300"><strong>Contexto</strong> é o conhecimento que o OS guarda e injeta na conversa quando precisa — aqui, as leis e os padrões de auditoria. <strong>PII</strong> (do inglês <em>Personally Identifiable Information</em>) é dado pessoal sensível, como CPF/SIN ou número de conta. <strong>Ledger</strong> é o livro-razão: a lista categorizada de todas as transações.</p>
+              </div>
+
+              <!-- SVG A: pizza da distribuição -->
+              <div class="rounded-2xl border border-teal-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 560 320" class="w-full h-auto" role="img" aria-label="Gráfico de pizza da distribuição das seis camadas no Tax OS: contexto 34 por cento, ferramentas 18 por cento, skills 16 por cento, regras e ganchos 14 por cento, agentes 10 por cento e identidade 8 por cento.">
+                  <defs>
+                    <pattern id="m51a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#14b8a6" opacity="0.1"/></pattern>
+                    <filter id="m51a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  </defs>
+                  <rect x="0" y="0" width="560" height="320" fill="url(#m51a-grid)"/>
+                  <g filter="url(#m51a-glow)" stroke="#0c2422" stroke-width="2">
+                    <path d="M140,150 L140,40 A110,110 0 0,1 232.87,208.94 Z" fill="#2dd4bf"/>
+                    <path d="M140,150 L232.87,208.94 A110,110 0 0,1 126.22,259.13 Z" fill="#14b8a6"/>
+                    <path d="M140,150 L126.22,259.13 A110,110 0 0,1 40.38,196.65 Z" fill="#0d9488"/>
+                    <path d="M140,150 L40.38,196.65 A110,110 0 0,1 40.47,103.16 Z" fill="#0f766e"/>
+                    <path d="M140,150 L40.47,103.16 A110,110 0 0,1 87.0,53.61 Z" fill="#38bdf8"/>
+                    <path d="M140,150 L87.0,53.61 A110,110 0 0,1 140,40 Z" fill="#115e59"/>
+                  </g>
+                  <text x="170" y="120" fill="#06231f" font-family="Inter,sans-serif" font-weight="800" font-size="22">34%</text>
+                  <g font-family="Inter,sans-serif" font-size="13.5">
+                    <rect x="300" y="40"  width="16" height="16" rx="3" fill="#2dd4bf"/><text x="324" y="53" fill="#e5e7eb">Contexto · <tspan font-weight="700" fill="#5eead4">34%</tspan></text>
+                    <rect x="300" y="74"  width="16" height="16" rx="3" fill="#14b8a6"/><text x="324" y="87" fill="#e5e7eb">Ferramentas · <tspan font-weight="700" fill="#5eead4">18%</tspan></text>
+                    <rect x="300" y="108" width="16" height="16" rx="3" fill="#0d9488"/><text x="324" y="121" fill="#e5e7eb">Skills · <tspan font-weight="700" fill="#5eead4">16%</tspan></text>
+                    <rect x="300" y="142" width="16" height="16" rx="3" fill="#0f766e"/><text x="324" y="155" fill="#e5e7eb">Regras &amp; Ganchos · <tspan font-weight="700" fill="#5eead4">14%</tspan></text>
+                    <rect x="300" y="176" width="16" height="16" rx="3" fill="#38bdf8"/><text x="324" y="189" fill="#e5e7eb">Agentes · <tspan font-weight="700" fill="#9ad6ff">10%</tspan></text>
+                    <rect x="300" y="210" width="16" height="16" rx="3" fill="#115e59"/><text x="324" y="223" fill="#e5e7eb">Identidade · <tspan font-weight="700" fill="#5eead4">8%</tspan></text>
+                  </g>
+                  <text x="300" y="262" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11.5">A fatia maior é contexto — não agentes.</text>
+                  <text x="300" y="282" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11.5">A identidade quase some neste domínio.</text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-teal-400">Como ler:</strong> cada fatia é uma das 6 camadas; o tamanho mostra quanto do seu esforço aquele domínio pede. No Tax OS, mais de um terço é contexto (em teal, a maior). Os agentes (em ciano) são uma fatia pequena — entram só para julgar e revisar.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+                  <h4 class="font-bold text-teal-400 mb-4">✓ Onde investir aqui</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Compêndio de leis e padrões de auditoria (contexto).</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Pipeline que converte PDFs e poupa janela de contexto.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Ganchos para PII e separação de contas.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Onde NÃO desperdiçar</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Uma identidade longa e poética (8% — corte ao osso).</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Um enxame de agentes antes de ter o compêndio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Skills genéricas sem contexto fiscal por trás.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque a pizza é o seu mapa de prioridades. Quando você sabe que o contexto vale 34%, para de tentar "consertar" o OS com mais agentes e vai cavar onde realmente importa: o conhecimento fiscal. Esse raciocínio — "qual camada importa mais aqui?" — se repete em todos os domínios da trilha.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Contexto 34%</div><div class="text-xs text-neutral-400">a maior fatia</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Identidade 8%</div><div class="text-xs text-neutral-400">a menor</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Pizza desigual</div><div class="text-xs text-neutral-400">por domínio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Mapa de prioridade</div><div class="text-xs text-neutral-400">onde investir</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-5-1#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">📚 Contexto: dores de auditoria + compêndio de leis</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t2-p1" class="text-neutral-300 leading-relaxed mb-6">O contexto do Tax OS nasce de uma engenharia reversa do pior cenário. O autor conta que era leigo em impostos e começou perguntando: <strong class="text-neutral-100">"quais foram as piores auditorias que já aconteceram no meu país?"</strong>. Varrer YouTube e a legislação atrás desses pesadelos, e depois agregar tudo num <strong class="text-teal-400">compêndio</strong>, é o que dá ao OS um entendimento real do seu sistema tributário.</p>
+
+              <div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-teal-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m5-1-t2-p2" class="text-sm text-neutral-300">Um <strong>compêndio</strong> (ou <em>playbook</em>) é um documento de referência destilado que junta muitas fontes num lugar só. <strong>Harvesting</strong> é o ato de coletar essas fontes (transcrições, leis, conselhos de advogados) antes de destilar.</p>
+              </div>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔎</span> O que entra no compêndio fiscal</h3>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li><strong class="text-neutral-100">Cenários de auditoria</strong> — os erros de classificação que mais derrubam gente.</li>
+                  <li><strong class="text-neutral-100">Legislação por jurisdição</strong> — lei da sua província/estado e do país.</li>
+                  <li><strong class="text-neutral-100">Zona cinza vs preto-no-branco</strong> — o que é seguro e o que é arriscado.</li>
+                  <li><strong class="text-neutral-100">Pode rodar pela empresa?</strong> — quando uma despesa pessoal vira despesa de negócio.</li>
+                </ul>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> A regra de ouro fiscal</h3>
+                <p class="text-neutral-300 text-sm">Sempre que houver dúvida entre a "zona cinza" e o "preto-no-branco", <strong class="text-neutral-100">tenda para o preto-no-branco</strong>. O compêndio existe justamente para te empurrar para a classificação segura — assim você não precisa torcer para não cair numa auditoria.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t2-p3" class="text-neutral-300 leading-relaxed mb-6">Porque é a fatia de 34%. Sem esse contexto, o modelo só te dá a resposta genérica do Google — e em impostos isso é perigoso. Reverter o pior caso e destilar num compêndio transforma o medo difuso do <em>taxman</em> em uma lista concreta de armadilhas a evitar.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Audit pains</div><div class="text-xs text-neutral-400">o pior cenário</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Compêndio</div><div class="text-xs text-neutral-400">referência destilada</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Zona cinza</div><div class="text-xs text-neutral-400">tenda ao seguro</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Harvesting</div><div class="text-xs text-neutral-400">coletar fontes</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-5-1#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">📄 Pipeline PDF→texto: raw → converted → sintetizado</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t3-p1" class="text-neutral-300 leading-relaxed mb-6">Extratos bancários costumam vir em PDF — e PDF cru é veneno para a janela de contexto: ocupa muito espaço e confunde o modelo. A solução é uma <strong class="text-teal-400">esteira de três pastas</strong>: o PDF entra em <span class="font-mono text-sm">raw/</span>, vira markdown limpo em <span class="font-mono text-sm">converted/</span> e, por fim, é resumido em <span class="font-mono text-sm">synthesized/</span>. Só os resumos entram no contexto.</p>
+
+              <!-- SVG B: pipeline de 3 estágios -->
+              <div class="rounded-2xl border border-teal-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 900 230" class="w-full h-auto" role="img" aria-label="Esteira de três estágios: PDFs crus na pasta raw passam por conversão para markdown na pasta converted e depois por síntese na pasta synthesized; só os resumos sintetizados entram no contexto do OS.">
+                  <defs>
+                    <linearGradient id="m51b-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#14b8a6"/></linearGradient>
+                    <filter id="m51b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m51b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#14b8a6" opacity="0.1"/></pattern>
+                    <marker id="m51b-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#2dd4bf"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="900" height="230" fill="url(#m51b-grid)"/>
+                  <g fill="none" stroke="#2dd4bf" stroke-width="2.4" opacity="0.7">
+                    <path d="M236,115 L300,115" marker-end="url(#m51b-ah)"/>
+                    <path d="M536,115 L600,115" marker-end="url(#m51b-ah)"/>
+                    <path d="M836,115 L876,115" marker-end="url(#m51b-ah)"/>
+                  </g>
+                  <g class="m51-a" filter="url(#m51b-glow)"><rect x="40" y="70" width="196" height="90" rx="14" fill="#0c2422" stroke="#2dd4bf" stroke-width="2.5"/></g>
+                  <text x="138" y="104" text-anchor="middle" fill="#5eead4" font-family="Inter,sans-serif" font-weight="700" font-size="15">📁 raw/</text>
+                  <text x="138" y="126" text-anchor="middle" fill="#99f6e4" font-family="Inter,sans-serif" font-size="12">extrato.pdf (cru)</text>
+                  <text x="138" y="144" text-anchor="middle" fill="#7f9b97" font-family="Inter,sans-serif" font-size="11">guardado por garantia</text>
+                  <g class="m51-a" filter="url(#m51b-glow)"><rect x="340" y="70" width="196" height="90" rx="14" fill="#0c2422" stroke="#14b8a6" stroke-width="2.5"/></g>
+                  <text x="438" y="104" text-anchor="middle" fill="#5eead4" font-family="Inter,sans-serif" font-weight="700" font-size="15">📁 converted/</text>
+                  <text x="438" y="126" text-anchor="middle" fill="#99f6e4" font-family="Inter,sans-serif" font-size="12">extrato.md (limpo)</text>
+                  <text x="438" y="144" text-anchor="middle" fill="#7f9b97" font-family="Inter,sans-serif" font-size="11">data · descrição · valor</text>
+                  <g class="m51-a" filter="url(#m51b-glow)"><rect x="640" y="70" width="196" height="90" rx="14" fill="#0c2422" stroke="#38bdf8" stroke-width="2.5"/></g>
+                  <text x="738" y="104" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="700" font-size="15">📁 synthesized/</text>
+                  <text x="738" y="126" text-anchor="middle" fill="#9ad6ff" font-family="Inter,sans-serif" font-size="12">resumo.md (nuggets)</text>
+                  <text x="738" y="144" text-anchor="middle" fill="#7f9b97" font-family="Inter,sans-serif" font-size="11">só isto vai ao contexto</text>
+                  <g filter="url(#m51b-glow)"><rect x="876" y="92" width="14" height="46" rx="5" fill="url(#m51b-grad)"/></g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-teal-400">Como ler:</strong> o dado flui da esquerda (cru, em teal) para a direita (sintetizado, em ciano). É o mesmo padrão <span class="font-mono text-xs">raw → sintetizado</span> da Trilha 1, aplicado a impostos: você guarda tudo em <span class="font-mono text-xs">raw/</span>, mas só injeta os nuggets de <span class="font-mono text-xs">synthesized/</span>.</p>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">Recriação ilustrativa — a pasta do pipeline</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-teal-400">tax-os/substrate/</span>
+├── raw/            <span class="text-neutral-500"># PDFs originais (nunca editados)</span>
+│   └── extrato-2026-05.pdf
+├── converted/      <span class="text-neutral-500"># markdown espelho, 1 por PDF</span>
+│   └── extrato-2026-05.md
+└── synthesized/    <span class="text-neutral-500"># só os nuggets entram no contexto</span>
+    └── resumo-2026.md</pre>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é o que torna a revisão mensal barata e confiável. Jogar o PDF inteiro no contexto estoura a janela e gera erro; converter e sintetizar mantém o histórico cru a salvo em <span class="font-mono text-sm">raw/</span> e deixa o modelo trabalhar só com o essencial. Você verá esse pipeline como copy-run no tópico 7.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">raw/</div><div class="text-xs text-neutral-400">cru, intocado</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">converted/</div><div class="text-xs text-neutral-400">markdown limpo</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">synthesized/</div><div class="text-xs text-neutral-400">só nuggets</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Janela poupada</div><div class="text-xs text-neutral-400">contexto enxuto</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-5-1#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">🔁 Skill: revisão mensal (extrato → ledger → auto-envio)</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t4-p1" class="text-neutral-300 leading-relaxed mb-6">A tarefa mais repetida do domínio é a revisão de fim de mês — e o que mais se repete é o melhor candidato a virar <strong class="text-teal-400">skill</strong>. Essa skill pega o extrato já convertido, categoriza cada transação num <strong class="text-neutral-100">ledger</strong>, prepara o envio ao contador e dispara alertas de gasto fora do padrão.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-4">A esteira da revisão mensal</h3>
+              <div class="space-y-6 mb-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">1</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Ler o extrato convertido</h4><p class="text-neutral-300 text-sm">A skill abre o markdown de <span class="font-mono text-xs">converted/</span> daquele mês — não o PDF cru.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">2</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Categorizar no ledger</h4><p class="text-neutral-300 text-sm">Cada transação recebe categoria e a flag de pessoal/negócio, seguindo o compêndio.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">3</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Alertar e preparar o envio</h4><p class="text-neutral-300 text-sm">Gastos fora do padrão viram alertas; o resumo fica pronto para o contador, com as transações que você precisa explicar.</p></div>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica de cadência</h3>
+                <p class="text-neutral-300 text-sm">O autor lembra que, fora do fim do ano fiscal, o Tax OS quase não precisa de contexto novo. Rode a skill <strong class="text-neutral-100">uma vez por mês</strong> e deixe o sistema dormir no resto — não há necessidade de mantê-lo "ligado" o tempo todo.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t4-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é onde o OS paga por si mesmo. Transformar horas de planilha em uma skill de um comando libera seu tempo e reduz o erro humano de classificação — exatamente o erro que dispara auditorias. E, como toda skill, ela nunca está "pronta": no post-mortem da sessão você a ajusta.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Ledger</div><div class="text-xs text-neutral-400">livro-razão categorizado</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Auto-envio</div><div class="text-xs text-neutral-400">pronto pro contador</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Alertas</div><div class="text-xs text-neutral-400">gasto fora do padrão</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Cadência mensal</div><div class="text-xs text-neutral-400">o resto dorme</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-5-1#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">🚧 Regras &amp; ganchos: pessoal≠negócio, PII, moeda</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t5-p1" class="text-neutral-300 leading-relaxed mb-6">Aqui dinheiro e dados sensíveis entram em cena — e por isso a regra pode não bastar. Lembre da distinção da Trilha 1: <strong class="text-teal-400">regra</strong> é uma sugestão forte (placa "não entre"); <strong class="text-teal-400">gancho</strong> é determinístico (porta trancada). No Tax OS, as três cercas críticas são: nunca misturar pessoal e negócio, bloquear PII e converter tudo para uma moeda.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+                  <h4 class="font-bold text-teal-400 mb-4">✓ Vira gancho (determinístico)</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Bloquear push pro GitHub se houver PII (SIN, conta, certidão).</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Recusar qualquer escrita que misture conta pessoal e de negócio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Converter todo valor para uma moeda única antes de somar.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Fica só como regra "mole"</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"Tente preferir a classificação conservadora" (preferência, não trava).</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"Escreva o resumo num tom claro" (estilo, não segurança).</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"Use bullets no relatório" (formato, reversível).</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> O erro a evitar</h3>
+                <p class="text-neutral-300 text-sm">Deixar a proteção de PII como regra "mole" no <span class="font-mono text-xs">CLAUDE.md</span>. Num contexto longo, o modelo pode "esquecer" a sugestão e subir um número de conta para um repositório. Dado sensível e dinheiro pedem <strong class="text-neutral-100">gancho</strong> — algo que falha fechado, não um pedido educado.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t5-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é o princípio "determinístico onde dói" em ação. Você decide a dedo o que é inquebrável (PII, separação de contas, moeda) e o que pode ser só preferência. Errar essa fronteira é o que transforma uma conveniência em risco real de vazamento ou de erro fiscal.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">PII guard</div><div class="text-xs text-neutral-400">gancho que trava</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Pessoal ≠ negócio</div><div class="text-xs text-neutral-400">nunca misturar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Moeda única</div><div class="text-xs text-neutral-400">tudo na mesma base</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Falha fechado</div><div class="text-xs text-neutral-400">determinístico</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-5-1#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🤖 Agentes: estrategista tributário + revisor cético</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t6-p1" class="text-neutral-300 leading-relaxed mb-6">Os agentes são só ~10% da pizza, mas têm um papel preciso: <strong class="text-neutral-100">julgar</strong>. São dois. O <strong class="text-teal-400">estrategista tributário</strong> sugere a melhor classificação dentro da lei; o <strong class="text-teal-400">revisor cético</strong> é o advogado do diabo que "te xinga antes do contador" — ele tenta achar o furo na sua classificação antes que um auditor real ache.</p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div class="bg-dark-800 border border-teal-500/30 rounded-xl p-6">
+                  <div class="text-2xl mb-2">🧠</div>
+                  <h4 class="font-bold text-teal-400 mb-2">Estrategista tributário</h4>
+                  <p class="text-neutral-300 text-sm">Lê o compêndio e propõe a classificação mais vantajosa que ainda fica no "preto-no-branco". Orquestra a skill de revisão.</p>
+                </div>
+                <div class="bg-dark-800 border border-teal-500/30 rounded-xl p-6">
+                  <div class="text-2xl mb-2">🕵️</div>
+                  <h4 class="font-bold text-teal-400 mb-2">Revisor cético</h4>
+                  <p class="text-neutral-300 text-sm">Assume a voz do auditor: questiona cada transação duvidosa e exige justificativa antes de o resumo sair para o contador.</p>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> O review gate</h3>
+                <p class="text-neutral-300 text-sm">O revisor cético é um <strong class="text-neutral-100">portão de revisão</strong>: nada vai para o contador sem passar por ele. É o mesmo padrão que você verá no Support OS e no Consulting OS — um agente adversarial que protege a saída.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t6-p2" class="text-neutral-300 leading-relaxed mb-6">Porque mostra agentes no seu lugar certo: poucos, no fim da linha, só para julgar. Promover um agente faz sentido aqui porque a revisão fiscal é uma rotina que você já faria à mão — e o revisor cético dá a você a chance de errar em casa, de graça, em vez de errar na auditoria.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Estrategista</div><div class="text-xs text-neutral-400">propõe classificação</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Revisor cético</div><div class="text-xs text-neutral-400">advogado do diabo</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Review gate</div><div class="text-xs text-neutral-400">portão de saída</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Agentes ~10%</div><div class="text-xs text-neutral-400">poucos, no fim</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 (PRÁTICO) -->
+          <section id="topico-7" data-inema-topic="modulo-5-1#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">⚙️ Prático: pipeline PDF de extrato → markdown</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m5-1-t7-p1" class="text-neutral-300 leading-relaxed mb-6">Hora de pôr a mão na massa. O prompt abaixo é <strong class="text-teal-400">copy-run</strong>: cole no Claude Code (com sua pasta do Tax OS aberta) e ele monta a esteira <span class="font-mono text-sm">raw → converted → synthesized</span> do tópico 3. Troque os trechos marcados com <span class="font-mono text-xs">&lt;...&gt;</span> pelos seus valores.</p>
+
+              <div class="bg-dark-800 border border-teal-500/30 rounded-xl p-5 mb-6">
+                <p class="text-sm text-teal-400 font-semibold mb-1">🎯 Objetivo</p>
+                <p class="text-sm text-neutral-300">Fazer o Claude Code criar as três pastas e converter cada extrato em PDF num markdown limpo e num resumo mensal — sem misturar contas e sem escrever fora dessas pastas.</p>
+              </div>
+
+              <div class="bg-dark-900 border border-dark-600 rounded-xl overflow-hidden mb-4">
+                <div class="flex items-center justify-between px-4 py-2 border-b border-dark-600 bg-dark-800/60">
+                  <span class="text-xs font-mono text-neutral-400">prompt · pipeline-extrato.txt</span>
+                  <button type="button" onclick="copyRun(this)" class="copy-btn text-xs font-semibold text-teal-400 hover:text-teal-300 transition-colors">Copiar</button>
+                </div>
+                <pre class="font-mono text-[13px] leading-relaxed text-neutral-300 p-4 overflow-x-auto" data-copy>Você é meu engenheiro de dados do Tax OS. Monte um pipeline que transforme
+extratos bancários em PDF em markdown limpo, em três pastas.
+
+Contexto:
+- Pasta dos PDFs crus: &lt;./substrate/raw/&gt;
+- Moeda de destino: &lt;CAD&gt;
+- Meu ano fiscal: de &lt;janeiro&gt; a &lt;dezembro&gt;
+
+Faça passo a passo, listando o plano e esperando meu "ok" antes de CADA escrita:
+1. Crie a estrutura: substrate/raw/  substrate/converted/  substrate/synthesized/
+2. Para cada PDF em raw/, extraia o texto e salve um .md espelho em converted/
+   (mesmo nome do arquivo), com uma tabela: data | descrição | valor | moeda.
+3. Converta todo valor para &lt;CAD&gt; e marque com [conv] quando houver conversão.
+4. NUNCA misture conta pessoal e de negócio: separe em
+   converted/pessoal/ e converted/negocio/ pela conta de origem.
+5. Gere substrate/synthesized/resumo-&lt;2026&gt;.md com: total por categoria,
+   os 3 maiores gastos e as transações que eu preciso explicar ao contador.
+6. NÃO escreva nada fora dessas três pastas. Se encontrar PII (nº de conta,
+   CPF/SIN), mascare antes de salvar e me avise.</pre>
+              </div>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">✅</span> Como verificar que funcionou</h3>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">1.</span><span><span class="font-mono text-xs">converted/</span> tem exatamente <strong>um .md para cada PDF</strong> de <span class="font-mono text-xs">raw/</span>.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">2.</span><span>Nenhum valor aparece sem moeda; os convertidos estão marcados com <span class="font-mono text-xs">[conv]</span>.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">3.</span><span>Existem as subpastas <span class="font-mono text-xs">pessoal/</span> e <span class="font-mono text-xs">negocio/</span> — nada misturado.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">4.</span><span><span class="font-mono text-xs">synthesized/resumo-2026.md</span> traz total por categoria e a lista de explicações.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">5.</span><span>Nada foi gravado fora das três pastas, e nenhum nº de conta apareceu em claro.</span></li>
+                </ul>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Próximo passo</h3>
+                <p class="text-neutral-300 text-sm">Depois que o pipeline rodar, peça ao Claude: <em>"destile esta conversa num slash command <span class="font-mono text-xs">/extrato</span> que recebe o mês como argumento"</em>. É o <strong class="text-neutral-100">reverse meta-prompting</strong> da Trilha 3 transformando o passo a passo numa skill reutilizável.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m5-1-t7-p2" class="text-neutral-300 leading-relaxed mb-6">Porque teoria sem execução apodrece. Rodar este copy-run materializa a fatia de 34% de contexto: você sai do módulo com a esteira de dados de pé, pronta para a skill de revisão mensal — e com o hábito de sempre definir <strong class="text-neutral-100">objetivo, bloco copiável e como verificar</strong>.</p>
+
+              <h3 class="text-lg font-semibold text-teal-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Copy-run</div><div class="text-xs text-neutral-400">colar e rodar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Confirmar antes</div><div class="text-xs text-neutral-400">"ok" a cada escrita</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Como verificar</div><div class="text-xs text-neutral-400">checagem objetiva</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Vira skill</div><div class="text-xs text-neutral-400">reverse meta-prompting</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-teal-900/40 via-dark-800 to-dark-800 rounded-xl border border-teal-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">A pizza muda: contexto ~34%, identidade 8%</strong><span class="text-neutral-400"> — invista onde dói, não na camada da moda.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Contexto = audit pains + compêndio de leis</strong><span class="text-neutral-400"> — reverta o pior cenário e tenda ao preto-no-branco.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Pipeline raw → converted → synthesized</strong><span class="text-neutral-400"> — só os nuggets entram no contexto.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Skill de revisão mensal + ganchos</strong><span class="text-neutral-400"> — PII e dinheiro são determinísticos, não regras moles.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Revisor cético no review gate</strong><span class="text-neutral-400"> — erre em casa, de graça, antes do contador.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-teal-400 mb-2">Próximo módulo:</h3>
+                <p class="text-neutral-300">5.2 — Sales OS 📈 (a pizza onde ferramentas e skills sobem ao topo)</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para a Trilha</a>
+                <a href="modulo-5-2.html" class="flex-1 text-center px-6 py-3 bg-teal-600 text-white rounded-lg font-semibold hover:bg-teal-500 transition-colors">Próximo módulo →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    function copyRun(btn) {
+      var box = btn.closest('.bg-dark-900') || btn.parentElement.parentElement;
+      var pre = box ? box.querySelector('[data-copy]') : null;
+      if (!pre) return;
+      var text = pre.innerText;
+      function done() { var old = btn.textContent; btn.textContent = 'Copiado!'; btn.classList.add('copied'); setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+      } else { fallbackCopy(text, done); }
+    }
+    function fallbackCopy(text, cb) {
+      try { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb && cb(); } catch (e) {}
+    }
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

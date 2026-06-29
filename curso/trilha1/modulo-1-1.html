@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 1.1 · O que é um Sistema Operacional de IA | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (emerald) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/30 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m11-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m11-a { animation: m11-pulse 2.8s ease-in-out infinite; }
+      .m11-a:nth-child(2){animation-delay:.25s} .m11-a:nth-child(3){animation-delay:.5s}
+      .m11-a:nth-child(4){animation-delay:.75s} .m11-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T1 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10 whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="../trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="1-1" data-inema-track="1">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-emerald-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-emerald-400">Trilha 1</a><span>/</span>
+        <span class="text-emerald-400">Módulo 1.1</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.1</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">📦 O que é um Sistema Operacional de IA</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">Antes de construir, feche o conceito: um AIOS é um <strong class="text-neutral-300">centro de comando para um domínio</strong> — um punhado de pastas + um arquivo-alma, agnóstico à ferramenta. E a regra que vale por todo o curso: <strong class="text-emerald-400">cultive, não instale</strong>.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">7</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">~45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Inicial</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Fundamento</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:1-1" class="inema-ring" aria-label="Progresso do módulo 1.1"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:1-1"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 7</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">1. A definição</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">2. De onde veio</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">3. Os exemplos do autor</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">4. Pastas + CLAUDE.md</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">5. Agnóstico de ferramenta</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">6. Arte mais que ciência</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">7. Cultive, não instale</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO (camada de leitura: medida/entrelinha/fonte aplicam via .inema-prose) -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-1-1#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">🎯 A definição: um centro de comando</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t1-p1" class="text-neutral-300 leading-relaxed mb-6">Um <strong class="text-emerald-400">Sistema Operacional de IA (AIOS)</strong> é, na essência, um <strong class="text-neutral-100">centro de comando para um domínio específico</strong> da sua vida ou do seu negócio. Não é um app que você baixa, nem um único "super-prompt": é um lugar organizado de onde você comanda tudo daquele domínio, conversando em linguagem natural.</p>
+
+              <div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-emerald-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m1-1-t1-p2" class="text-sm text-neutral-300">Um <strong>LLM</strong> é só um modelo de IA — do tipo que roda atrás do ChatGPT. Um <strong>harness</strong> (como o <span class="font-mono text-xs">Claude Code</span> ou o <span class="font-mono text-xs">Codex</span>) é o programa de terminal que dá mãos ao LLM: ele lê e escreve arquivos na sua pasta e roda comandos. Um <strong>domínio</strong> é uma área da sua vida ou negócio (impostos, vendas, saúde). O AIOS é a pasta organizada que faz o harness virar especialista naquele domínio.</p>
+              </div>
+
+              <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📦</span> O que é</h3>
+                <p class="text-neutral-300 mb-3">Um centro de comando que reúne, num só lugar, o conhecimento, as regras e as rotinas de um domínio — para que você pergunte e mande fazer, em vez de reexplicar tudo a cada conversa.</p>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-emerald-400 mt-1">•</span><span>É <strong>por domínio</strong>: um para impostos, outro para vendas, outro para saúde.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-emerald-400 mt-1">•</span><span>É <strong>sob medida</strong>: cada um tem uma composição diferente das 6 camadas.</span></li>
+                </ul>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+                  <h4 class="font-bold text-emerald-400 mb-4">✓ Um OS É</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Um centro de comando para UM domínio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Pastas + um arquivo-alma que o harness lê.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Algo vivo, que melhora com o uso.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Um OS NÃO é</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Um app pronto que você instala e esquece.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Um único prompt mágico que resolve tudo.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Algo preso a uma ferramenta específica.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-1-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque é a base de tudo. Se você não fecha esse conceito, trata o OS como "mais um app" e cai no erro de instalar em vez de cultivar. Fechar a definição agora destrava todas as decisões seguintes: o que entra na identidade, o que vira regra, quando criar um agente.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Domínio</div><div class="text-xs text-neutral-400">uma área da vida/negócio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Centro de comando</div><div class="text-xs text-neutral-400">de onde você manda</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Sob medida</div><div class="text-xs text-neutral-400">um OS por domínio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Vivo</div><div class="text-xs text-neutral-400">melhora com o uso</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-1-1#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">🧭 De onde veio: a analogia que destrava</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t2-p1" class="text-neutral-300 leading-relaxed mb-6">O conceito amadureceu em <strong class="text-neutral-100">workshops sobre AIOS</strong>. Depois de ensinar muita gente, o autor passou a procurar a <strong class="text-emerald-400">analogia visual</strong> que finalmente desfaz a confusão — e concluiu que isso é mais <strong class="text-neutral-100">arte do que ciência</strong>. Para ajudar não-técnicos, ele também empacotou tudo numa skill: o <span class="font-mono text-sm">/os-coach</span> (que você usa na Trilha 4).</p>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> A sacada</h3>
+                <p class="text-neutral-300 text-sm">Pare de pensar "qual a ferramenta de IA certa?" e comece a pensar "como organizo um <strong>centro de comando</strong> para este domínio?". A troca de pergunta é o que destrava — o resto é encanamento.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-4">Por que aprender — a linha do tempo da ideia</h3>
+              <div class="space-y-6 mb-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">1</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Os workshops</h4><p class="text-neutral-300 text-sm">Ensinar AIOS ao vivo expôs onde as pessoas travam: elas pulam para a parte "legal" antes de organizar a base.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">2</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">A analogia visual</h4><p class="text-neutral-300 text-sm">As 6 camadas + a metáfora do "gráfico de pizza" (que você vê no Módulo 1.2) deram a imagem que faltava.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">3</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">A skill OS Coach</h4><p class="text-neutral-300 text-sm">O método virou um copiloto que guia, camada por camada, e ainda audita o resultado contra o seu objetivo.</p></div>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Modelo mental simples</div><div class="text-xs text-neutral-400">o mais simples possível</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Analogia visual</div><div class="text-xs text-neutral-400">desfaz a confusão</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Arte &gt; ciência</div><div class="text-xs text-neutral-400">design, não fórmula</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">/os-coach</div><div class="text-xs text-neutral-400">o método empacotado</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-1-1#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">🗂️ Os exemplos do autor</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t3-p1" class="text-neutral-300 leading-relaxed mb-6">A melhor forma de entender "um OS por domínio" é ver os de verdade. O autor mantém vários, cada um especialista no seu canto: você (no centro) comanda, e cada satélite é um OS que sabe profundamente de uma área.</p>
+
+              <!-- SVG A: hub-and-spoke "você -> 5 OS" -->
+              <div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="Você no centro comanda cinco sistemas operacionais distintos ao redor: Freedom OS, Tax OS, Skool OS, Health OS e Marketing OS — cada um especialista no seu domínio.">
+                  <defs>
+                    <linearGradient id="m11a-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/></linearGradient>
+                    <filter id="m11a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m11a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#10b981" opacity="0.12"/></pattern>
+                  </defs>
+                  <rect x="0" y="0" width="760" height="360" fill="url(#m11a-grid)"/>
+                  <g stroke="#38bdf8" stroke-width="1.8" opacity="0.5" fill="none">
+                    <path d="M380,180 L150,70"/><path d="M380,180 L610,70"/><path d="M380,180 L120,250"/><path d="M380,180 L640,250"/><path d="M380,180 L380,320"/>
+                  </g>
+                  <g filter="url(#m11a-glow)"><circle cx="380" cy="180" r="52" fill="#13261d" stroke="url(#m11a-grad)" stroke-width="2.5"/></g>
+                  <text x="380" y="178" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="18">Você</text>
+                  <text x="380" y="198" text-anchor="middle" fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11">comando central</text>
+                  <g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+                    <g class="m11-a"><rect x="60" y="44" width="170" height="48" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="145" y="66" text-anchor="middle" fill="#bfe6ff">Freedom OS</text><text x="145" y="83" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">residências, passaportes</text></g>
+                    <g class="m11-a"><rect x="530" y="44" width="170" height="48" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="615" y="66" text-anchor="middle" fill="#bfe6ff">Tax OS</text><text x="615" y="83" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">leis, auditorias</text></g>
+                    <g class="m11-a"><rect x="34" y="224" width="170" height="48" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="119" y="246" text-anchor="middle" fill="#bfe6ff">Skool OS</text><text x="119" y="263" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">anúncios na sua voz</text></g>
+                    <g class="m11-a"><rect x="556" y="224" width="170" height="48" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="641" y="246" text-anchor="middle" fill="#bfe6ff">Health OS</text><text x="641" y="263" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">metas de saúde</text></g>
+                    <g class="m11-a"><rect x="295" y="300" width="170" height="44" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="380" y="327" text-anchor="middle" fill="#bfe6ff">Marketing OS</text></g>
+                  </g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Como ler:</strong> não existe "o OS". Existe um por domínio. O mesmo "você" comanda cada centro especializado — e cada um tem composição própria das 6 camadas.</p>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔎</span> O que cada OS "sabe"</h3>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li><strong class="text-neutral-100">Freedom OS</strong> — passaportes, residências, agências de tradução, advogados confiáveis por país.</li>
+                  <li><strong class="text-neutral-100">Tax OS</strong> — lei de Ontário e do Canadá, zonas cinzentas vs preto-no-branco, como evitar auditorias.</li>
+                  <li><strong class="text-neutral-100">Skool OS</strong> — sua voz de escrita; pule cada anúncio, capa e evento do jeito que você gosta.</li>
+                  <li><strong class="text-neutral-100">Health OS</strong> e <strong class="text-neutral-100">Marketing OS</strong> — cada domínio da vida vira um centro de comando.</li>
+                </ul>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-1-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Os exemplos tiram o conceito do abstrato. Eles mostram que qualquer área onde você se repete — responde as mesmas perguntas, refaz o mesmo trabalho — é candidata a virar um OS. É também o gatilho para você escolher <strong class="text-neutral-100">o seu primeiro domínio</strong>.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Um por domínio</div><div class="text-xs text-neutral-400">nunca um genérico</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Especialista</div><div class="text-xs text-neutral-400">conhece o canto a fundo</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Repetição</div><div class="text-xs text-neutral-400">o sinal de um bom OS</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Seu domínio</div><div class="text-xs text-neutral-400">escolha um para começar</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-1-1#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">📁 "É só um punhado de pastas + um CLAUDE.md"</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t4-p1" class="text-neutral-300 leading-relaxed mb-6">Aqui está a parte que desmistifica tudo: materialmente, um OS é só <strong class="text-emerald-400">um punhado de pastas + um arquivo de identidade</strong> (o <span class="font-mono text-sm">CLAUDE.md</span>). Sem servidor, sem banco de dados obrigatório, sem build. Cada pasta corresponde a uma das 6 camadas.</p>
+
+              <div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-emerald-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m1-1-t4-p2" class="text-sm text-neutral-300">O <strong>CLAUDE.md</strong> é um arquivo de texto comum (formato <strong>Markdown</strong>, só texto com alguns símbolos). O harness lê esse arquivo <strong>primeiro</strong>, antes de qualquer coisa — por isso ele é "a alma". É onde você escreve quem o OS é, a quem serve e o que ele nunca deve recusar.</p>
+              </div>
+
+              <!-- SVG B: anatomia de pastas -> camadas -->
+              <div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="A anatomia de pastas de um OS: a pasta freedom-os contém CLAUDE.md (Identidade), substrate/ (Substrato), rules/ (Regras e Ganchos), skills/ (Habilidades), tools.md (Ferramentas) e agents/ (Agentes).">
+                  <defs>
+                    <filter id="m11b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m11b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#10b981" opacity="0.1"/></pattern>
+                  </defs>
+                  <rect x="0" y="0" width="760" height="360" fill="url(#m11b-grid)"/>
+                  <g filter="url(#m11b-glow)"><rect x="40" y="24" width="280" height="34" rx="9" fill="#13261d" stroke="#34d399" stroke-width="2.5"/></g>
+                  <text x="58" y="46" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="15">📁 freedom-os/</text>
+                  <g stroke="#34d399" stroke-width="1.6" opacity="0.45" fill="none"><path d="M62,58 L62,322 M62,86 H92 M62,134 H92 M62,182 H92 M62,230 H92 M62,278 H92 M62,322 H92"/></g>
+                  <g font-family="Inter,sans-serif" font-size="13.5">
+                    <rect x="96" y="72" width="600" height="34" rx="8" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="112" y="94" fill="#e5e7eb">📄 CLAUDE.md</text><text x="676" y="94" text-anchor="end" fill="#34d399" font-weight="600">1 · Identidade</text>
+                    <rect x="96" y="120" width="600" height="34" rx="8" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="112" y="142" fill="#e5e7eb">📁 substrate/</text><text x="676" y="142" text-anchor="end" fill="#34d399" font-weight="600">2 · Substrato &amp; Contexto</text>
+                    <rect x="96" y="168" width="600" height="34" rx="8" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="112" y="190" fill="#e5e7eb">📁 rules/</text><text x="676" y="190" text-anchor="end" fill="#34d399" font-weight="600">3 · Regras &amp; Ganchos</text>
+                    <rect x="96" y="216" width="600" height="34" rx="8" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="112" y="238" fill="#e5e7eb">📁 skills/</text><text x="676" y="238" text-anchor="end" fill="#34d399" font-weight="600">4 · Habilidades</text>
+                    <rect x="96" y="264" width="600" height="34" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.6"/><text x="112" y="286" fill="#bfe6ff">📄 tools.md</text><text x="676" y="286" text-anchor="end" fill="#38bdf8" font-weight="600">5 · Ferramentas &amp; Conexões</text>
+                    <rect x="96" y="306" width="600" height="34" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.6"/><text x="112" y="328" fill="#bfe6ff">📁 agents/</text><text x="676" y="328" text-anchor="end" fill="#38bdf8" font-weight="600">6 · Agentes</text>
+                  </g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Como ler:</strong> cada pasta/arquivo é uma camada. Esta é a anatomia que o <span class="font-mono text-xs">/os-coach</span> constrói para você na Trilha 4 — nada aqui é mágico, é estrutura de arquivos.</p>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">Recriação ilustrativa — a pasta de um OS</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-emerald-400">freedom-os/</span>
+├── CLAUDE.md        <span class="text-neutral-500"># a alma (Identidade)</span>
+├── substrate/       <span class="text-neutral-500"># bastidores (Substrato)</span>
+├── rules/           <span class="text-neutral-500"># as cercas (Regras &amp; Ganchos)</span>
+├── skills/          <span class="text-neutral-500"># os verbos (Habilidades)</span>
+├── tools.md         <span class="text-neutral-500"># os fios pra fora (Ferramentas)</span>
+└── agents/          <span class="text-neutral-500"># papéis com julgamento (Agentes)</span></pre>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-1-t4-p3" class="text-neutral-300 leading-relaxed mb-6">Porque tira o medo. Você não precisa "saber programar" para começar — precisa criar pastas e escrever um arquivo de texto. A premissa do curso é exatamente essa: <strong class="text-neutral-100">um OS é, na maior parte, encanamento; o modelo é os 20% baratos.</strong></p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Pastas</div><div class="text-xs text-neutral-400">a estrutura mínima</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">CLAUDE.md</div><div class="text-xs text-neutral-400">o arquivo-alma, lido 1º</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Encanamento</div><div class="text-xs text-neutral-400">a maior parte do OS</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Modelo = 20%</div><div class="text-xs text-neutral-400">a parte barata</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-1-1#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">🔌 Agnóstico de ferramenta</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t5-p1" class="text-neutral-300 leading-relaxed mb-6">O conceito foi desenhado para ser o mais <strong class="text-emerald-400">agnóstico</strong> possível. Ele não pertence ao Claude Code: a mesma ideia roda no <span class="font-mono text-sm">Codex</span>, no <span class="font-mono text-sm">open code</span> e em qualquer harness. O que muda é o nome da pasta de configuração; a estrutura de 6 camadas permanece.</p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 text-center"><div class="text-2xl mb-2">🟢</div><div class="font-semibold mb-1">Claude Code</div><p class="text-xs text-neutral-400">pasta <span class="font-mono">.claude/</span></p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 text-center"><div class="text-2xl mb-2">⚪</div><div class="font-semibold mb-1">Codex</div><p class="text-xs text-neutral-400">outra pasta de config</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 text-center"><div class="text-2xl mb-2">🔵</div><div class="font-semibold mb-1">open code</div><p class="text-xs text-neutral-400">mesmos artefatos</p></div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Por que isso importa pra você</h3>
+                <p class="text-neutral-300 text-sm">Seu investimento sobrevive a trocas de ferramenta. Se amanhã surgir um harness melhor, você leva as pastas do seu OS junto — não recomeça do zero. <strong class="text-neutral-100">Você aprende um método, não um produto.</strong></p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-1-t5-p2" class="text-neutral-300 leading-relaxed mb-6">Porque protege seu tempo. Apostar tudo numa ferramenta específica é arriscado num campo que muda rápido. Ao tratar o OS como pastas + arquivos portáveis, você fica imune à próxima reviravolta do mercado.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Agnóstico</div><div class="text-xs text-neutral-400">não preso à ferramenta</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Portável</div><div class="text-xs text-neutral-400">leva as pastas junto</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Harness</div><div class="text-xs text-neutral-400">Claude Code / Codex / …</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Método &gt; produto</div><div class="text-xs text-neutral-400">a ideia é o ativo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-1-1#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🎨 Arte mais que ciência</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t6-p1" class="text-neutral-300 leading-relaxed mb-6">Não existe configuração "certa" e única. Construir um AIOS é <strong class="text-emerald-400">arte mais que ciência</strong>: você desenha a sentimento, observa onde trava no uso e ajusta. Quem espera uma fórmula fechada paralisa; quem trata como design itera e avança.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+                  <h4 class="font-bold text-emerald-400 mb-4">✓ Mentalidade de designer</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Começa simples e melhora no uso.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Aceita que cada domínio pede uma forma diferente.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Mede pelo resultado, não pela "elegância".</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Armadilha do "engenheiro perfeito"</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Espera a configuração ideal antes de começar.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Copia a forma de um domínio para outro.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Trava por excesso de planejamento.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+                <p class="text-neutral-300 text-sm">Quando estiver em dúvida sobre "qual o jeito certo", pergunte outra coisa: <strong class="text-neutral-100">qual camada importa mais aqui?</strong> e <strong class="text-neutral-100">o que vai apodrecer mais rápido?</strong>. Essas duas perguntas valem mais que qualquer template.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-1-t6-p2" class="text-neutral-300 leading-relaxed mb-6">Porque liberta. Aceitar que é arte remove a pressão da "resposta única" e te coloca em movimento. O progresso vem da iteração com julgamento — exatamente o que a auditoria do <span class="font-mono text-sm">/os-coach</span> reforça mais tarde.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Design &gt; fórmula</div><div class="text-xs text-neutral-400">a sentimento, com critério</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Iteração</div><div class="text-xs text-neutral-400">melhora no uso</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Julgamento</div><div class="text-xs text-neutral-400">você decide o trade-off</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Sem paralisia</div><div class="text-xs text-neutral-400">comece imperfeito</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 -->
+          <section id="topico-7" data-inema-topic="modulo-1-1#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">🌱 Anti-padrão: cultive, não instale</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-1-t7-p1" class="text-neutral-300 leading-relaxed mb-6">O maior anti-padrão é tratar o OS como um produto que você <strong class="text-red-400">instala</strong> e dá por pronto. A frase-síntese do curso é o oposto: <strong class="text-emerald-400">"não instale um OS agente — cultive-o."</strong> Ele é um jardim: cresce, ajusta-se e fica sólido só com o uso diário.</p>
+
+              <!-- SVG C: weekend 80% -> uso diário -> sólido -->
+              <div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 900 300" class="w-full h-auto" role="img" aria-label="A maturidade de um OS sobe em degraus: um fim de semana leva a 80%, depois o uso diário e a auditoria contínua tornam o sistema sólido ao longo do tempo.">
+                  <defs>
+                    <linearGradient id="m11c-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/></linearGradient>
+                    <filter id="m11c-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m11c-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#10b981" opacity="0.1"/></pattern>
+                    <marker id="m11c-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="900" height="300" fill="url(#m11c-grid)"/>
+                  <path d="M70,250 L830,250" stroke="#34d399" stroke-width="1.6" opacity="0.4" fill="none"/>
+                  <path d="M70,250 L70,40" stroke="#34d399" stroke-width="1.6" opacity="0.4" fill="none"/>
+                  <text x="40" y="60" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11" text-anchor="middle">sólido</text>
+                  <text x="455" y="278" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11" text-anchor="middle">tempo &amp; uso →</text>
+                  <path d="M150,210 L320,210 L320,150 L500,150 L500,108 L680,108 L680,70 L820,70" stroke="#38bdf8" stroke-width="2" stroke-dasharray="8 8" opacity="0.6" fill="none" marker-end="url(#m11c-ah)"/>
+                  <g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+                    <rect x="90" y="196" width="140" height="40" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="160" y="214" text-anchor="middle" fill="#34d399">Fim de semana</text><text x="160" y="230" text-anchor="middle" fill="#a7f3d0" font-weight="400" font-size="11">~80% pronto</text>
+                    <rect x="290" y="136" width="150" height="40" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="365" y="154" text-anchor="middle" fill="#34d399">Uso diário</text><text x="365" y="170" text-anchor="middle" fill="#a7f3d0" font-weight="400" font-size="11">acha as falhas</text>
+                    <rect x="470" y="94" width="150" height="40" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="545" y="112" text-anchor="middle" fill="#34d399">Auditoria</text><text x="545" y="128" text-anchor="middle" fill="#a7f3d0" font-weight="400" font-size="11">ajusta e melhora</text>
+                  </g>
+                  <g filter="url(#m11c-glow)"><rect x="690" y="50" width="150" height="44" rx="11" fill="#13261d" stroke="url(#m11c-grad)" stroke-width="2.5"/></g>
+                  <text x="765" y="70" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="14">OS sólido</text>
+                  <text x="765" y="86" text-anchor="middle" fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11">trial by fire</text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Como ler:</strong> os primeiros 80% vêm rápido (um fim de semana), mas a solidez vem dos degraus seguintes — usar, achar as falhas e auditar. Cultivar é subir esses degraus, não "instalar" o topo de uma vez.</p>
+
+              <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> O erro a evitar</h3>
+                <p class="text-neutral-300 text-sm">Montar tudo num fim de semana e nunca mais voltar. Sem uso diário e auditoria, o OS apodrece: o contexto envelhece, as skills ficam obsoletas e a confiança cai. Um OS abandonado é pior que nenhum, porque você confia nele sem motivo.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-1-t7-p2" class="text-neutral-300 leading-relaxed mb-6">Porque calibra sua expectativa para o curso inteiro. Você vai construir rápido (Trilha 4) e depois manter vivo (Trilha 5). Saber que é cultivo te faz voltar, auditar e melhorar — em vez de frustrar-se por não ter ficado "perfeito" de primeira.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Cultive &gt; instale</div><div class="text-xs text-neutral-400">a frase-síntese</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">80% no início</div><div class="text-xs text-neutral-400">um fim de semana</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Trial by fire</div><div class="text-xs text-neutral-400">solidez vem do uso</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Auditoria</div><div class="text-xs text-neutral-400">manter sempre</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">AIOS = centro de comando por domínio</strong><span class="text-neutral-400"> — não um app, não um super-prompt.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Materialmente, pastas + um CLAUDE.md</strong><span class="text-neutral-400"> — encanamento &gt; modelo; o modelo é os 20% baratos.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Agnóstico de ferramenta</strong><span class="text-neutral-400"> — Claude Code, Codex, open code: você aprende um método, não um produto.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Arte &gt; ciência</strong><span class="text-neutral-400"> — desenhe a sentimento, itere com julgamento.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Cultive, não instale</strong><span class="text-neutral-400"> — 80% num fim de semana; sólido só com uso e auditoria.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-emerald-400 mb-2">Próximo módulo:</h3>
+                <p class="text-neutral-300">1.2 — As 6 camadas e o gráfico de pizza 🍕</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para a Trilha</a>
+                <a href="modulo-1-2.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo módulo →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

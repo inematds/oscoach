@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 4.6 · audit — pontuar contra o objetivo | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (amber) — âmbar NUNCA como texto claro: cai p/ -800 (#23) */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .bg-amber-900\/30 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-green-400 { color: #15803d; }
+    html:not(.dark) .bg-green-900\/20 { background-color: rgba(21,128,61,0.08); }
+    html:not(.dark) .border-green-500\/30 { border-color: rgba(21,128,61,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m46-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m46-a { animation: m46-pulse 2.8s ease-in-out infinite; }
+      .m46-a:nth-child(2){animation-delay:.25s} .m46-a:nth-child(3){animation-delay:.5s}
+      .m46-a:nth-child(4){animation-delay:.75s} .m46-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T4 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="../trilha1/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="../trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10 whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="4-6" data-inema-track="4">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-amber-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-amber-400">Trilha 4</a><span>/</span>
+        <span class="text-amber-400">Módulo 4.6</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.6</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">📊 <code class="font-mono text-amber-400">audit</code> — pontuar contra o objetivo</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">O <span class="font-mono text-neutral-300">/os-coach audit</span> abre a pasta de verdade, pontua as <strong class="text-neutral-300">seis camadas contra o SEU objetivo</strong> numa escala de quatro níveis, te dá os <strong class="text-amber-400">três movimentos de maior alavancagem</strong> em ordem, e salva tudo em <span class="font-mono text-neutral-300">OS-AUDIT.md</span>. Fechamos com o <strong class="text-amber-400">exemplo guiado completo do fotógrafo de casamento</strong>, do start ao scorecard.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">8</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">~45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Prático</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Guiado</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:4-6" class="inema-ring" aria-label="Progresso do módulo 4.6"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:4-6"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 8</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">1. O que o audit faz</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">2. A escala de 4 níveis</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">3. O teste do não-genérico</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">4. Os 3 movimentos</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">5. Fotógrafo · start + Identidade</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">6. Fotógrafo · next + Substrato</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">7. Fotógrafo · audit + scorecard</a></li>
+              <li><a href="#topico-8" class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400">8. Feedback no loop + copy-run</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-4-6#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">📊 O que o audit faz</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t1-p1" class="text-neutral-300 leading-relaxed mb-6">O <span class="font-mono text-sm">/os-coach audit</span> é o comando que você roda <strong class="text-amber-400">a qualquer momento</strong> para pressionar o seu OS contra a realidade. Ele relê o seu objetivo no <span class="font-mono text-sm">memory.md</span>, <strong class="text-neutral-100">abre a pasta de verdade</strong> (não o que a memória diz que tem) e pontua as seis camadas contra aquele objetivo específico. Depois entrega os três próximos movimentos de maior alavancagem e salva o relatório em <span class="font-mono text-sm">OS-AUDIT.md</span>.</p>
+
+              <div class="bg-dark-800 border border-amber-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-amber-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m4-6-t1-p2" class="text-sm text-neutral-300"><strong>Auditar</strong> aqui é só "dar uma nota honesta a cada parte". <strong>Scorecard</strong> é o boletim: uma tabela com a nota de cada camada e o porquê. <strong>Alavancagem</strong> (leverage) é "o quanto um movimento empurra você em direção ao objetivo" — o audit ordena os próximos passos do que rende mais para o que rende menos.</p>
+              </div>
+
+              <div class="bg-gradient-to-br from-amber-900/30 to-dark-800 rounded-xl border border-amber-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-amber-400 mb-3 flex items-center"><span class="mr-2">📊</span> O que é</h3>
+                <p class="text-neutral-300 mb-3">Uma avaliação <strong class="text-neutral-100">amarrada ao seu objetivo</strong>. A pergunta nunca é "isto é um bom OS em geral?", e sim "esta camada me leva ao MEU objetivo?".</p>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-amber-400 mt-1">•</span><span>Pontua as 6 camadas em 4 níveis.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-amber-400 mt-1">•</span><span>Dá os 3 movimentos de maior alavancagem, em ordem.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-amber-400 mt-1">•</span><span>Escreve <span class="font-mono text-xs">OS-AUDIT.md</span> (guardável) e realimenta o loop.</span></li>
+                </ul>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque construir é só metade. Sem auditar, você acumula camadas sem saber se elas atacam o objetivo — e o OS apodrece em silêncio (Módulo 1.1: cultive, não instale). O audit é o que transforma "fiz um monte de arquivos" em "estou de fato mais perto de nunca mais perder um prazo".</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Contra o objetivo</div><div class="text-xs text-neutral-400">não "em geral"</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Abre a pasta</div><div class="text-xs text-neutral-400">o que existe de fato</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">3 movimentos</div><div class="text-xs text-neutral-400">em ordem de leverage</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">OS-AUDIT.md</div><div class="text-xs text-neutral-400">boletim guardável</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-4-6#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">🏅 A escala de 4 níveis</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t2-p1" class="text-neutral-300 leading-relaxed mb-6">Cada camada recebe um de quatro níveis. Seja honesto: a maioria dos OS no começo está quase toda em <strong class="text-amber-400">Missing</strong> ou <strong class="text-amber-400">Started</strong>, e isso é normal. A escala mostra a direção, não dá nota pra te envergonhar.</p>
+
+              <!-- SVG A: escada de 4 degraus -->
+              <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 900 300" class="w-full h-auto" role="img" aria-label="A maturidade de cada camada sobe em quatro degraus: Missing (vazio), Started (existe mas é fino), Solid (passa o done-check completo) e Compounding (sólido e ainda melhora sozinho com o tempo).">
+                  <defs>
+                    <linearGradient id="m46a-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+                    <filter id="m46a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m46a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#f59e0b" opacity="0.1"/></pattern>
+                    <marker id="m46a-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="900" height="300" fill="url(#m46a-grid)"/>
+                  <path d="M70,250 L830,250" stroke="#9ca3af" stroke-width="1.6" opacity="0.4" fill="none"/>
+                  <text x="455" y="280" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11" text-anchor="middle">maturidade da camada →</text>
+                  <path d="M150,212 L320,212 L320,156 L500,156 L500,110 L680,110 L680,64 L820,64" stroke="#38bdf8" stroke-width="2" stroke-dasharray="9 9" opacity="0.6" fill="none" marker-end="url(#m46a-ah)"/>
+                  <g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+                    <rect x="86" y="198" width="150" height="44" rx="9" fill="#161310" stroke="#9ca3af" stroke-width="1.8"/><text x="161" y="218" text-anchor="middle" fill="#e5e7eb">Missing</text><text x="161" y="235" text-anchor="middle" fill="#9ca3af" font-weight="400" font-size="11">vazia / placeholder</text>
+                    <rect x="280" y="142" width="160" height="44" rx="9" fill="#161310" stroke="#fbbf24" stroke-width="1.8"/><text x="360" y="162" text-anchor="middle" fill="#fbbf24">Started</text><text x="360" y="179" text-anchor="middle" fill="#fcd9a0" font-weight="400" font-size="11">existe mas fina</text>
+                    <rect x="468" y="96" width="160" height="44" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="1.8"/><text x="548" y="116" text-anchor="middle" fill="#34d399">Solid</text><text x="548" y="133" text-anchor="middle" fill="#a7f3d0" font-weight="400" font-size="11">passa o done-check</text>
+                  </g>
+                  <g filter="url(#m46a-glow)"><rect x="678" y="42" width="156" height="48" rx="11" fill="#1f1604" stroke="url(#m46a-grad)" stroke-width="2.5"/></g>
+                  <text x="756" y="62" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="700" font-size="14">Compounding</text>
+                  <text x="756" y="80" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="11">melhora sozinha</text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-amber-400">Como ler:</strong> a meta não é "tudo Compounding já". É subir um degrau por vez na camada que mais empurra seu objetivo. Uma camada Solid que melhora sozinha (substrato que cresce, skill versionada, audits que realimentam) chega a Compounding.</p>
+
+              <div class="space-y-3 mb-6">
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex items-start gap-3"><span class="flex-shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-red-900/30 text-red-400 border border-red-500/30">Missing</span><p class="text-neutral-300 text-sm">Não existe, ou é um placeholder vazio.</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex items-start gap-3"><span class="flex-shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-amber-900/30 text-amber-400 border border-amber-500/30">Started</span><p class="text-neutral-300 text-sm">Existe mas é fina, genérica, ou responde só parte do que o objetivo precisa (ex.: mostra "vence em breve" mas não "já está atrasado").</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex items-start gap-3"><span class="flex-shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-green-900/20 text-green-400 border border-green-500/30">Solid</span><p class="text-neutral-300 text-sm">Real, específica e passa o done-check inteiro da camada (responde toda a pergunta difícil, não só a metade fácil).</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex items-start gap-3"><span class="flex-shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">Compounding</span><p class="text-neutral-300 text-sm">Sólida E melhora sozinha com o tempo (o substrato cresce, as skills são versionadas, os audits realimentam).</p></div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t2-p2" class="text-neutral-300 leading-relaxed mb-6">Porque a escala te dá vocabulário pra ver progresso real. "Started" não é fracasso: é o sinal de que falta uma parte específica — e o audit te diz qual. Saber a diferença entre Started e Solid é o que evita confundir "tem um arquivo" com "resolve o problema".</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Missing</div><div class="text-xs text-neutral-400">vazio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Started</div><div class="text-xs text-neutral-400">fina / parcial</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Solid</div><div class="text-xs text-neutral-400">passa o done-check</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Compounding</div><div class="text-xs text-neutral-400">melhora sozinha</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-4-6#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">🎯 O teste do não-genérico</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t3-p1" class="text-neutral-300 leading-relaxed mb-6">A regra que mantém o audit útil: <strong class="text-amber-400">toda linha tem que falhar se colada na auditoria de um estranho</strong>. Se uma frase serviria pra qualquer OS, ela é genérica e está banida — reescreva com os seus arquivos, seus nomes e o seu objetivo reais. Uma auditoria genérica é uma auditoria fracassada.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Genérico (banido)</h4>
+                  <p class="text-neutral-300 text-sm">"Adicione mais documentação ao seu substrato."</p>
+                  <p class="text-neutral-500 text-xs mt-3">Serve pra qualquer um. Não move ninguém.</p>
+                </div>
+                <div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6">
+                  <h4 class="font-bold text-amber-400 mb-4">✓ Específico (exigido)</h4>
+                  <p class="text-neutral-300 text-sm">"Seu objetivo é recuperar assinantes que cancelaram, mas <span class="font-mono text-xs">substrate/</span> só tem <span class="font-mono text-xs">sources.md</span> e um <span class="font-mono text-xs">compendium.md</span> vazio. O movimento de maior alavancagem é puxar os últimos 90 dias de mensagens de cancelamento pra <span class="font-mono text-xs">substrate/churn/</span> e destilar os três motivos mais comuns."</p>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> A sacada</h3>
+                <p class="text-neutral-300 text-sm">Cada recomendação cita um <strong class="text-neutral-100">nome de arquivo real</strong>, uma <strong class="text-neutral-100">lacuna real</strong> e o <strong class="text-neutral-100">objetivo real</strong>. Se você consegue trocar o seu OS pelo de outra pessoa sem mudar a frase, ela não vale.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é exatamente o que torna o OS Coach diferente de um conselho de internet. Conselho genérico você já tem de sobra; o que move a agulha é "no SEU arquivo X falta Y pra atingir Z". Esse é também o teste que você usa pra saber se um audit foi bem feito — o seu ou o de qualquer ferramenta.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Falha em estranho</div><div class="text-xs text-neutral-400">o teste central</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Cita arquivo real</div><div class="text-xs text-neutral-400">nome + lacuna</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Amarra ao objetivo</div><div class="text-xs text-neutral-400">sempre o seu</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Genérico = falha</div><div class="text-xs text-neutral-400">reescreva</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-4-6#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">🥇 Os 3 movimentos de maior alavancagem</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t4-p1" class="text-neutral-300 leading-relaxed mb-6">O audit não te dá uma lista infinita. Ele te dá <strong class="text-amber-400">três movimentos, em ordem de alavancagem</strong> — não em ordem de camada. A prioridade segue uma lógica clara, em que a regra de cima vence quando duas competem:</p>
+
+              <!-- SVG B: árvore de decisão da prioridade -->
+              <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 860 300" class="w-full h-auto" role="img" aria-label="Lógica de prioridade do audit: uma regra dura faltante é o movimento número 1 apenas se o pior erro for iminente ou irreversível; senão, lacunas de substrato vencem; skills só importam depois que o substrato as alimenta; agentes vêm por último.">
+                  <defs>
+                    <filter id="m46b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m46b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#f59e0b" opacity="0.1"/></pattern>
+                    <linearGradient id="m46b-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7185"/><stop offset="1" stop-color="#f43f5e"/></linearGradient>
+                    <marker id="m46b-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="860" height="300" fill="url(#m46b-grid)"/>
+                  <g filter="url(#m46b-glow)"><rect x="290" y="24" width="280" height="48" rx="12" fill="#2a0f16" stroke="url(#m46b-grad)" stroke-width="2.5"/></g>
+                  <text x="430" y="46" text-anchor="middle" fill="#fecaca" font-family="Inter,sans-serif" font-weight="700" font-size="14">Regra dura faltante?</text>
+                  <text x="430" y="63" text-anchor="middle" fill="#fda4af" font-family="Inter,sans-serif" font-size="11">pior erro iminente ou irreversível?</text>
+                  <g fill="none" stroke="#fbbf24" stroke-width="1.8" opacity="0.6">
+                    <path d="M360,72 L220,108" marker-end="url(#m46b-ah)"/>
+                    <path d="M500,72 L640,108" marker-end="url(#m46b-ah)"/>
+                  </g>
+                  <text x="270" y="96" fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="700">SIM</text>
+                  <text x="590" y="96" fill="#fda4af" font-family="Inter,sans-serif" font-size="12" font-weight="700">NÃO</text>
+                  <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+                    <rect x="96" y="112" width="248" height="44" rx="10" fill="#2a0f16" stroke="#fb7185" stroke-width="1.8"/><text x="220" y="139" text-anchor="middle" fill="#fecaca">#1 a regra (não pode esperar)</text>
+                  </g>
+                  <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+                    <rect x="540" y="112" width="248" height="44" rx="10" fill="#1f1604" stroke="#fbbf24" stroke-width="1.8"/><text x="664" y="139" text-anchor="middle" fill="#fbbf24">#1 substrato (a base primeiro)</text>
+                  </g>
+                  <path d="M664,156 L664,196" stroke="#fbbf24" stroke-width="1.8" opacity="0.6" fill="none" marker-end="url(#m46b-ah)"/>
+                  <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+                    <rect x="540" y="200" width="248" height="40" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="664" y="225" text-anchor="middle" fill="#bfe6ff">#2 skills (se há o que ler)</text>
+                  </g>
+                  <path d="M664,240 L664,256" stroke="#38bdf8" stroke-width="1.8" opacity="0.6" fill="none" marker-end="url(#m46b-ah)"/>
+                  <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+                    <rect x="540" y="258" width="248" height="36" rx="10" fill="#161310" stroke="#9ca3af" stroke-width="1.8"/><text x="664" y="281" text-anchor="middle" fill="#e5e7eb">#3 agentes (sempre por último)</text>
+                  </g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-amber-400">Como ler:</strong> a regra dura só fura a fila se o estrago for iminente ou não-reversível (dinheiro errado, dado vazando, prazo colado). Fora isso, a ordem natural é substrato → skills → agentes. Nunca recomende um agente antes das skills que ele orquestraria.</p>
+
+              <div class="space-y-3 mb-6">
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4"><p class="text-neutral-300 text-sm"><strong class="text-amber-400">1.</strong> Regra dura faltante é #1 <strong class="text-neutral-100">só</strong> se o pior caso for iminente/irreversível. Senão, fica abaixo do substrato.</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4"><p class="text-neutral-300 text-sm"><strong class="text-amber-400">2.</strong> Senão, lacunas de substrato vencem. Bastidor fraco = tudo o resto sobre areia.</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4"><p class="text-neutral-300 text-sm"><strong class="text-amber-400">3.</strong> Skills só importam quando o substrato consegue alimentá-las.</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-4"><p class="text-neutral-300 text-sm"><strong class="text-amber-400">4.</strong> Agentes por último. Nunca antes das skills que orquestrariam.</p></div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6">
+                  <h4 class="font-bold text-amber-400 mb-4">✓ Ordenar por alavancagem</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Ataca o gargalo do objetivo.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Substrato fraco antes de skills.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Regra dura só fura a fila se urgente.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Ordenar por camada</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Polir a camada 1 "porque é a primeira".</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Agente bonito sobre substrato vazio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Gastar hora longe do gargalo real.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t4-p2" class="text-neutral-300 leading-relaxed mb-6">Porque ordenar por alavancagem é o que te faz avançar com pouco esforço. Sem essa lógica, você gasta energia polindo a camada errada (um agente bonito sobre um substrato vazio). Com ela, cada hora investida ataca o gargalo de verdade do seu objetivo.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Por leverage</div><div class="text-xs text-neutral-400">não por camada</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Regra se urgente</div><div class="text-xs text-neutral-400">iminente/irreversível</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Substrato primeiro</div><div class="text-xs text-neutral-400">senão é areia</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Agentes por último</div><div class="text-xs text-neutral-400">só com skills</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-4-6#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">📷 Exemplo guiado · start + Identidade</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t5-p1" class="text-neutral-300 leading-relaxed mb-6">Vamos ver um caso real, condensado (do README do OS Coach). Uma <strong class="text-amber-400">fotógrafa de casamento solo</strong> quer parar de perder prazos. Os clientes aparecem como <strong class="text-neutral-100">Casal A</strong>, <strong class="text-neutral-100">Casal B</strong> porque ela marcou os nomes como sensíveis — então o coach guarda <em>handles</em> não-identificadores no lugar dos nomes reais.</p>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">Você digita:</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed bg-dark-900/60 rounded-lg p-3">/os-coach start vivo perdendo prazos de cliente e quero nunca mais
+            perder uma data de entrega</pre>
+              </div>
+
+              <p data-inema-block="m4-6-t5-p2" class="text-neutral-300 leading-relaxed mb-6">O coach confirma o objetivo, prepara a pasta e faz três perguntas curtas: <strong class="text-neutral-100">pra quem é</strong>, a <strong class="text-neutral-100">única pergunta que você gostaria de só poder fazer a ele</strong>, e <strong class="text-neutral-100">uma coisa que ele deve sempre fazer + uma que nunca</strong>. Você responde: só pra mim; "o que vence nos próximos 10 dias e do que eu já estou atrasada"; sempre me avisar dentro de 3 dias de uma data contratada; nunca mandar mensagem a um cliente sem minha aprovação. Ele então escreve a Identidade:</p>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">CLAUDE.md (gerado)</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-amber-400"># Quem eu sou</span>
+Sou o sistema operacional de uma fotógrafa de casamento solo.
+Existo para que nenhuma entrega de cliente atrase jamais.
+...
+<span class="text-amber-400">## Recusas duras (nunca)</span>
+- Nunca mando mensagem a um cliente sem você ler e aprovar antes.
+- Nunca deixo um prazo passar em silêncio. Se algo está em risco,
+  eu trago à tona, alto e claro.</pre>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t5-p3" class="text-neutral-300 leading-relaxed mb-6">Porque mostra a camada de Identidade nascendo das suas próprias palavras: o objetivo vira a missão, e o "sempre/nunca" vira recusas concretas. Repare que os handles ("Casal A") já entram em cena na partida — proteger o dado sensível não é um passo separado, é o jeito padrão do coach trabalhar.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">start &lt;objetivo&gt;</div><div class="text-xs text-neutral-400">abre o OS</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">3 perguntas</div><div class="text-xs text-neutral-400">pra quem / pergunta / sempre-nunca</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Casal A/B</div><div class="text-xs text-neutral-400">handle no lugar do nome</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">CLAUDE.md</div><div class="text-xs text-neutral-400">missão + recusas</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-4-6#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🗂️ Exemplo guiado · next + Substrato</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t6-p1" class="text-neutral-300 leading-relaxed mb-6">A fotógrafa digita <span class="font-mono text-sm">/os-coach next</span>. Isso abre o <strong class="text-amber-400">Substrato</strong>: o coach pergunta onde ficam as reservas e o que é sensível, e então constrói um tracker que <strong class="text-neutral-100">calcula os dois prazos a partir da data de cada casamento</strong> (prévia = casamento + 1 semana; galeria completa = casamento + 6 semanas) e já responde a pergunta na hora:</p>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">Resposta do coach (na hora)</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed">Dentro de 3 dias, sua linha de "sempre avisar" disparou:
+- Casal B, galeria completa vence 2026-07-01 (faltam 3 dias)
+
+A vencer dentro de 10 dias:
+- Casal C, prévia vence 2026-07-02 (faltam 4 dias)</pre>
+              </div>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> Repare no detalhe</h3>
+                <p class="text-neutral-300 text-sm">O tracker responde "o que vence em breve" — mas <strong class="text-neutral-100">ainda não</strong> responde "do que já estou atrasada", porque ela não marcou o que já foi entregue. Guarde isso: é exatamente o que vai segurar o Substrato em <strong>Started</strong> no audit do próximo tópico.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t6-p2" class="text-neutral-300 leading-relaxed mb-6">Porque mostra um Substrato que já gera valor real (responde "vence em breve") mas ainda é parcial. Essa nuance — responder metade da pergunta difícil — é o coração da diferença entre Started e Solid. O OS é útil desde cedo, e o audit aponta com precisão o que falta pra ficar inteiro.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">next → Substrato</div><div class="text-xs text-neutral-400">camada 2</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Tracker</div><div class="text-xs text-neutral-400">calcula prazos da data</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Responde na hora</div><div class="text-xs text-neutral-400">"o que vence?"</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Parcial</div><div class="text-xs text-neutral-400">falta "já atrasada?"</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 -->
+          <section id="topico-7" data-inema-topic="modulo-4-6#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">🧮 Exemplo guiado · audit + scorecard</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t7-p1" class="text-neutral-300 leading-relaxed mb-6">A fotógrafa digita <span class="font-mono text-sm">/os-coach audit</span>. O coach lê os arquivos de verdade e produz o boletim. Veja como cada nível aparece amarrado ao caso dela — sem nenhuma frase genérica:</p>
+
+              <!-- SCORECARD -->
+              <div class="bg-dark-800 border border-amber-500/30 rounded-xl p-5 mb-6 overflow-x-auto">
+                <p class="text-sm font-semibold text-amber-400 mb-4">Scorecard</p>
+                <table class="w-full text-sm border-collapse">
+                  <thead>
+                    <tr class="text-left text-neutral-400 border-b border-dark-600">
+                      <th class="py-2 pr-3 font-semibold">Camada</th>
+                      <th class="py-2 pr-3 font-semibold">Nota</th>
+                      <th class="py-2 font-semibold">Por quê</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-dark-600">
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold text-neutral-100">Identity</td>
+                      <td class="py-3 pr-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-green-900/20 text-green-400 border border-green-500/30">Solid</span></td>
+                      <td class="py-3 text-neutral-300">O <span class="font-mono text-xs">CLAUDE.md</span> declara a missão e duas recusas.</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold text-neutral-100">Substrate</td>
+                      <td class="py-3 pr-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-900/30 text-amber-400 border border-amber-500/30">Started</span></td>
+                      <td class="py-3 text-neutral-300">O tracker responde "vence em breve", mas não "já atrasada" até você marcar o que foi entregue.</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold text-neutral-100">Rules</td>
+                      <td class="py-3 pr-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-red-900/30 text-red-400 border border-red-500/30">Missing</span></td>
+                      <td class="py-3 text-neutral-300">Os handles dos clientes agora vivem na pasta, sem nada impedindo um backup público.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-sm font-semibold text-amber-400 mb-3">Os três movimentos que mais importam</p>
+                <div class="space-y-3">
+                  <div class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-red-900/30 text-red-400 border border-red-500/30 flex items-center justify-center font-bold text-sm">1</span><p class="text-neutral-300 text-sm"><strong class="text-neutral-100">Rules:</strong> escreva <span class="font-mono text-xs">rules/never.md</span> (nunca fazer backup público desta pasta). Um vazamento não se desfaz, e uma galeria vence em 3 dias.</p></div>
+                  <div class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-900/30 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-sm">2</span><p class="text-neutral-300 text-sm"><strong class="text-neutral-100">Substrate:</strong> marque quais galerias já saíram, pra que "vence em breve" também responda "já atrasada".</p></div>
+                  <div class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-900/30 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm">3</span><p class="text-neutral-300 text-sm"><strong class="text-neutral-100">Skills:</strong> transforme a checagem de prazos em um comando repetível.</p></div>
+                </div>
+              </div>
+
+              <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Por que a regra furou a fila</h3>
+                <p class="text-neutral-300 text-sm">Substrate normalmente vem antes de Rules. Mas aqui o pior caso é <strong class="text-neutral-100">iminente e irreversível</strong>: os handles estão na pasta, sem nada barrando um backup público, e há uma entrega em 3 dias. Pela lógica de prioridade do Tópico 4, isso joga a regra dura faltante para o movimento nº 1.</p>
+              </div>
+
+              <p data-inema-block="m4-6-t7-p2" class="text-neutral-300 leading-relaxed mb-4">Depois do audit, a pasta dela fica assim:</p>
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">A pasta do OS (handles, nunca nomes reais)</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-amber-400">photo-os/</span>
+├── CLAUDE.md          <span class="text-neutral-500"># Identidade, a alma</span>
+├── memory.md          <span class="text-neutral-500"># onde você parou</span>
+├── substrate/
+│   ├── sources.md     <span class="text-neutral-500"># onde vivem os dados reais</span>
+│   └── compendium.md  <span class="text-neutral-500"># o tracker de prazos</span>
+└── OS-AUDIT.md        <span class="text-neutral-500"># o scorecard mais recente</span></pre>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t7-p3" class="text-neutral-300 leading-relaxed mb-6">Porque este é o audit inteiro num caso só: notas honestas amarradas aos arquivos dela, a regra dura furando a fila por ser irreversível e iminente, e três movimentos concretos em ordem. Cada arquivo é real, ancorado no objetivo dela e dela para guardar — exatamente o resultado que você quer do seu próprio <span class="font-mono text-sm">audit</span>.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Identity Solid</div><div class="text-xs text-neutral-400">missão + 2 recusas</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Substrate Started</div><div class="text-xs text-neutral-400">só metade da pergunta</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Rules Missing #1</div><div class="text-xs text-neutral-400">vazamento iminente</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Pasta = OS</div><div class="text-xs text-neutral-400">arquivos reais, seus</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 8 -->
+          <section id="topico-8" data-inema-topic="modulo-4-6#topico-8" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">8</span>
+              <h2 class="text-2xl font-bold pt-1">🔁 Feedback no loop + copy-run</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m4-6-t8-p1" class="text-neutral-300 leading-relaxed mb-6">O audit não é um beco sem saída: ele <strong class="text-amber-400">realimenta o loop</strong>. Depois de pontuar, o coach atualiza o <span class="font-mono text-sm">memory.md</span> — anexa a manchete datada ao <span class="font-mono text-sm">audit_log</span>, re-carimba a data e reescreve o bloco de status das camadas a partir das notas. E salva o relatório completo em <span class="font-mono text-sm">OS-AUDIT.md</span> pra você guardar. Os três movimentos viram o seu próximo <span class="font-mono text-sm">next</span>.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-4">O ciclo fechado</h3>
+              <div class="space-y-6 mb-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Construa</h4><p class="text-neutral-300 text-sm">Camadas com <span class="font-mono text-xs">start</span> / <span class="font-mono text-xs">next</span>, uma de cada vez.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">2</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Audite</h4><p class="text-neutral-300 text-sm">Contra o objetivo: scorecard + os três movimentos.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">3</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Edite</h4><p class="text-neutral-300 text-sm">Seus arquivos (eles são seus) e ataque o movimento nº 1.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">4</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Re-audite</h4><p class="text-neutral-300 text-sm">Veja a nota subir. O loop não acaba: o OS é cultivado, não instalado.</p></div>
+                </div>
+              </div>
+
+              <div class="bg-dark-800 border border-amber-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-amber-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m4-6-t8-p2" class="text-sm text-neutral-300">Você <strong>pode e deve</strong> editar à mão o que o coach cria — os arquivos são seus. O fluxo recomendado: edite, depois rode <span class="font-mono text-xs">/os-coach audit</span> de novo pra ver como suas mudanças pontuam contra o objetivo. O write-back garante que a próxima sessão já saiba da última nota.</p>
+              </div>
+
+              <!-- COPY-RUN -->
+              <div class="bg-dark-800 border border-amber-500/30 rounded-xl p-5 mb-6">
+                <div class="flex items-center gap-2 mb-3"><span class="text-amber-400" aria-hidden="true">⌨</span><span class="text-sm font-semibold text-amber-400">Copy-run · pontuar o seu OS</span></div>
+                <p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-200">Objetivo:</strong> rodar o audit no seu próprio OS e receber o scorecard + os três movimentos amarrados ao seu objetivo.</p>
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">Cole no Claude Code (dentro da pasta do seu OS):</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed mb-4 bg-dark-900/60 rounded-lg p-3">/os-coach audit</pre>
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">O coach gera, na sua pasta:</p>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed mb-4 bg-dark-900/60 rounded-lg p-3"><span class="text-amber-400">OS-AUDIT.md</span>   <span class="text-neutral-500"># scorecard das 6 camadas + 3 movimentos + o que já funciona</span></pre>
+                <p class="text-sm text-neutral-400"><strong class="text-neutral-200">Como verificar:</strong> abra <span class="font-mono text-xs">OS-AUDIT.md</span> e aplique o teste do não-genérico — cada linha deveria citar um <strong>arquivo seu</strong> e o <strong>seu objetivo</strong>. Se alguma frase serviria pra qualquer OS, peça pra reescrever. Depois ataque só o <strong>movimento nº 1</strong> e rode <span class="font-mono text-xs">/os-coach audit</span> de novo pra ver a nota daquela camada subir.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m4-6-t8-p3" class="text-neutral-300 leading-relaxed mb-6">Porque é aqui que a Trilha 4 vira hábito, não evento. Construir uma vez é fácil; auditar, atacar o nº 1 e re-auditar é o que mantém o OS vivo e cada vez mais perto do objetivo — exatamente a mentalidade de "cultivo" da Trilha 1. Com isso você está pronto para a Trilha 5, onde aplica tudo a domínios reais.</p>
+
+              <h3 class="text-lg font-semibold text-amber-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Write-back</div><div class="text-xs text-neutral-400">atualiza memory.md</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">audit_log</div><div class="text-xs text-neutral-400">manchete datada</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Edite e re-audite</div><div class="text-xs text-neutral-400">os arquivos são seus</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Loop infinito</div><div class="text-xs text-neutral-400">cultive, não instale</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 rounded-xl border border-amber-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">audit pontua contra o SEU objetivo</strong><span class="text-neutral-400"> — abre a pasta de verdade, não o que a memória alega.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">4 níveis: Missing / Started / Solid / Compounding</strong><span class="text-neutral-400"> — Started = só metade da pergunta difícil.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Teste do não-genérico</strong><span class="text-neutral-400"> — toda linha cita arquivo real + objetivo, ou falha.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">3 movimentos por alavancagem</strong><span class="text-neutral-400"> — regra dura só fura a fila se for iminente/irreversível.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Fotógrafo: Solid / Started / Missing</strong><span class="text-neutral-400"> — regra de backup nº 1 por ser irreversível; OS-AUDIT.md realimenta o loop.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-amber-400 mb-2">Próxima trilha:</h3>
+                <p class="text-neutral-300">5.1 — Tax &amp; Bookkeeping OS 🧾 (domínios reais &amp; produção)</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para a Trilha</a>
+                <a href="../trilha5/modulo-5-1.html" class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors">Trilha 5: Avançado →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

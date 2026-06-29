@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 2.3 · Regras &amp; Ganchos — as cercas | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento da trilha (blue) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/30 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .bg-sky-900\/20 { background-color: rgba(3,105,161,0.08); }
+    html:not(.dark) .border-sky-500\/30 { border-color: rgba(3,105,161,0.25); }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-green-400 { color: #15803d; }
+    html:not(.dark) .bg-green-900\/20 { background-color: rgba(21,128,61,0.08); }
+    html:not(.dark) .border-green-500\/30 { border-color: rgba(21,128,61,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m23-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m23-a { animation: m23-pulse 2.8s ease-in-out infinite; }
+      .m23-a:nth-child(2){animation-delay:.25s} .m23-a:nth-child(3){animation-delay:.5s}
+      .m23-a:nth-child(4){animation-delay:.75s} .m23-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T2 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="../trilha1/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="2-3" data-inema-track="2">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-blue-400">Trilha 2</a><span>/</span>
+        <span class="text-blue-400">Módulo 2.3</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.3</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🚧 Regras &amp; Ganchos — as cercas</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">A terceira camada da base: os limites. <strong class="text-neutral-300">Regra</strong> é uma placa "não entre" — uma sugestão forte, mas não garantida. <strong class="text-neutral-300">Gancho</strong> é uma porta trancada — determinístico, sempre/nunca. A regra de produção: <strong class="text-blue-400">onde dói (PII, dinheiro, escrita em banco), use gancho, não regra mole</strong>.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">8</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">~55</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Intermed.</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:2-3" class="inema-ring" aria-label="Progresso do módulo 2.3"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:2-3"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 8</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">1. Regra = sugestão forte</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">2. Gancho = determinístico</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">3. Graduar pra rules/</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">4. Reflex hooks</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">5. settings.json: banir escrita</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">6. Pre-commit de PII</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">7. Done-check: pior erro</a></li>
+              <li><a href="#topico-8" class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400">8. Prático: settings.json</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-2-3#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">🪧 Regra = sugestão forte (não determinística)</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t1-p1" class="text-neutral-300 leading-relaxed mb-6">Uma <strong class="text-blue-400">regra</strong> é uma <strong class="text-neutral-100">sugestão forte</strong> ao modelo — não uma garantia. É a placa "não entre" na beira da estrada: a maioria respeita, mas nada impede fisicamente quem decidir entrar. Regras são <strong class="text-neutral-100">não-determinísticas</strong>: o modelo as segue na maior parte das vezes, mas pode escorregar, sobretudo no fundo de uma conversa longa.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-3-t1-p2" class="text-sm text-neutral-300"><strong>Determinístico</strong> = sempre acontece igual, sem depender de julgamento. <strong>Não-determinístico</strong> = depende do modelo "decidir" na hora, então varia. Uma regra escrita no <span class="font-mono text-xs">CLAUDE.md</span> é não-determinística: é texto que influencia, não código que obriga.</p>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Quando uma regra basta</h3>
+                <p class="text-neutral-300 text-sm">Para preferências e bom senso — "prefira tabelas a parágrafos", "use sempre tom formal com clientes" — a regra é perfeita: barata, flexível e fácil de ajustar. O problema é confiar nela onde um deslize custa caro.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque saber que regra é "mole" calibra a confiança certa. Você para de tratar todo limite como inquebrável e reserva a artilharia pesada (ganchos) para o que realmente não pode falhar. Entender essa distinção é o coração da camada de cercas.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Regra</div><div class="text-xs text-neutral-400">sugestão forte</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Não-determinística</div><div class="text-xs text-neutral-400">pode escorregar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Placa "não entre"</div><div class="text-xs text-neutral-400">a analogia</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Boa p/ preferências</div><div class="text-xs text-neutral-400">onde deslize é barato</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-2-3#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">🔒 Gancho = determinístico (sempre/nunca)</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t2-p1" class="text-neutral-300 leading-relaxed mb-6">Um <strong class="text-blue-400">gancho</strong> (hook) é <strong class="text-neutral-100">determinístico</strong>: ele <em>sempre</em> faz ou <em>nunca</em> deixa fazer, sem depender do julgamento do modelo. É a porta trancada — não importa o quão fundo na conversa o OS esteja, o gancho dispara igual. "Nunca me deixe enviar um e-mail com minha certidão de nascimento anexada" vira gancho, não regra.</p>
+
+              <!-- SVG A: regra (placa, mole) vs gancho (porta trancada) -->
+              <div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 760 320" class="w-full h-auto" role="img" aria-label="Regra versus gancho: à esquerda, uma regra é uma cerca tracejada com placa não entre — uma ação arriscada pode passar; à direita, um gancho é uma porta sólida trancada — a mesma ação é bloqueada de forma determinística.">
+                  <defs>
+                    <filter id="m23a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m23a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#3b82f6" opacity="0.1"/></pattern>
+                    <marker id="m23a-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#22d3ee"/></marker>
+                    <marker id="m23a-ahr" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f87171"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="760" height="320" fill="url(#m23a-grid)"/>
+                  <!-- LADO REGRA -->
+                  <text x="190" y="40" text-anchor="middle" fill="#93c5fd" font-family="Inter,sans-serif" font-weight="700" font-size="15">REGRA — sugestão forte</text>
+                  <line x1="120" y1="120" x2="120" y2="240" stroke="#60a5fa" stroke-width="3" stroke-dasharray="7 7"/>
+                  <line x1="260" y1="120" x2="260" y2="240" stroke="#60a5fa" stroke-width="3" stroke-dasharray="7 7"/>
+                  <line x1="120" y1="160" x2="260" y2="160" stroke="#60a5fa" stroke-width="2.5" stroke-dasharray="7 7"/>
+                  <rect x="158" y="92" width="64" height="26" rx="5" fill="#0e1f3a" stroke="#60a5fa" stroke-width="1.6"/><text x="190" y="110" text-anchor="middle" fill="#bfdbfe" font-family="Inter,sans-serif" font-size="11" font-weight="600">não entre</text>
+                  <path d="M40,200 L300,200" stroke="#f87171" stroke-width="2.4" stroke-dasharray="3 5" fill="none" marker-end="url(#m23a-ahr)" opacity="0.85"/>
+                  <text x="170" y="226" text-anchor="middle" fill="#fca5a5" font-family="Inter,sans-serif" font-size="11">pode passar às vezes</text>
+                  <!-- LADO GANCHO -->
+                  <text x="570" y="40" text-anchor="middle" fill="#a5f3fc" font-family="Inter,sans-serif" font-weight="700" font-size="15">GANCHO — determinístico</text>
+                  <g filter="url(#m23a-glow)"><rect x="500" y="92" width="140" height="148" rx="10" fill="#0e2330" stroke="#22d3ee" stroke-width="3"/></g>
+                  <rect x="556" y="150" width="28" height="40" rx="5" fill="#0e1626" stroke="#22d3ee" stroke-width="2.5"/>
+                  <circle cx="570" cy="164" r="6" fill="none" stroke="#67e8f9" stroke-width="2.5"/>
+                  <path d="M570 164 L570 178" stroke="#67e8f9" stroke-width="2.5"/>
+                  <text x="570" y="226" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11" font-weight="600">trancado: sempre/nunca</text>
+                  <path d="M420,200 L498,200" stroke="#f87171" stroke-width="2.4" fill="none" marker-end="url(#m23a-ahr)" opacity="0.85"/>
+                  <text x="436" y="186" text-anchor="middle" fill="#fca5a5" font-family="Inter,sans-serif" font-size="11">✗ bloqueado</text>
+                  <text x="380" y="290" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11.5">a mesma ação arriscada (seta vermelha): a regra <tspan fill="#fca5a5">vaza</tspan>; o gancho <tspan fill="#7dd3fc">trava</tspan></text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-blue-400">Como ler:</strong> a mesma ação arriscada (seta vermelha) bate nas duas cercas. Na regra (cerca tracejada) ela pode vazar; no gancho (porta sólida trancada) ela é bloqueada toda vez. Por isso o que dói de verdade vira gancho.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t2-p2" class="text-neutral-300 leading-relaxed mb-6">Porque a diferença regra/gancho é a decisão de segurança mais importante do OS. PII, dinheiro e escrita em banco não podem depender de o modelo "lembrar" — precisam de um mecanismo que dispara sempre. Saber traduzir um limite em gancho é o que torna o OS seguro o suficiente para usar de verdade.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Gancho (hook)</div><div class="text-xs text-neutral-400">determinístico</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Sempre / nunca</div><div class="text-xs text-neutral-400">dispara igual</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Porta trancada</div><div class="text-xs text-neutral-400">a analogia</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Onde dói</div><div class="text-xs text-neutral-400">PII, dinheiro, banco</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-2-3#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">📑 Graduar o CLAUDE.md inchado pra rules/</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t3-p1" class="text-neutral-300 leading-relaxed mb-6">Lembra da disciplina do Módulo 2.1 — manter o <span class="font-mono text-sm">CLAUDE.md</span> enxuto? Quando ele começa a inchar de "sempre faça X / nunca faça Y", é hora de <strong class="text-blue-400">graduar</strong> essas linhas para uma pasta <span class="font-mono text-sm">rules/</span> dedicada. A identidade fica curta; as regras ganham um lar organizado em <span class="font-mono text-sm">rules/always.md</span> e <span class="font-mono text-sm">rules/never.md</span>.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+                  <h4 class="font-bold text-blue-400 mb-4">📗 rules/always.md</h4>
+                  <p class="text-neutral-300 text-sm mb-3">O que o OS deve <strong class="text-neutral-100">sempre</strong> fazer.</p>
+                  <ul class="space-y-2 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>"Sempre converter valores para CAD."</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>"Sempre citar a fonte da política."</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">📕 rules/never.md</h4>
+                  <p class="text-neutral-300 text-sm mb-3">O que o OS <strong class="text-neutral-100">nunca</strong> deve fazer.</p>
+                  <ul class="space-y-2 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"Nunca misturar despesa pessoal com a do negócio."</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"Nunca prometer algo fora do playbook."</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Graduar é mover, não duplicar</h3>
+                <p class="text-neutral-300 text-sm">Ao mover uma regra para <span class="font-mono text-xs">rules/</span>, <strong class="text-neutral-100">tire-a</strong> do <span class="font-mono text-xs">CLAUDE.md</span> e deixe lá só um ponteiro ("consulte rules/"). Duplicar é o caminho mais rápido para regras que se contradizem.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é assim que a base cresce sem virar bagunça: a identidade permanece enxuta e as regras viram um conjunto auditável. Separar <span class="font-mono text-sm">always</span> de <span class="font-mono text-sm">never</span> também deixa explícito o que é "sempre" — candidato a virar gancho determinístico.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Graduar</div><div class="text-xs text-neutral-400">mover pra rules/</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">always.md</div><div class="text-xs text-neutral-400">o que sempre fazer</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">never.md</div><div class="text-xs text-neutral-400">o que nunca fazer</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Mover &gt; duplicar</div><div class="text-xs text-neutral-400">evita contradição</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-2-3#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">⚡ Reflex hooks: bloquear PII no push</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t4-p1" class="text-neutral-300 leading-relaxed mb-6">O caso mais clássico de gancho é o <strong class="text-blue-400">reflex hook</strong> (gancho de reflexo): um mecanismo que dispara <strong class="text-neutral-100">na hora</strong> diante de um gatilho perigoso. O exemplo do autor: se você tenta <strong class="text-neutral-100">subir algo para o GitHub com PII</strong> — número de identidade (SIN), cartão de crédito — o reflexo <strong class="text-neutral-100">bloqueia imediatamente</strong> e você vê "ação bloqueada".</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-3-t4-p2" class="text-sm text-neutral-300"><strong>PII</strong> (<em>Personal Identifiable Information</em>) é qualquer dado que identifica você: CPF/SIN, número de cartão, certidões. <strong>Push pro GitHub</strong> = enviar seus arquivos para um repositório remoto na nuvem. Juntando os dois: um push com PII pode vazar dados sensíveis publicamente — exatamente o que o reflex hook impede de acontecer.</p>
+              </div>
+
+              <div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-sky-400 mb-2 flex items-center"><span class="mr-2">🛟</span> Reflexo, não memória</h3>
+                <p class="text-neutral-300 text-sm">A graça do reflexo é não depender de o modelo lembrar. Mesmo que o OS "esqueça" a regra no fundo de uma sessão longa, o gancho continua de guarda. É a diferença entre <em>pedir</em> cuidado e <em>garantir</em> cuidado.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t4-p3" class="text-neutral-300 leading-relaxed mb-6">Porque os erros mais caros são os silenciosos — um vazamento de PII que você só descobre depois. Um reflex hook transforma "espero que não aconteça" em "não pode acontecer". É a camada que deixa o OS seguro para tarefas reais com dados sensíveis.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Reflex hook</div><div class="text-xs text-neutral-400">dispara na hora</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">PII</div><div class="text-xs text-neutral-400">dado que te identifica</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Ação bloqueada</div><div class="text-xs text-neutral-400">feedback imediato</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Reflexo &gt; memória</div><div class="text-xs text-neutral-400">não depende do modelo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-2-3#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">⚙️ settings.json: banir comandos de escrita</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t5-p1" class="text-neutral-300 leading-relaxed mb-6">O harness traz, pronto de fábrica, um arquivo <span class="font-mono text-sm">settings.json</span>. É ali que você cria ganchos de permissão: peça ao Claude Code para <strong class="text-blue-400">banir comandos de escrita</strong> — por exemplo, <strong class="text-neutral-100">nunca escrever numa tabela específica do banco</strong> — <strong class="text-neutral-100">salvo override explícito</strong>. Ele adiciona esses comandos a uma lista de bloqueio do Bash, e pronto: a escrita perigosa fica proibida por padrão.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-blue-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m2-3-t5-p2" class="text-sm text-neutral-300">O <strong>Bash</strong> é o terminal por onde o OS executa comandos no seu computador. O <span class="font-mono text-xs">settings.json</span> tem uma seção <span class="font-mono text-xs">permissions.deny</span> que <strong>recusa</strong> certos comandos antes de rodarem. <strong>Override</strong> = uma exceção que só você libera de propósito. Assim, o padrão é seguro e o risco só existe quando você decide.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+                  <h4 class="font-bold text-blue-400 mb-4">✓ Padrão seguro</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Escrita em tabelas sensíveis: <strong>negada</strong>.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Comandos destrutivos do Bash: na lista de bloqueio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Você libera caso a caso, com intenção.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Sem o gancho</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Um comando errado no fundo do contexto apaga dados.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Você confia que o modelo "não vai fazer".</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>O erro só aparece quando já é tarde.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t5-p3" class="text-neutral-300 leading-relaxed mb-6">Porque o <span class="font-mono text-sm">settings.json</span> é o lugar onde "nunca escreva aqui" deixa de ser texto persuasivo e vira regra de máquina. É o gancho mais fácil de instalar e um dos de maior retorno: protege seus dados de um único comando descuidado.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">settings.json</div><div class="text-xs text-neutral-400">vem de fábrica</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">permissions.deny</div><div class="text-xs text-neutral-400">recusa comandos</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Banir escrita</div><div class="text-xs text-neutral-400">padrão seguro</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Salvo override</div><div class="text-xs text-neutral-400">exceção sua</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-2-3#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🔍 Pre-commit hook de PII</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t6-p1" class="text-neutral-300 leading-relaxed mb-6">Um irmão do reflex hook é o <strong class="text-blue-400">pre-commit hook</strong>: um verificador que roda <strong class="text-neutral-100">antes de cada commit</strong> e dá uma última conferida. O uso do autor: toda vez que algo vai ser enviado ao GitHub, o pre-commit <strong class="text-neutral-100">checa duas vezes</strong> se não há nada específico dele — PII — naquele conteúdo. Se houver, o commit é barrado.</p>
+
+              <!-- SVG B: pre-commit barra PII no caminho do GitHub -->
+              <div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 820 220" class="w-full h-auto" role="img" aria-label="O pre-commit hook no caminho do GitHub: o commit passa por um verificador; um arquivo limpo segue para o GitHub, enquanto um arquivo com PII é barrado e devolvido com o aviso de ação bloqueada.">
+                  <defs>
+                    <filter id="m23b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m23b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#3b82f6" opacity="0.1"/></pattern>
+                    <marker id="m23b-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#22d3ee"/></marker>
+                    <marker id="m23b-ahg" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"/></marker>
+                    <marker id="m23b-ahr" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f87171"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="820" height="220" fill="url(#m23b-grid)"/>
+                  <g class="m23-a"><rect x="30" y="84" width="130" height="52" rx="11" fill="#0e1f3a" stroke="#3b82f6" stroke-width="2"/><text x="95" y="108" text-anchor="middle" fill="#bfdbfe" font-family="Inter,sans-serif" font-weight="600" font-size="13">git commit</text><text x="95" y="126" text-anchor="middle" fill="#93c5fd" font-family="Inter,sans-serif" font-size="11">arquivos a enviar</text></g>
+                  <path d="M160,110 L222,110" stroke="#22d3ee" stroke-width="2.2" fill="none" marker-end="url(#m23b-ah)"/>
+                  <g filter="url(#m23b-glow)"><rect x="224" y="78" width="170" height="64" rx="13" fill="#0e2330" stroke="#22d3ee" stroke-width="2.5"/></g>
+                  <text x="309" y="104" text-anchor="middle" fill="#a5f3fc" font-family="Inter,sans-serif" font-weight="700" font-size="13">🔍 pre-commit hook</text>
+                  <text x="309" y="124" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11">varre por PII</text>
+                  <path d="M394,96 C460,80 500,70 560,70" stroke="#34d399" stroke-width="2.2" fill="none" marker-end="url(#m23b-ahg)"/>
+                  <text x="478" y="58" text-anchor="middle" fill="#6ee7b7" font-family="Inter,sans-serif" font-size="11">limpo ✓</text>
+                  <path d="M394,128 C460,150 500,162 560,162" stroke="#f87171" stroke-width="2.2" fill="none" marker-end="url(#m23b-ahr)"/>
+                  <text x="478" y="176" text-anchor="middle" fill="#fca5a5" font-family="Inter,sans-serif" font-size="11">tem PII ✗ barrado</text>
+                  <g filter="url(#m23b-glow)"><rect x="562" y="44" width="160" height="52" rx="11" fill="#0e2018" stroke="#34d399" stroke-width="2.5"/></g>
+                  <text x="642" y="68" text-anchor="middle" fill="#6ee7b7" font-family="Inter,sans-serif" font-weight="700" font-size="13">🐙 GitHub</text>
+                  <text x="642" y="86" text-anchor="middle" fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11">backup privado</text>
+                  <rect x="562" y="138" width="200" height="50" rx="11" fill="#2a1115" stroke="#f87171" stroke-width="2"/>
+                  <text x="662" y="160" text-anchor="middle" fill="#fca5a5" font-family="Inter,sans-serif" font-weight="700" font-size="12.5">ação bloqueada</text>
+                  <text x="662" y="178" text-anchor="middle" fill="#fda4af" font-family="Inter,sans-serif" font-size="11">remova a PII e tente de novo</text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-blue-400">Como ler:</strong> todo commit passa pelo verificador (ciano). Arquivo limpo segue para o GitHub (verde); arquivo com PII é barrado (vermelho) e devolvido. O backup acontece — mas só do que é seguro.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t6-p2" class="text-neutral-300 leading-relaxed mb-6">Porque você vai querer versionar e fazer backup do OS no GitHub (Trilha 5), e backup sem guarda é uma porta de vazamento. O pre-commit de PII é o gancho que deixa você ter backup tranquilo: ele garante que o sensível nunca cruza a fronteira — combinando com o <span class="font-mono text-sm">.gitignore</span> do que é privado.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Pre-commit</div><div class="text-xs text-neutral-400">roda antes de enviar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Dupla checagem</div><div class="text-xs text-neutral-400">última conferida</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Barra o commit</div><div class="text-xs text-neutral-400">se achar PII</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">+ .gitignore</div><div class="text-xs text-neutral-400">dupla cerca</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 -->
+          <section id="topico-7" data-inema-topic="modulo-2-3#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">🧪 Done-check: pior erro → never-rule + 1 reflexo</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t7-p1" class="text-neutral-300 leading-relaxed mb-6">O critério de pronto desta camada é simples e poderoso: pense no <strong class="text-blue-400">pior erro possível</strong> do seu domínio e garanta que ele esteja escrito como uma <strong class="text-neutral-100">never-rule clara</strong> em <span class="font-mono text-sm">rules/never.md</span> — e que você tenha identificado <strong class="text-neutral-100">pelo menos 1 reflexo automático</strong> (gancho) para o que dói mais.</p>
+
+              <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">✅</span> O done-check em 3 passos</h3>
+                <div class="space-y-4">
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+                    <div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600"><p class="text-neutral-300 text-sm">Nomeie o <strong class="text-neutral-100">pior erro</strong>: "o que, se acontecesse, eu não conseguiria desfazer ou defender?".</p></div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+                    <div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600"><p class="text-neutral-300 text-sm">Escreva-o como never-rule clara em <span class="font-mono text-xs">rules/never.md</span> (texto, a cerca mole).</p></div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+                    <div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600"><p class="text-neutral-300 text-sm">Reforce com <strong class="text-neutral-100">1 reflexo</strong> determinístico (settings.json ou pre-commit) — a porta trancada.</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> O erro de parar na regra</h3>
+                <p class="text-neutral-300 text-sm">Escrever a never-rule e achar que terminou é a armadilha. Regra é sugestão; se o pior erro é irreversível, ele <strong class="text-neutral-100">precisa</strong> de um reflexo determinístico em cima. Regra + reflexo = a cerca dupla que de fato segura.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t7-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é um critério acionável que você aplica em qualquer domínio em 5 minutos. Ele força a pergunta certa ("o que não pode falhar?") e a resposta na dose certa (texto para o resto, gancho para o irreversível). É exatamente o done-check que o <span class="font-mono text-sm">/os-coach</span> cobra na Trilha 4.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Pior erro</div><div class="text-xs text-neutral-400">o irreversível</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Never-rule</div><div class="text-xs text-neutral-400">escrita e clara</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">1 reflexo</div><div class="text-xs text-neutral-400">o gancho de apoio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Cerca dupla</div><div class="text-xs text-neutral-400">regra + reflexo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 8 (PRÁTICO — copy-run) -->
+          <section id="topico-8" data-inema-topic="modulo-2-3#topico-8" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">8</span>
+              <h2 class="text-2xl font-bold pt-1">⚡ Prático: settings.json com deny de escrita</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m2-3-t8-p1" class="text-neutral-300 leading-relaxed mb-6">Hora de instalar uma porta trancada de verdade. Abaixo está um <span class="font-mono text-sm">.claude/settings.json</span> <strong class="text-blue-400">copy-run</strong>: ele <strong class="text-neutral-100">nega</strong> comandos de escrita/destrutivos do Bash (gancho de permissão) e adiciona um <strong class="text-neutral-100">PreToolUse hook</strong> que bloqueia escritas no banco salvo override. Troque só os trechos entre <span class="font-mono text-xs text-blue-400">&lt;colchetes&gt;</span>.</p>
+
+              <div class="bg-dark-800 border border-blue-500/30 rounded-xl p-5 mb-4">
+                <p class="text-sm font-semibold text-blue-400 mb-1">🎯 Objetivo</p>
+                <p class="text-sm text-neutral-300">Sair desta seção com um gancho determinístico real: o OS fisicamente recusa comandos de escrita perigosos, sem depender de "lembrar" da regra.</p>
+              </div>
+
+              <div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <p class="text-xs text-neutral-500 font-semibold">Salve em .claude/settings.json — copy-run</p>
+                  <span class="text-xs text-neutral-500 font-mono">json</span>
+                </div>
+                <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed whitespace-pre">{
+  <span class="text-blue-400">"permissions"</span>: {
+    <span class="text-blue-400">"deny"</span>: [
+      <span class="text-green-400">"Bash(rm:*)"</span>,
+      <span class="text-green-400">"Bash(git push:*)"</span>,
+      <span class="text-green-400">"Bash(psql:*)"</span>,
+      <span class="text-green-400">"Bash(sqlite3:*)"</span>,
+      <span class="text-green-400">"Bash(<span class="text-blue-400">&lt;sua-cli&gt;</span> write:*)"</span>,
+      <span class="text-green-400">"Bash(<span class="text-blue-400">&lt;sua-cli&gt;</span> delete:*)"</span>
+    ]
+  },
+  <span class="text-blue-400">"hooks"</span>: {
+    <span class="text-blue-400">"PreToolUse"</span>: [
+      {
+        <span class="text-blue-400">"matcher"</span>: <span class="text-green-400">"Bash"</span>,
+        <span class="text-blue-400">"hooks"</span>: [
+          {
+            <span class="text-blue-400">"type"</span>: <span class="text-green-400">"command"</span>,
+            <span class="text-blue-400">"command"</span>: <span class="text-green-400">"jq -r '.tool_input.command' | grep -qiE '(INSERT|UPDATE|DELETE|DROP|TRUNCATE).*<span class="text-blue-400">&lt;tabela_sensivel&gt;</span>' && [ \"$ALLOW_DB_WRITE\" != \"1\" ] &amp;&amp; { echo 'Escrita no banco bloqueada (gancho). Use ALLOW_DB_WRITE=1 para override.' &gt;&amp;2; exit 2; } || exit 0"</span>
+          }
+        ]
+      }
+    ]
+  }
+}</pre>
+              </div>
+
+              <div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-sky-400 mb-2 flex items-center"><span class="mr-2">✔️</span> Como verificar</h3>
+                <ul class="space-y-2 text-neutral-300 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">1.</span><span>Peça ao OS para rodar um <span class="font-mono text-xs">git push</span> ou um <span class="font-mono text-xs">rm</span> — deve ser <strong class="text-neutral-100">recusado</strong> pela lista <span class="font-mono text-xs">deny</span>.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">2.</span><span>Peça um comando que escreve na <span class="font-mono text-xs">&lt;tabela_sensivel&gt;</span> — o PreToolUse hook deve barrar com a mensagem (exit 2).</span></li>
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">3.</span><span>Repita com <span class="font-mono text-xs">ALLOW_DB_WRITE=1</span> no ambiente — agora passa (override explícito funcionando).</span></li>
+                  <li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">4.</span><span>Um <span class="font-mono text-xs">SELECT</span> (leitura) NÃO é bloqueado — o gancho mira só escrita.</span></li>
+                </ul>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Por que isto é um gancho, não uma regra</h3>
+                <p class="text-neutral-300 text-sm">Nada aqui depende do modelo "decidir" obedecer: o <span class="font-mono text-xs">deny</span> e o <span class="font-mono text-xs">exit 2</span> do hook são código que dispara <strong class="text-neutral-100">antes</strong> do comando rodar. É a porta trancada do Tópico 2, agora em arquivo. <em>Exemplo ilustrativo — ajuste os comandos e o padrão ao seu harness e banco.</em></p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m2-3-t8-p2" class="text-neutral-300 leading-relaxed mb-6">Porque transforma toda a teoria das cercas em proteção real, em minutos. Com este arquivo você já tem o "1 reflexo" do done-check do Tópico 7 — e a base pronta para os OS de produção da Trilha 5, onde dinheiro e dados sensíveis tornam isto obrigatório.</p>
+
+              <h3 class="text-lg font-semibold text-blue-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">permissions.deny</div><div class="text-xs text-neutral-400">recusa comandos</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">PreToolUse hook</div><div class="text-xs text-neutral-400">roda antes do Bash</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">exit 2 = bloqueia</div><div class="text-xs text-neutral-400">determinístico</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Override</div><div class="text-xs text-neutral-400">só quando você quer</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Regra = sugestão forte; gancho = determinístico</strong><span class="text-neutral-400"> — placa "não entre" vs. porta trancada.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Gradue o CLAUDE.md inchado pra rules/</strong><span class="text-neutral-400"> — always.md e never.md; mova, não duplique.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Reflex hooks e pre-commit de PII</strong><span class="text-neutral-400"> — bloqueiam na hora; reflexo &gt; memória.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">settings.json: banir escrita salvo override</strong><span class="text-neutral-400"> — padrão seguro com exceção sua.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Done-check: pior erro → never-rule + 1 reflexo</strong><span class="text-neutral-400"> — a cerca dupla que segura.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-blue-400 mb-2">Concluiu a base do OS!</h3>
+                <p class="text-neutral-300">Com Identidade, Substrato e Cercas prontos, a próxima trilha dá <strong class="text-neutral-100">capacidade</strong>: Habilidades, Ferramentas e Agentes. → Trilha 3 · Técnica II 🤖</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="modulo-2-2.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo anterior</a>
+                <a href="../trilha3/index.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próxima trilha: Técnica II →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

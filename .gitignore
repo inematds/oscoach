@@ -1,0 +1,6 @@
+# Conteúdo de fonte externa + planejamento — não versionar no repo público do curso
+doc/
+
+# cruft
+.DS_Store
+*.log

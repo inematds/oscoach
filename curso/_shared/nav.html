@@ -1,0 +1,173 @@
+<!--
+  oscoach · NAV CANÔNICO (copiar VERBATIM em TODA página) — Erro Crítico #13
+  =========================================================================
+  TODAS as páginas (landing + índices de trilha + módulos) usam ESTE nav, idêntico:
+    Logo (🧠 + AIOS, text-yellow-400) · | · INEMA.CLUB (text-sky-400)
+    + 5 botões de trilha (Fundamentos·Emerald, Técnica I·Blue, Técnica II·Purple,
+      Passo a passo·Amber, Avançado·Teal)
+    + "Minha jornada" (data-inema-journey-open) + "Aparência" (painel) + theme toggle.
+  Nunca simplificar para "← Trilha X | Curso" nas páginas internas.
+
+  -------------------------------------------------------------------------
+  (a) COMO MARCAR A TRILHA ATIVA
+  -------------------------------------------------------------------------
+  Cada botão de trilha tem DOIS estados de classe. Troque APENAS o botão da
+  trilha da página atual:
+    ATIVO   :  text-COR-400 bg-COR-500/10
+    INATIVO :  text-neutral-400 hover:text-COR-400 hover:bg-COR-500/10 transition-colors
+  (COR = emerald|blue|purple|amber|teal conforme a trilha). Esta cópia mostra a
+  TRILHA 1 (Fundamentos) ativa — nas demais páginas, ative o botão correspondente.
+
+  -------------------------------------------------------------------------
+  (b) COMO AJUSTAR OS CAMINHOS RELATIVOS POR PROFUNDIDADE
+  -------------------------------------------------------------------------
+  Só DOIS contextos de profundidade existem:
+
+    LANDING (index.html na RAIZ do curso):
+      • Logo  href="index.html"
+      • Trilhas  href="curso/trilha1/index.html" … "curso/trilha5/index.html"
+        (nenhuma ativa na landing — todas no estado INATIVO)
+
+    ÍNDICE DE TRILHA e MÓDULO (qualquer arquivo em curso/trilhaN/):
+      • Logo  href="../../index.html"
+      • Trilha da página atual (ATIVA):  href="index.html"        (mesma pasta)
+      • Outras trilhas (INATIVAS):       href="../trilhaM/index.html"
+      (Os módulos curso/trilhaN/modulo-N-Y.html têm a MESMA profundidade do índice
+       da trilha — usam os mesmos caminhos.)
+
+  Esta cópia abaixo está na profundidade ÍNDICE/MÓDULO (../../ e ../trilhaM/),
+  com a Trilha 1 ativa apontando para index.html.
+
+  -------------------------------------------------------------------------
+  (c) PRÉ-REQUISITO p/ a "Aparência" funcionar (§12.3 do MASTER)
+  -------------------------------------------------------------------------
+  O gatilho data-inema-appearance-toggle="#inema-appearance-panel" SÓ funciona se o
+  PAINEL #inema-appearance-panel[data-inema-appearance] estiver presente (incluído
+  aqui). O painel é position:absolute → o container do par (gatilho+painel) é relative.
+-->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-14 gap-2">
+
+      <!-- Logo + INEMA.CLUB -->
+      <div class="flex items-center space-x-3 flex-shrink-0">
+        <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+          <span class="text-2xl">🧠</span>
+          <span class="font-bold text-lg hidden sm:inline">AIOS</span>
+        </a>
+        <span class="text-neutral-600 hidden sm:inline">|</span>
+        <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+      </div>
+
+      <!-- Trilhas + controles de aprendizagem + theme toggle -->
+      <div class="flex items-center gap-1 sm:gap-1.5">
+
+        <!-- T1 Fundamentos (ATIVA nesta cópia) -->
+        <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10 whitespace-nowrap">
+          <span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span>
+        </a>
+        <!-- T2 Técnica I · Base -->
+        <a href="../trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap">
+          <span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span>
+        </a>
+        <!-- T3 Técnica II · Capacidade -->
+        <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap">
+          <span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span>
+        </a>
+        <!-- T4 Passo a passo -->
+        <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap">
+          <span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span>
+        </a>
+        <!-- T5 Avançado -->
+        <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap">
+          <span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span>
+        </a>
+
+        <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+
+        <!-- Minha jornada (abre o painel global; badge = % do curso) -->
+        <button type="button" data-inema-journey-open
+                class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+          <span aria-hidden="true">◷</span>
+          <span class="hidden md:inline">Minha jornada</span>
+          <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+        </button>
+
+        <!-- Aparência (gatilho + painel obrigatório) -->
+        <div class="relative">
+          <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false"
+                  class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+            <span aria-hidden="true">◑</span>
+            <span class="hidden md:inline">Aparência</span>
+          </button>
+          <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+            <div class="inema-pref-group">
+              <span class="inema-pref-group__label">Tema</span>
+              <div class="inema-segment">
+                <button type="button" data-inema-set-theme="inema-dark">Escuro</button>
+                <button type="button" data-inema-set-theme="claro">Claro</button>
+                <button type="button" data-inema-set-theme="sepia">Sépia</button>
+              </div>
+              <div class="inema-segment">
+                <button type="button" data-inema-set-theme="foco">Foco</button>
+                <button type="button" data-inema-set-theme="contraste">Alto contraste</button>
+              </div>
+            </div>
+            <div class="inema-pref-group">
+              <span class="inema-pref-group__label">Fonte</span>
+              <div class="inema-segment">
+                <button type="button" data-inema-set-font="inter">Inter</button>
+                <button type="button" data-inema-set-font="system">Sistema</button>
+                <button type="button" data-inema-set-font="leitura">Leitura</button>
+              </div>
+            </div>
+            <div class="inema-pref-group">
+              <span class="inema-pref-group__label">Tamanho</span>
+              <div class="inema-segment">
+                <button type="button" data-inema-set-fontscale="100">A</button>
+                <button type="button" data-inema-set-fontscale="112">A+</button>
+                <button type="button" data-inema-set-fontscale="125">A++</button>
+              </div>
+            </div>
+            <div class="inema-pref-group">
+              <span class="inema-pref-group__label">Largura</span>
+              <div class="inema-segment">
+                <button type="button" data-inema-set-linewidth="60">Estreito</button>
+                <button type="button" data-inema-set-linewidth="68">Médio</button>
+                <button type="button" data-inema-set-linewidth="75">Largo</button>
+              </div>
+            </div>
+            <div class="inema-pref-group">
+              <span class="inema-pref-group__label">Entrelinha</span>
+              <div class="inema-segment">
+                <button type="button" data-inema-set-leading="1.45">Compacto</button>
+                <button type="button" data-inema-set-leading="1.7">Confortável</button>
+              </div>
+            </div>
+            <div class="inema-pref-group">
+              <span class="inema-pref-group__label">Acento</span>
+              <div class="inema-accent-grid">
+                <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme toggle sol/lua (núcleo v1; o JS o mantém coerente com o tema) -->
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

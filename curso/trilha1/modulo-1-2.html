@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 1.2 · As 6 camadas e o gráfico de pizza | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (emerald) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/30 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m12-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m12-a { animation: m12-pulse 2.8s ease-in-out infinite; }
+      .m12-a:nth-child(2){animation-delay:.25s} .m12-a:nth-child(3){animation-delay:.5s}
+      .m12-a:nth-child(4){animation-delay:.75s} .m12-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T1 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10 whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="../trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="../trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="1-2" data-inema-track="1">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-emerald-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-emerald-400">Trilha 1</a><span>/</span>
+        <span class="text-emerald-400">Módulo 1.2</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.2</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🍕 As 6 camadas e o gráfico de pizza</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">Todo AIOS é feito de <strong class="text-neutral-300">6 camadas</strong> — mas elas não entram em fatias iguais. Este módulo te dá o <strong class="text-emerald-400">mapa</strong>: o que é cada camada, em que ordem construir, e por que a "pizza" muda de forma a cada domínio.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">7</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">~40</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Inicial</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Fundamento</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:1-2" class="inema-ring" aria-label="Progresso do módulo 1.2"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:1-2"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 7</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">1. As 6 camadas</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">2. Por que não é igual</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">3. A ordem que funciona</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">4. O erro nº 1</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">5. Estáticas vs dinâmicas</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">6. Muda por domínio</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400">7. Order of operations</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-1-2#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">🧱 As 6 camadas — visão geral</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t1-p1" class="text-neutral-300 leading-relaxed mb-6">Todo AIOS, por mais diferente que seja o domínio, é montado a partir das <strong class="text-emerald-400">mesmas 6 camadas</strong>. Pensar em camadas é o que tira o OS do "balde de prompts soltos" e o transforma num sistema com partes nomeadas — cada uma com um papel claro, que você constrói e audita separadamente.</p>
+
+              <div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-emerald-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m1-2-t1-p2" class="text-sm text-neutral-300">Uma <strong>camada</strong> é só um tipo de coisa que entra no seu OS — um agrupamento. O <strong>"gráfico de pizza"</strong> é a metáfora do autor: imagine a soma de tudo que compõe um OS como uma pizza inteira, e cada camada como uma fatia. A sacada do módulo é que <strong>as fatias têm tamanhos diferentes</strong> e mudam conforme o domínio. Cada termo aqui (Identidade, Substrato, Regras…) é definido em detalhe no Módulo 1.3 (o glossário) — aqui você só pega o mapa.</p>
+              </div>
+
+              <!-- SVG A: gráfico de pizza das 6 camadas -->
+              <div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 760 360" class="w-full h-auto" role="img" aria-label="Gráfico de pizza das 6 camadas de um AIOS com fatias desiguais (exemplo): Contexto 34%, Identidade 8%, Regras 14%, Habilidades 16%, Ferramentas 18% e Agentes 10% — ilustrando que a distribuição nunca é uniforme.">
+                  <defs>
+                    <filter id="m12a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m12a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#10b981" opacity="0.1"/></pattern>
+                  </defs>
+                  <rect x="0" y="0" width="760" height="360" fill="url(#m12a-grid)"/>
+                  <g filter="url(#m12a-glow)" stroke="#0b1411" stroke-width="2">
+                    <path d="M190,180 L190,70 A110,110 0 0 1 282.9,238.9 Z" fill="#059669"/>
+                    <path d="M190,180 L282.9,238.9 A110,110 0 0 1 243.0,276.4 Z" fill="#34d399"/>
+                    <path d="M190,180 L243.0,276.4 A110,110 0 0 1 149.5,282.3 Z" fill="#10b981"/>
+                    <path d="M190,180 L149.5,282.3 A110,110 0 0 1 81.9,200.6 Z" fill="#38bdf8"/>
+                    <path d="M190,180 L81.9,200.6 A110,110 0 0 1 125.3,91.0 Z" fill="#22d3ee"/>
+                    <path d="M190,180 L125.3,91.0 A110,110 0 0 1 190,70 Z" fill="#0ea5e9"/>
+                  </g>
+                  <g font-family="Inter,sans-serif" font-size="14">
+                    <text x="380" y="44" fill="#e5e7eb" font-weight="700" font-size="15">Uma pizza de exemplo (Tax OS)</text>
+                    <g class="m12-a"><rect x="380" y="64" width="16" height="16" rx="3" fill="#059669"/><text x="406" y="77" fill="#cbd5e1">Substrato &amp; Contexto</text><text x="720" y="77" text-anchor="end" fill="#34d399" font-weight="700">34%</text></g>
+                    <g class="m12-a"><rect x="380" y="100" width="16" height="16" rx="3" fill="#34d399"/><text x="406" y="113" fill="#cbd5e1">Identidade</text><text x="720" y="113" text-anchor="end" fill="#34d399" font-weight="700">8%</text></g>
+                    <g class="m12-a"><rect x="380" y="136" width="16" height="16" rx="3" fill="#10b981"/><text x="406" y="149" fill="#cbd5e1">Regras &amp; Ganchos</text><text x="720" y="149" text-anchor="end" fill="#34d399" font-weight="700">14%</text></g>
+                    <g class="m12-a"><rect x="380" y="172" width="16" height="16" rx="3" fill="#38bdf8"/><text x="406" y="185" fill="#cbd5e1">Habilidades</text><text x="720" y="185" text-anchor="end" fill="#7dd3fc" font-weight="700">16%</text></g>
+                    <g class="m12-a"><rect x="380" y="208" width="16" height="16" rx="3" fill="#22d3ee"/><text x="406" y="221" fill="#cbd5e1">Ferramentas &amp; Conexões</text><text x="720" y="221" text-anchor="end" fill="#7dd3fc" font-weight="700">18%</text></g>
+                    <g class="m12-a"><rect x="380" y="244" width="16" height="16" rx="3" fill="#0ea5e9"/><text x="406" y="257" fill="#cbd5e1">Agentes</text><text x="720" y="257" text-anchor="end" fill="#7dd3fc" font-weight="700">10%</text></g>
+                    <text x="380" y="300" fill="#9ca3af" font-size="12">Verde = fundação (estática) · Azul = ação (dinâmica)</text>
+                  </g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Como ler:</strong> as 6 fatias somam 100%, mas nenhuma é igual à outra. Neste exemplo (um OS tributário), o Contexto domina porque o domínio vive de leis e documentos. Em outro domínio, a maior fatia seria outra. As fatias verdes são a <strong>fundação</strong>; as azuis, a <strong>ação</strong> — você vê essa divisão no Tópico 5.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">As 6 fatias, em uma frase cada</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                <div class="bg-dark-800 border border-emerald-500/30 rounded-lg p-4"><div class="text-emerald-400 font-semibold text-sm mb-1">1 · Identidade</div><div class="text-xs text-neutral-400">O arquivo-alma: quem o OS é, a quem serve, o que nunca recusa.</div></div>
+                <div class="bg-dark-800 border border-emerald-500/30 rounded-lg p-4"><div class="text-emerald-400 font-semibold text-sm mb-1">2 · Substrato &amp; Contexto</div><div class="text-xs text-neutral-400">O material bruto e destilado do domínio — "o caminhão de lixo em chamas".</div></div>
+                <div class="bg-dark-800 border border-emerald-500/30 rounded-lg p-4"><div class="text-emerald-400 font-semibold text-sm mb-1">3 · Regras &amp; Ganchos</div><div class="text-xs text-neutral-400">As cercas: sugestões fortes (regras) e travas determinísticas (ganchos).</div></div>
+                <div class="bg-dark-800 border border-sky-500/30 rounded-lg p-4"><div class="text-sky-400 font-semibold text-sm mb-1">4 · Habilidades</div><div class="text-xs text-neutral-400">Verbos repetíveis que você empacota pra rodar igual toda vez.</div></div>
+                <div class="bg-dark-800 border border-sky-500/30 rounded-lg p-4"><div class="text-sky-400 font-semibold text-sm mb-1">5 · Ferramentas &amp; Conexões</div><div class="text-xs text-neutral-400">Os fios pra fora: skill, CLI, MCP ou API — e quando usar cada.</div></div>
+                <div class="bg-dark-800 border border-sky-500/30 rounded-lg p-4"><div class="text-sky-400 font-semibold text-sm mb-1">6 · Agentes</div><div class="text-xs text-neutral-400">Papéis com julgamento que orquestram várias skills. A última camada.</div></div>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque é o esqueleto do curso inteiro. As Trilhas 2 e 3 são, literalmente, uma camada por módulo; a Trilha 4 te faz construí-las em ordem. Se você sai daqui com o mapa das 6 camadas na cabeça, todo o resto vira "preencher as fatias".</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">6 camadas</div><div class="text-xs text-neutral-400">o mesmo esqueleto</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Gráfico de pizza</div><div class="text-xs text-neutral-400">a metáfora-chave</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Papel claro</div><div class="text-xs text-neutral-400">cada camada faz uma coisa</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Mapa</div><div class="text-xs text-neutral-400">guia do curso todo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-1-2#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">🍕 Por que a pizza NÃO é dividida igual</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t2-p1" class="text-neutral-300 leading-relaxed mb-6">A frase exata do autor é direta: <strong class="text-emerald-400">"o gráfico de pizza não está dividido uniformemente"</strong>. As 6 camadas existem em todo OS, mas o <strong class="text-neutral-100">peso</strong> de cada uma depende do domínio. Tratar todas com o mesmo esforço é o jeito mais rápido de gastar tempo no lugar errado.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Pizza igual (o erro)</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Dar a mesma atenção às 6 camadas, "pra ser completo".</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Copiar a distribuição de um OS pronto para outro domínio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Polir agentes enquanto o contexto, que é o gargalo, está vazio.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+                  <h4 class="font-bold text-emerald-400 mb-4">✓ Pizza sob medida (o caminho)</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Perguntar: <em>qual camada importa mais aqui?</em></span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Investir o esforço na fatia que carrega o domínio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Deixar fatias pequenas pequenas — e tudo bem.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> As duas perguntas que guiam a fatia</h3>
+                <p class="text-neutral-300 text-sm">Antes de construir qualquer OS, faça as duas perguntas-fio do curso: <strong class="text-neutral-100">"qual camada importa mais aqui?"</strong> e <strong class="text-neutral-100">"o que vai apodrecer mais rápido?"</strong>. A primeira diz onde investir; a segunda, o que vai exigir manutenção. Juntas, elas desenham a sua pizza melhor que qualquer template.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t2-p2" class="text-neutral-300 leading-relaxed mb-6">Porque protege seu tempo. A diferença entre um OS que "ficou bom no fim de semana" e um que travou está quase sempre em ter investido na fatia certa. Aceitar que a pizza é desigual é o que te deixa priorizar com critério em vez de tentar fazer tudo por igual.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Fatias desiguais</div><div class="text-xs text-neutral-400">nunca uniforme</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Peso por domínio</div><div class="text-xs text-neutral-400">depende do caso</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Camada que importa</div><div class="text-xs text-neutral-400">onde investir</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">O que apodrece</div><div class="text-xs text-neutral-400">onde dar manutenção</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-1-2#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">🪜 A ordem que funciona</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t3-p1" class="text-neutral-300 leading-relaxed mb-6">As fatias podem ter qualquer tamanho, mas a <strong class="text-emerald-400">ordem de construção</strong> é quase sempre a mesma: você ergue a fundação antes de pendurar a capacidade. Em uma linha: <strong class="text-neutral-100">Identidade → Substrato &amp; Contexto → Regras &amp; Ganchos → Habilidades → Ferramentas → Agentes</strong>. Não é por acaso que as Trilhas 2 e 3 deste curso seguem exatamente essa sequência.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-4">A sequência, passo a passo</h3>
+              <div class="space-y-5 mb-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">1</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Identidade</h4><p class="text-neutral-300 text-sm">Defina quem o OS é antes de tudo. Sem alma, as camadas seguintes não têm a quem servir.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">2</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Substrato &amp; Contexto</h4><p class="text-neutral-300 text-sm">Organize e destile o conhecimento do domínio. É o que faz o OS ser especialista, e não genérico.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">3</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Regras &amp; Ganchos</h4><p class="text-neutral-300 text-sm">Ponha as cercas: o que sempre fazer, o que nunca fazer, e onde travar de forma determinística.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold">4</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Habilidades</h4><p class="text-neutral-300 text-sm">Capture os verbos que você mais repete. Agora há base sólida para empacotar processos.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold">5</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Ferramentas &amp; Conexões</h4><p class="text-neutral-300 text-sm">Decida os fios pra fora — skill, CLI, MCP ou API — só quando uma skill precisa tocar o mundo.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold">6</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Agentes</h4><p class="text-neutral-300 text-sm">Por último: papéis com julgamento que orquestram as skills. Só fazem sentido quando há skills para orquestrar.</p></div>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> A regra de ouro da ordem</h3>
+                <p class="text-neutral-300 text-sm">Bastidores primeiro, capacidade depois. <strong class="text-neutral-100">Você não dá braços (agentes) a alguém que ainda não sabe quem é (identidade) nem o que sabe (contexto).</strong> A ordem existe para impedir que você construa o telhado antes das paredes.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Porque a ordem evita retrabalho. Quem começa pelo fim (agentes) acaba refazendo tudo quando percebe que faltava a base. Seguir a sequência te dá um OS utilizável em cada parada — e cada camada se apoia na anterior.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Fundação primeiro</div><div class="text-xs text-neutral-400">depois capacidade</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Sequência</div><div class="text-xs text-neutral-400">Identidade → Agentes</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Apoio mútuo</div><div class="text-xs text-neutral-400">cada camada sustenta a próxima</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Sem retrabalho</div><div class="text-xs text-neutral-400">utilizável em cada parada</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-1-2#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">⚠️ O erro nº 1: pular pra Agentes cedo demais</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t4-p1" class="text-neutral-300 leading-relaxed mb-6">O autor é categórico: <strong class="text-emerald-400">agentes são a última camada, não a primeira</strong> — e <strong class="text-neutral-100">"a maioria das pessoas pula para agentes cedo demais"</strong>. Agente é a parte brilhante e empolgante, então é natural querer começar por ela. Mas um agente sem fundação é um trabalhador esperto a quem ninguém explicou o trabalho.</p>
+
+              <div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-emerald-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m1-2-t4-p2" class="text-sm text-neutral-300">Um <strong>agente</strong> é um "papel com julgamento": em vez de fazer um passo fixo, ele decide quais <strong>habilidades</strong> (verbos prontos) usar e em que ordem, normalmente com um ponto de revisão antes de algo sair. Por isso ele depende das camadas de baixo: sem skills para orquestrar, sem regras para respeitar e sem contexto para consultar, o agente não tem com o que trabalhar. O glossário (Módulo 1.3) define agente com mais calma.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ O atalho que dá errado</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Criar um "agente que faz tudo" antes de ter qualquer skill.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Esperar julgamento de um OS que não tem contexto do domínio.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Dar autonomia sem regras — o agente erra rápido e em escala.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+                  <h4 class="font-bold text-emerald-400 mb-4">✓ O caminho que sustenta</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Primeiro identidade, contexto e regras — a base estável.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Depois 1 ou 2 skills reais, das tarefas que você mais repete.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Só então um agente, para orquestrar o que já existe e funciona.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> O sintoma típico</h3>
+                <p class="text-neutral-300 text-sm">"Montei um agente incrível e ele dá respostas genéricas / faz besteira." Quase sempre o problema não está no agente — está nas fatias de baixo que ficaram vazias. A correção não é mexer no agente: é voltar e preencher contexto e regras.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t4-p3" class="text-neutral-300 leading-relaxed mb-6">Porque esse é, segundo o autor, o erro mais comum de todos. Saber dele de antemão te poupa de construir o brinquedo brilhante primeiro e ter que desmontar tudo depois. Você ganha paciência para fazer a parte "chata" que faz a parte legal funcionar.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Agentes por último</div><div class="text-xs text-neutral-400">não por primeiro</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Erro nº 1</div><div class="text-xs text-neutral-400">o mais comum</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Genérico = sintoma</div><div class="text-xs text-neutral-400">faltou base</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Voltar à fundação</div><div class="text-xs text-neutral-400">a correção real</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-1-2#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">🏗️ Camadas estáticas vs dinâmicas</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t5-p1" class="text-neutral-300 leading-relaxed mb-6">As 6 camadas se separam em dois grupos. As três primeiras são a <strong class="text-emerald-400">fundação (estática)</strong> — o "back of house", os bastidores que mudam devagar. As três últimas são a <strong class="text-sky-400">ação (dinâmica)</strong> — os braços que executam. É exatamente por isso que este curso tem uma Trilha 2 (base) e uma Trilha 3 (capacidade).</p>
+
+              <!-- SVG B: fundação estática vs ação dinâmica -->
+              <div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 820 320" class="w-full h-auto" role="img" aria-label="Duas colunas: à esquerda a Fundação estática (Identidade, Substrato e Contexto, Regras e Ganchos); à direita a Ação dinâmica (Habilidades, Ferramentas e Conexões, Agentes). Uma seta da esquerda para a direita indica que a base sustenta a ação.">
+                  <defs>
+                    <filter id="m12b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m12b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#10b981" opacity="0.1"/></pattern>
+                    <marker id="m12b-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="820" height="320" fill="url(#m12b-grid)"/>
+                  <g filter="url(#m12b-glow)"><rect x="40" y="44" width="330" height="240" rx="16" fill="#0e2018" stroke="#34d399" stroke-width="2.5"/></g>
+                  <text x="205" y="74" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="15">Fundação · estática</text>
+                  <text x="205" y="94" text-anchor="middle" fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11">o back of house · muda devagar</text>
+                  <g font-family="Inter,sans-serif" font-size="13.5" font-weight="600">
+                    <rect x="64" y="108" width="282" height="44" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="80" y="135" fill="#e5e7eb">1 · Identidade</text>
+                    <rect x="64" y="164" width="282" height="44" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="80" y="191" fill="#e5e7eb">2 · Substrato &amp; Contexto</text>
+                    <rect x="64" y="220" width="282" height="44" rx="9" fill="#0e2018" stroke="#34d399" stroke-width="1.6"/><text x="80" y="247" fill="#e5e7eb">3 · Regras &amp; Ganchos</text>
+                  </g>
+                  <g filter="url(#m12b-glow)"><rect x="450" y="44" width="330" height="240" rx="16" fill="#0e1b26" stroke="#38bdf8" stroke-width="2.5"/></g>
+                  <text x="615" y="74" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-weight="700" font-size="15">Ação · dinâmica</text>
+                  <text x="615" y="94" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-size="11">os braços · executam tarefas</text>
+                  <g font-family="Inter,sans-serif" font-size="13.5" font-weight="600">
+                    <rect x="474" y="108" width="282" height="44" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.6"/><text x="490" y="135" fill="#bfe6ff">4 · Habilidades</text>
+                    <rect x="474" y="164" width="282" height="44" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.6"/><text x="490" y="191" fill="#bfe6ff">5 · Ferramentas &amp; Conexões</text>
+                    <rect x="474" y="220" width="282" height="44" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.6"/><text x="490" y="247" fill="#bfe6ff">6 · Agentes</text>
+                  </g>
+                  <path d="M376,166 L444,166" stroke="#34d399" stroke-width="2.4" fill="none" marker-end="url(#m12b-ah)"/>
+                  <text x="410" y="156" text-anchor="middle" fill="#9ca3af" font-family="Inter,sans-serif" font-size="11">sustenta</text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Como ler:</strong> a coluna verde (fundação) é o que você constrói primeiro e mexe pouco; a coluna azul (ação) é o que executa e evolui sempre. A seta lembra a regra: <strong>a base sustenta a ação</strong> — sem a esquerda sólida, a direita não funciona.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t5-p2" class="text-neutral-300 leading-relaxed mb-6">Porque essa divisão organiza sua cabeça e o curso. Quando você sabe que está mexendo na fundação (algo que muda devagar) ou na ação (algo que evolui sempre), você calibra quanto esforço e quanta manutenção cada parte merece.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Estática</div><div class="text-xs text-neutral-400">muda devagar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Dinâmica</div><div class="text-xs text-neutral-400">evolui sempre</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Back of house</div><div class="text-xs text-neutral-400">os bastidores</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Base sustenta ação</div><div class="text-xs text-neutral-400">a regra do grupo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-1-2#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🧭 Como a distribuição muda por domínio</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t6-p1" class="text-neutral-300 leading-relaxed mb-6">A melhor prova de que a pizza é desigual é ver domínios reais lado a lado. Cada um tem uma fatia que pesa mais — e isso muda totalmente onde você investe o esforço. Esta é uma prévia da <strong class="text-emerald-400">Trilha 5</strong>, onde cada domínio vira um módulo completo.</p>
+
+              <div class="overflow-x-auto rounded-xl border border-dark-600 mb-6">
+                <table class="w-full text-sm">
+                  <thead class="bg-dark-800">
+                    <tr class="text-left">
+                      <th class="px-4 py-3 font-semibold text-emerald-400">Domínio</th>
+                      <th class="px-4 py-3 font-semibold text-emerald-400">Fatia que domina</th>
+                      <th class="px-4 py-3 font-semibold text-emerald-400">Por quê</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-dark-600">
+                    <tr><td class="px-4 py-3 text-neutral-100 font-semibold">Tax OS 🧾</td><td class="px-4 py-3 text-neutral-300">Contexto (~34%)</td><td class="px-4 py-3 text-neutral-400">Vive de leis, auditorias e compêndios — muito material para destilar.</td></tr>
+                    <tr><td class="px-4 py-3 text-neutral-100 font-semibold">Sales OS 📈</td><td class="px-4 py-3 text-neutral-300">Ferramentas + Skills</td><td class="px-4 py-3 text-neutral-400">~30% contexto, mas o peso vai pra scrapers, enriquecimento e qualificação.</td></tr>
+                    <tr><td class="px-4 py-3 text-neutral-100 font-semibold">Content OS 🎬</td><td class="px-4 py-3 text-neutral-300">Equilibrado</td><td class="px-4 py-3 text-neutral-400">Fábrica de títulos, briefs e repurpose — fatias mais parelhas.</td></tr>
+                    <tr><td class="px-4 py-3 text-neutral-100 font-semibold">Consulting OS 💼</td><td class="px-4 py-3 text-neutral-300">Regras &amp; Ganchos</td><td class="px-4 py-3 text-neutral-400">Voz do cliente e portões de revisão exigem controle de qualidade pesado.</td></tr>
+                    <tr><td class="px-4 py-3 text-neutral-100 font-semibold">Freedom OS 🗽</td><td class="px-4 py-3 text-neutral-300">Modelos locais</td><td class="px-4 py-3 text-neutral-400">Dados sensíveis (certidões, passaportes) não vão pra nuvem.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> O padrão por trás dos números</h3>
+                <p class="text-neutral-300 text-sm">Não decore as porcentagens — elas são exemplos. O que importa é o <strong class="text-neutral-100">padrão</strong>: domínios cheios de conhecimento pesam em Contexto; domínios de prospecção pesam em Ferramentas; domínios sob risco pesam em Regras. Achar a fatia dominante do <em>seu</em> domínio é o trabalho.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t6-p2" class="text-neutral-300 leading-relaxed mb-6">Porque te dá repertório. Ao ver cinco formas diferentes da mesma pizza, você passa a reconhecer a sua própria distribuição mais rápido — e entra na Trilha 5 já sabendo onde cada domínio costuma concentrar peso.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Fatia dominante</div><div class="text-xs text-neutral-400">muda por domínio</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">% são exemplos</div><div class="text-xs text-neutral-400">não decorar</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Padrão &gt; número</div><div class="text-xs text-neutral-400">o que repete</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Prévia da T5</div><div class="text-xs text-neutral-400">um domínio por módulo</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 -->
+          <section id="topico-7" data-inema-topic="modulo-1-2#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">🔀 "Order of operations": por onde começar</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m1-2-t7-p1" class="text-neutral-300 leading-relaxed mb-6">A ordem do Tópico 3 (Identidade primeiro) é o <strong class="text-emerald-400">padrão</strong>, não uma lei rígida. Na prática, às vezes você precisa <strong class="text-neutral-100">organizar o contexto antes de escrever a identidade</strong> — porque só depois de ver o material do domínio você consegue dizer com clareza quem o OS é. Isto é "order of operations": a sequência sensata, com exceções conscientes.</p>
+
+              <div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-emerald-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m1-2-t7-p2" class="text-sm text-neutral-300"><strong>"Order of operations"</strong> é uma expressão emprestada da matemática (a ordem em que você resolve uma conta). Aqui significa a ordem em que faz sentido construir as camadas. O ponto é: existe uma ordem padrão boa, mas o seu domínio pode pedir um pequeno ajuste — e tudo bem, desde que seja uma escolha pensada, não bagunça.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+                  <h4 class="font-bold text-emerald-400 mb-4">✓ Identidade primeiro quando…</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Você já conhece bem o domínio e o público.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>O OS é mais sobre tom e regras do que sobre dados.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Você consegue descrever a alma sem consultar arquivos.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+                  <h4 class="font-bold text-blue-400 mb-4">↔ Contexto primeiro quando…</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-blue-400">•</span><span>Há um "caminhão de lixo em chamas" de arquivos pra organizar.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">•</span><span>A identidade só fica clara depois de ver o material.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-blue-400">•</span><span>O domínio é denso em conhecimento (ex.: tributário, jurídico).</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Como o curso resolve isso pra você</h3>
+                <p class="text-neutral-300 text-sm">Na Trilha 4, a skill <span class="font-mono text-sm">/os-coach</span> decide a "order of operations" no seu lugar: ela faz 2-3 perguntas e escolhe se começa pela identidade ou pelo contexto. Você não precisa acertar a ordem de cabeça — só precisa saber que ela existe e por que às vezes muda.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m1-2-t7-p3" class="text-neutral-300 leading-relaxed mb-6">Porque remove a rigidez. Quem trata a ordem como lei trava quando o domínio não encaixa. Entender que é "padrão com exceções conscientes" te deixa adaptar sem culpa — exatamente o espírito de "arte mais que ciência" do Módulo 1.1.</p>
+
+              <h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Order of operations</div><div class="text-xs text-neutral-400">sequência sensata</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Padrão, não lei</div><div class="text-xs text-neutral-400">admite exceções</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Contexto antes</div><div class="text-xs text-neutral-400">se o domínio é denso</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">/os-coach decide</div><div class="text-xs text-neutral-400">a ordem por você</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">6 camadas, sempre as mesmas</strong><span class="text-neutral-400"> — Identidade, Substrato, Regras, Habilidades, Ferramentas, Agentes.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">A pizza é desigual</strong><span class="text-neutral-400"> — o peso de cada fatia depende do domínio; pergunte qual importa mais.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">A ordem que funciona</strong><span class="text-neutral-400"> — fundação primeiro (Identidade → Contexto → Regras), capacidade depois.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Erro nº 1: agentes cedo demais</strong><span class="text-neutral-400"> — eles são a última camada; genérico = base vazia.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Estáticas vs dinâmicas</strong><span class="text-neutral-400"> — a base sustenta a ação; e a "order of operations" é padrão, não lei.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-emerald-400 mb-2">Próximo módulo:</h3>
+                <p class="text-neutral-300">1.3 — Glossário essencial: cada termo definido com frase + analogia 📖</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para a Trilha</a>
+                <a href="modulo-1-3.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo módulo →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

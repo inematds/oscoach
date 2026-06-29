@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Engenharia de Sistemas Operacionais de IA — do zero ao OS vivo | AIOS</title>
+
+  <!-- 1) ANTI-FOUC — PRIMEIRO no <head>, antes do Tailwind (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; }
+        } else {
+          var legacy = localStorage.getItem('theme');
+          if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark';
+        }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = {
+        'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' },
+        'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null },
+        'contraste': { dark: true, attr: 'contraste', cs: 'dark' }
+      };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter');
+      html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString());
+      s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch');
+      s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
+        : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%');
+      s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- 2) MANIFESTO DO CURSO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <!-- 3) Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: {
+        primary: '#FACC15',
+        dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+      } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- 4) CSS base v1 + LIGHT MODE (todas as trilhas — landing) -->
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: cores de acento de TODAS as trilhas */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:border-emerald-500\/30:hover { border-color: rgba(5,150,105,0.25); }
+
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:border-blue-500\/30:hover { border-color: rgba(37,99,235,0.25); }
+
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .hover\:border-purple-500\/30:hover { border-color: rgba(124,58,237,0.25); }
+
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    html:not(.dark) .hover\:border-amber-500\/30:hover { border-color: rgba(217,119,6,0.25); }
+
+    html:not(.dark) .text-teal-400 { color: #0d9488; }
+    html:not(.dark) .bg-teal-500\/20 { background-color: rgba(13,148,136,0.12); }
+    html:not(.dark) .bg-teal-500\/10 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .border-teal-500\/30 { border-color: rgba(13,148,136,0.25); }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .group:hover .group-hover\:text-teal-400 { color: #0d9488; }
+    html:not(.dark) .hover\:border-teal-500\/30:hover { border-color: rgba(13,148,136,0.25); }
+
+    /* Light mode — Parte 3: remove gradientes + cores especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG futurista: suaviza o neon no claro (atinge só role="img") */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    /* pulso contido dos nós do diagrama (só sem reduce) */
+    @keyframes ld-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .ld-a { animation: ld-pulse 2.8s ease-in-out infinite; }
+      .ld-a:nth-child(2){animation-delay:.3s} .ld-a:nth-child(3){animation-delay:.6s}
+    }
+  </style>
+
+  <!-- 5) learn.css DEPOIS do CSS base -->
+  <link rel="stylesheet" href="assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (profundidade LANDING: logo -> index.html; trilhas -> curso/trilhaM/) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span>
+            <span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="curso/trilha1/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="curso/trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="curso/trilha3/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="curso/trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="curso/trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment">
+                  <button type="button" data-inema-set-theme="inema-dark">Escuro</button>
+                  <button type="button" data-inema-set-theme="claro">Claro</button>
+                  <button type="button" data-inema-set-theme="sepia">Sépia</button>
+                </div>
+                <div class="inema-segment">
+                  <button type="button" data-inema-set-theme="foco">Foco</button>
+                  <button type="button" data-inema-set-theme="contraste">Alto contraste</button>
+                </div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment">
+                  <button type="button" data-inema-set-font="inter">Inter</button>
+                  <button type="button" data-inema-set-font="system">Sistema</button>
+                  <button type="button" data-inema-set-font="leitura">Leitura</button>
+                </div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment">
+                  <button type="button" data-inema-set-fontscale="100">A</button>
+                  <button type="button" data-inema-set-fontscale="112">A+</button>
+                  <button type="button" data-inema-set-fontscale="125">A++</button>
+                </div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment">
+                  <button type="button" data-inema-set-linewidth="60">Estreito</button>
+                  <button type="button" data-inema-set-linewidth="68">Médio</button>
+                  <button type="button" data-inema-set-linewidth="75">Largo</button>
+                </div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment">
+                  <button type="button" data-inema-set-leading="1.45">Compacto</button>
+                  <button type="button" data-inema-set-leading="1.7">Confortável</button>
+                </div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo">
+    <!-- HERO -->
+    <header class="bg-gradient-to-br from-emerald-900/30 via-dark-900 to-dark-900 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-5">CURSO INEMA.CLUB · AIOS</span>
+        <h1 class="text-4xl sm:text-5xl font-bold mb-4 leading-tight">Engenharia de Sistemas Operacionais de IA<span class="text-emerald-400"> — do zero ao OS vivo</span></h1>
+        <p class="text-lg sm:text-xl text-neutral-400 max-w-3xl mb-8">Construa centros de comando de IA, uma camada por vez, sem virar engenheiro. A tese do curso: <strong class="text-neutral-300">não instale um OS agente — cultive-o.</strong></p>
+
+        <!-- Hero SVG: a pilha das 6 camadas -->
+        <div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-5 mb-8 overflow-hidden">
+          <svg viewBox="0 0 760 430" class="w-full h-auto" role="img" aria-label="A pilha de seis camadas de um sistema operacional de IA, da fundação (Identidade, embaixo) até a ação (Agentes, no topo): Identidade, Substrato e Contexto, Regras e Ganchos, Habilidades, Ferramentas e Conexões e Agentes.">
+            <defs>
+              <linearGradient id="ld-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/></linearGradient>
+              <filter id="ld-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <pattern id="ld-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#10b981" opacity="0.12"/></pattern>
+            </defs>
+            <rect x="0" y="0" width="760" height="430" fill="url(#ld-grid)"/>
+            <!-- eixo: fundação (base) -> ação (topo) -->
+            <g font-family="Inter,sans-serif" font-size="12.5" fill="#9ad6ff">
+              <text x="690" y="60" text-anchor="middle">ação</text>
+              <text x="690" y="372" text-anchor="middle">fundação</text>
+            </g>
+            <g fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5"><path d="M690,70 L690,360"/></g>
+            <!-- 6 — Agentes (topo, ciano, dinâmica) -->
+            <g class="ld-a"><rect x="120" y="44" width="520" height="48" rx="12" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/>
+              <circle cx="150" cy="68" r="13" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="150" y="73" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="600" font-size="14">6</text>
+              <text x="178" y="64" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="600" font-size="16">Agentes</text>
+              <text x="178" y="82" fill="#9ad6ff" font-family="Inter,sans-serif" font-size="12">papéis com julgamento · a ÚLTIMA camada</text>
+            </g>
+            <!-- 5 — Ferramentas & Conexões -->
+            <g><rect x="120" y="106" width="520" height="48" rx="12" fill="#0e2018" stroke="#34d399" stroke-width="2"/>
+              <circle cx="150" cy="130" r="13" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="150" y="135" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="600" font-size="14">5</text>
+              <text x="178" y="126" fill="#e5e7eb" font-family="Inter,sans-serif" font-weight="600" font-size="16">Ferramentas &amp; Conexões</text>
+              <text x="178" y="144" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">os fios pra fora · skill, CLI, MCP ou API?</text>
+            </g>
+            <!-- 4 — Habilidades -->
+            <g><rect x="120" y="168" width="520" height="48" rx="12" fill="#0e2018" stroke="#34d399" stroke-width="2"/>
+              <circle cx="150" cy="192" r="13" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="150" y="197" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="600" font-size="14">4</text>
+              <text x="178" y="188" fill="#e5e7eb" font-family="Inter,sans-serif" font-weight="600" font-size="16">Habilidades</text>
+              <text x="178" y="206" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">os verbos conquistados · comece manual</text>
+            </g>
+            <!-- 3 — Regras & Ganchos -->
+            <g><rect x="120" y="230" width="520" height="48" rx="12" fill="#0e2018" stroke="#34d399" stroke-width="2"/>
+              <circle cx="150" cy="254" r="13" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="150" y="259" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="600" font-size="14">3</text>
+              <text x="178" y="250" fill="#e5e7eb" font-family="Inter,sans-serif" font-weight="600" font-size="16">Regras &amp; Ganchos</text>
+              <text x="178" y="268" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">as cercas · sugestão forte vs determinístico</text>
+            </g>
+            <!-- 2 — Substrato & Contexto -->
+            <g><rect x="120" y="292" width="520" height="48" rx="12" fill="#0e2018" stroke="#34d399" stroke-width="2"/>
+              <circle cx="150" cy="316" r="13" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="150" y="321" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="600" font-size="14">2</text>
+              <text x="178" y="312" fill="#e5e7eb" font-family="Inter,sans-serif" font-weight="600" font-size="16">Substrato &amp; Contexto</text>
+              <text x="178" y="330" fill="#9ca3af" font-family="Inter,sans-serif" font-size="12">os bastidores · a maior camada</text>
+            </g>
+            <!-- 1 — Identidade (base, glow foco) -->
+            <g filter="url(#ld-glow)"><rect x="120" y="354" width="520" height="52" rx="13" fill="#13261d" stroke="url(#ld-grad)" stroke-width="2.5"/></g>
+            <circle cx="150" cy="380" r="14" fill="#13261d" stroke="url(#ld-grad)" stroke-width="2.5"/><text x="150" y="385" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="15">1</text>
+            <text x="178" y="376" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="16">Identidade — o arquivo-alma</text>
+            <text x="178" y="395" fill="#a7f3d0" font-family="Inter,sans-serif" font-size="12">CLAUDE.md · onde a maioria DEVERIA começar</text>
+          </svg>
+          <p class="text-xs text-neutral-400 mt-3 px-1"><strong class="text-emerald-400">Como ler:</strong> a pilha se constrói de baixo para cima. As camadas de baixo (Identidade, Substrato, Regras) são a fundação estática; as de cima (Habilidades, Ferramentas, Agentes) são a ação. O erro nº1 é pular direto para o topo (Agentes).</p>
+        </div>
+
+        <!-- Controles da camada de aprendizagem (landing) -->
+        <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4">
+          <a href="curso/trilha1/index.html" class="inline-flex items-center justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-semibold transition-colors">Começar pela Trilha 1 →</a>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-dark-800 border border-dark-600 text-neutral-200 hover:bg-dark-700 transition-colors font-semibold">
+            <span aria-hidden="true">◷</span> Minha jornada
+          </button>
+          <a id="resume-cta" href="#" class="hidden inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary/10 border border-primary/30 text-primary hover:bg-primary/10 transition-colors font-semibold">
+            <span aria-hidden="true">▸</span> Continuar de onde parei
+          </a>
+          <!-- medidor do curso inteiro (derivado do read-map sobre o manifesto) -->
+          <div class="flex items-center gap-3">
+            <div data-inema-meter="curso" class="inema-ring" aria-label="Progresso do curso">
+              <span class="inema-ring__value" data-inema-meter-pct>0%</span>
+            </div>
+            <div class="text-sm">
+              <div class="font-semibold text-neutral-200">Seu progresso</div>
+              <div class="inema-meter-label" data-inema-meter="curso"><span data-inema-meter-frac>0 de 0</span> tópicos</div>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-neutral-500 mt-4">Seu progresso, dúvidas e anotações ficam salvos só no seu navegador (localStorage). Use <strong class="text-neutral-400">Minha jornada</strong> para exportar/importar.</p>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16">
+
+      <!-- O QUE É -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6">O que é um Sistema Operacional de IA</h2>
+        <div class="inema-prose">
+          <p class="text-neutral-300 leading-relaxed mb-4">Um <strong class="text-emerald-400">Sistema Operacional de IA (AIOS)</strong> é, na essência, um <strong class="text-neutral-100">centro de comando para um domínio específico</strong> da sua vida ou do seu negócio. Não é um produto único que você instala — é <strong class="text-neutral-100">um punhado de pastas + um arquivo de identidade</strong> (o <span class="font-mono text-sm bg-dark-700 px-1.5 py-0.5 rounded">CLAUDE.md</span>), agnóstico à ferramenta (serve Claude Code, Codex, open code).</p>
+          <p class="text-neutral-300 leading-relaxed">O autor mantém vários: um <strong class="text-neutral-100">Freedom OS</strong> (residências e passaportes), um <strong class="text-neutral-100">Tax OS</strong> (leis e auditorias), um <strong class="text-neutral-100">Skool OS</strong> (anúncios na voz dele), além de Health OS e Marketing OS. Cada domínio vira um OS sob medida. A regra de ouro: <strong class="text-emerald-400">cultive, não instale</strong> — um fim de semana leva a 80%, mas só fica sólido com uso diário e auditoria.</p>
+        </div>
+      </section>
+
+      <!-- AS 6 CAMADAS -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6">As 6 camadas — e a pizza que não é dividida igual</h2>
+        <p class="text-neutral-400 mb-6 max-w-3xl">Todo OS tem as mesmas seis camadas, mas o "gráfico de pizza" muda de forma a cada domínio: num Tax OS o contexto pesa ~34%; num Sales OS, ferramentas e skills dominam. A ordem que funciona vai da fundação à ação.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-5"><div class="text-emerald-400 font-bold mb-1">1 · Identidade</div><p class="text-sm text-neutral-400">A alma. Quem o OS é, a quem serve, o que recusa. Vive no <span class="font-mono text-xs">CLAUDE.md</span>.</p></div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-5"><div class="text-emerald-400 font-bold mb-1">2 · Substrato &amp; Contexto</div><p class="text-sm text-neutral-400">Os bastidores. O conhecimento bruto e destilado em que o OS roda. A maior camada.</p></div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-5"><div class="text-emerald-400 font-bold mb-1">3 · Regras &amp; Ganchos</div><p class="text-sm text-neutral-400">As cercas. Regra = sugestão forte; gancho = determinístico (sempre/nunca).</p></div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-5"><div class="text-emerald-400 font-bold mb-1">4 · Habilidades</div><p class="text-sm text-neutral-400">Os verbos conquistados. Tarefas repetíveis. Comece manual, depois capture.</p></div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-5"><div class="text-emerald-400 font-bold mb-1">5 · Ferramentas &amp; Conexões</div><p class="text-sm text-neutral-400">Os fios pra fora. A pergunta: skill, CLI, MCP ou API? CLIs read-only para segurança.</p></div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-5"><div class="text-emerald-400 font-bold mb-1">6 · Agentes</div><p class="text-sm text-neutral-400">Papéis com julgamento que orquestram skills. A ÚLTIMA camada — não a primeira.</p></div>
+        </div>
+      </section>
+
+      <!-- TRILHAS -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6">As 5 trilhas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- T1 -->
+          <a href="curso/trilha1/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-emerald-500/30 p-6 transition-all">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-xs font-semibold text-emerald-400 mb-1">TRILHA 1 · FUNDAMENTOS</div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">📦 O que é, as 6 camadas e o glossário</h3>
+                <p class="text-sm text-neutral-400">O modelo mental e o vocabulário. Ninguém avança sem entender os termos. 3 módulos.</p>
+              </div>
+              <div data-inema-meter="trilha:1" class="inema-ring flex-shrink-0" aria-label="Progresso da Trilha 1"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+            </div>
+          </a>
+          <!-- T2 -->
+          <a href="curso/trilha2/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-6 transition-all">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-xs font-semibold text-blue-400 mb-1">TRILHA 2 · TÉCNICA I — A BASE</div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">🪪 Identidade, Substrato e Regras</h3>
+                <p class="text-sm text-neutral-400">As camadas de fundação (estáticas). Sem elas, agentes não têm em que se apoiar. 3 módulos.</p>
+              </div>
+              <div data-inema-meter="trilha:2" class="inema-ring flex-shrink-0" aria-label="Progresso da Trilha 2"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+            </div>
+          </a>
+          <!-- T3 -->
+          <a href="curso/trilha3/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-6 transition-all">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-xs font-semibold text-purple-400 mb-1">TRILHA 3 · TÉCNICA II — A CAPACIDADE</div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">🤖 Habilidades, Ferramentas e Agentes</h3>
+                <p class="text-sm text-neutral-400">As camadas de ação (dinâmicas). Verbos e braços ao OS — só depois da base. 3 módulos.</p>
+              </div>
+              <div data-inema-meter="trilha:3" class="inema-ring flex-shrink-0" aria-label="Progresso da Trilha 3"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+            </div>
+          </a>
+          <!-- T4 -->
+          <a href="curso/trilha4/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-6 transition-all">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-xs font-semibold text-amber-400 mb-1">TRILHA 4 · PASSO A PASSO</div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-amber-400 transition-colors">⚙️ Seu primeiro OS com o /os-coach</h3>
+                <p class="text-sm text-neutral-400">100% mão na massa: do <span class="font-mono text-xs">start</span> ao <span class="font-mono text-xs">audit</span>, camada por camada. 6 módulos.</p>
+              </div>
+              <div data-inema-meter="trilha:4" class="inema-ring flex-shrink-0" aria-label="Progresso da Trilha 4"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+            </div>
+          </a>
+          <!-- T5 -->
+          <a href="curso/trilha5/index.html" class="group block bg-dark-800 rounded-xl border border-dark-600 hover:border-teal-500/30 p-6 transition-all md:col-span-2">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-xs font-semibold text-teal-400 mb-1">TRILHA 5 · AVANÇADO</div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-teal-400 transition-colors">🗽 Domínios reais &amp; produção</h3>
+                <p class="text-sm text-neutral-400">A pizza muda de forma em 6 domínios (Tax, Sales, Support, Content, Consulting, Freedom) + padrões de produção. 6 módulos.</p>
+              </div>
+              <div data-inema-meter="trilha:5" class="inema-ring flex-shrink-0" aria-label="Progresso da Trilha 5"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- PRÉ-REQUISITOS -->
+      <section>
+        <h2 class="text-2xl font-bold mb-6">Pré-requisitos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+            <h3 class="font-bold text-emerald-400 mb-4">✓ Você precisa de</h3>
+            <ul class="space-y-3 text-neutral-300 text-sm">
+              <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Claude Code (ou Codex / open code) instalado.</span></li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Saber abrir uma pasta e digitar comandos simples no terminal.</span></li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Um domínio em mente (negócio ou vida pessoal) para construir o seu OS.</span></li>
+            </ul>
+          </div>
+          <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+            <h3 class="font-bold text-neutral-200 mb-4">Não precisa de</h3>
+            <ul class="space-y-3 text-neutral-400 text-sm">
+              <li class="flex items-start gap-2"><span class="text-neutral-500">•</span><span>Nenhuma linguagem de programação. A IA escreve os scripts.</span></li>
+              <li class="flex items-start gap-2"><span class="text-neutral-500">•</span><span>Experiência prévia com agentes ou MCP — tudo é definido inline na 1ª aparição.</span></li>
+              <li class="flex items-start gap-2"><span class="text-neutral-500">•</span><span>Servidor ou build: as páginas abrem direto no navegador (até em <span class="font-mono text-xs">file://</span>).</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CRÉDITO -->
+      <section class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 sm:p-8">
+        <h2 class="text-xl font-bold mb-3">Créditos e fonte</h2>
+        <p class="text-neutral-300 text-sm leading-relaxed">Curso baseado no módulo do <strong class="text-neutral-100">Living Course</strong> da comunidade <strong class="text-neutral-100">earlyaidopters</strong> + a skill open-source <strong class="text-neutral-100">OS Coach</strong>. O <span class="font-mono text-xs">/os-coach</span> guia uma pessoa não técnica a construir o próprio OS agêntico, uma camada por vez, no loop <em>Perguntar → Construir → Persistir → Próximo → Auditar</em>.</p>
+        <a href="https://github.com/earlyaidopters/os-coach" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-4 text-sky-400 hover:text-sky-300 text-sm font-medium">github.com/earlyaidopters/os-coach ↗</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    // Theme toggle (sol/lua). O learn.js absorve este toggle e mantém coerência.
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() {
+        var isDark = html.classList.contains('dark');
+        if (darkIcon) darkIcon.classList.toggle('hidden', isDark);
+        if (lightIcon) lightIcon.classList.toggle('hidden', !isDark);
+      }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark');
+        var nowDark = html.classList.contains('dark');
+        html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try {
+          var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}');
+          p.theme = nowDark ? 'inema-dark' : 'claro';
+          localStorage.setItem('inema.prefs', JSON.stringify(p));
+        } catch (e) {}
+        sync();
+      });
+    })();
+
+    // "Continuar de onde parei": revela e aponta para o último módulo visitado.
+    (function () {
+      try {
+        var raw = localStorage.getItem('inema.oscoach.meta');
+        if (!raw) return;
+        var meta = JSON.parse(raw);
+        if (meta && meta.lastModuleHref) {
+          var cta = document.getElementById('resume-cta');
+          if (cta) { cta.setAttribute('href', meta.lastModuleHref); cta.classList.remove('hidden'); }
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO -->
+  <script src="assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+  </script>
+</body>
+</html>

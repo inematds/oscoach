@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="inema-course" content="oscoach">
+  <title>Módulo 3.3 · Agentes — papéis com julgamento | AIOS</title>
+
+  <!-- ANTI-FOUC (Erro #18) -->
+  <script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+
+  <!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+  <script type="application/json" data-inema-manifest>
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (purple) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/30 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m33-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m33-a { animation: m33-pulse 2.8s ease-in-out infinite; }
+      .m33-a:nth-child(2){animation-delay:.25s} .m33-a:nth-child(3){animation-delay:.5s}
+      .m33-a:nth-child(4){animation-delay:.75s} .m33-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/learn.css">
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- NAV (curso/trilhaN/ — T3 ATIVA) -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14 gap-2">
+        <div class="flex items-center space-x-3 flex-shrink-0">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+          </a>
+          <span class="text-neutral-600 hidden sm:inline">|</span>
+          <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center gap-1 sm:gap-1.5">
+          <a href="../trilha1/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+          <a href="../trilha2/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+          <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10 whitespace-nowrap"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+          <a href="../trilha4/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Passo a passo</span></a>
+          <a href="../trilha5/index.html" class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avançado</span></a>
+          <span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+          <button type="button" data-inema-journey-open class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors">
+            <span aria-hidden="true">◷</span><span class="hidden md:inline">Minha jornada</span>
+            <span class="inema-journey-badge" data-inema-journey-badge data-count="0"></span>
+          </button>
+          <div class="relative">
+            <button type="button" data-inema-appearance-toggle="#inema-appearance-panel" aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors">
+              <span aria-hidden="true">◑</span><span class="hidden md:inline">Aparência</span>
+            </button>
+            <div id="inema-appearance-panel" data-inema-appearance class="inema-appearance-pop right-0">
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="inema-dark">Escuro</button><button type="button" data-inema-set-theme="claro">Claro</button><button type="button" data-inema-set-theme="sepia">Sépia</button></div>
+                <div class="inema-segment"><button type="button" data-inema-set-theme="foco">Foco</button><button type="button" data-inema-set-theme="contraste">Alto contraste</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Fonte</span>
+                <div class="inema-segment"><button type="button" data-inema-set-font="inter">Inter</button><button type="button" data-inema-set-font="system">Sistema</button><button type="button" data-inema-set-font="leitura">Leitura</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Tamanho</span>
+                <div class="inema-segment"><button type="button" data-inema-set-fontscale="100">A</button><button type="button" data-inema-set-fontscale="112">A+</button><button type="button" data-inema-set-fontscale="125">A++</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Largura</span>
+                <div class="inema-segment"><button type="button" data-inema-set-linewidth="60">Estreito</button><button type="button" data-inema-set-linewidth="68">Médio</button><button type="button" data-inema-set-linewidth="75">Largo</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Entrelinha</span>
+                <div class="inema-segment"><button type="button" data-inema-set-leading="1.45">Compacto</button><button type="button" data-inema-set-leading="1.7">Confortável</button></div>
+              </div>
+              <div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+                <div class="inema-accent-grid">
+                  <button type="button" data-inema-set-accent="emerald" aria-label="Acento esmeralda"></button>
+                  <button type="button" data-inema-set-accent="blue" aria-label="Acento azul"></button>
+                  <button type="button" data-inema-set-accent="purple" aria-label="Acento roxo"></button>
+                  <button type="button" data-inema-set-accent="amber" aria-label="Acento âmbar"></button>
+                  <button type="button" data-inema-set-accent="teal" aria-label="Acento teal"></button>
+                  <button type="button" data-inema-set-accent="rose" aria-label="Acento rosa"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" aria-label="Alternar tema claro/escuro">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="conteudo" data-inema-module="3-3" data-inema-track="3">
+    <!-- BREADCRUMB -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4" aria-label="Trilha de navegação">
+      <div class="flex items-center space-x-2 text-sm text-neutral-400">
+        <a href="../../index.html" class="hover:text-purple-400">Início</a><span>/</span>
+        <a href="index.html" class="hover:text-purple-400">Trilha 3</a><span>/</span>
+        <span class="text-purple-400">Módulo 3.3</span>
+      </div>
+    </nav>
+
+    <!-- HEADER do módulo -->
+    <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.3</span>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">🤖 Agentes — papéis com julgamento</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">A última camada, não a primeira. Skill é um verbo; <strong class="text-neutral-300">agente</strong> é o chef que escolhe skills, em ordem, com julgamento — e sempre com um <strong class="text-purple-400">portão de revisão</strong> antes de algo sair.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">8</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">~50</div><div class="text-xs text-neutral-400">Minutos</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+          <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+        </div>
+        <!-- progresso do módulo -->
+        <div class="flex items-center gap-3 mt-8">
+          <div data-inema-meter="modulo:3-3" class="inema-ring" aria-label="Progresso do módulo 3.3"><span class="inema-ring__value" data-inema-meter-pct>0%</span></div>
+          <div class="inema-meter-label" data-inema-meter="modulo:3-3"><strong data-inema-meter-frac>0 de 0</strong> tópicos lidos · <span data-inema-section-counter>Seção 1 de 8</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="lg:flex lg:gap-10">
+
+        <!-- TOC sticky + scrollspy -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav data-inema-toc aria-label="Índice da página" class="sticky top-20 self-start">
+            <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">Neste módulo</p>
+            <ol class="space-y-1 text-sm">
+              <li><a href="#topico-1" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">1. Skill vs agente</a></li>
+              <li><a href="#topico-2" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">2. O portão de revisão</a></li>
+              <li><a href="#topico-3" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">3. Promova só o que já faz à mão</a></li>
+              <li><a href="#topico-4" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">4. Agente vs workflow vs sub-agentes</a></li>
+              <li><a href="#topico-5" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">5. Exemplos</a></li>
+              <li><a href="#topico-6" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">6. Review gates</a></li>
+              <li><a href="#topico-7" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">7. Modelos mais espertos</a></li>
+              <li><a href="#topico-8" class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400">8. Copy-run: AGENT.md</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <!-- ARTIGO -->
+        <article class="inema-prose flex-1 min-w-0">
+
+          <h2 class="text-2xl font-bold mb-8">Conteúdo detalhado</h2>
+
+          <!-- TÓPICO 1 -->
+          <section id="topico-1" data-inema-topic="modulo-3-3#topico-1" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+              <h2 class="text-2xl font-bold pt-1">🧑‍🍳 Skill = 1 verbo; agente = o chef</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t1-p1" class="text-neutral-300 leading-relaxed mb-6">A diferença essencial: uma <strong class="text-purple-400">skill é um verbo</strong> — uma tarefa. Em algum momento, várias skills relacionadas merecem virar uma entidade própria, equipada com julgamento: o <strong class="text-purple-400">agente</strong>. Ele não é uma skill única; é um especialista que orquestra <em>várias</em> skills, na ordem certa, decidindo qual usar.</p>
+
+              <div class="bg-dark-800 border border-purple-500/30 rounded-xl p-4 mb-6">
+                <p class="text-sm text-purple-400 font-semibold mb-1">🌱 Novo aqui?</p>
+                <p data-inema-block="m3-3-t1-p2" class="text-sm text-neutral-300">Um <strong>agente</strong> é um papel — pense num "funcionário" do seu OS, especialista num pedaço do domínio. <strong>Orquestrar</strong> quer dizer escolher e disparar skills na sequência certa, como um chef que decide qual ferramenta pegar e prova o prato antes de servir. A skill é a faca; o agente é quem decide cortar.</p>
+              </div>
+
+              <!-- SVG A: agente contém skills (aninhamento) -->
+              <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 820 230" class="w-full h-auto" role="img" aria-label="Um agente é uma caixa maior, com julgamento, que contém e orquestra várias skills menores: ele decide qual skill usar, em que ordem, e revisa o resultado.">
+                  <defs>
+                    <linearGradient id="m33a-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+                    <filter id="m33a-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m33a-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#a855f7" opacity="0.1"/></pattern>
+                  </defs>
+                  <rect x="0" y="0" width="820" height="230" fill="url(#m33a-grid)"/>
+                  <g filter="url(#m33a-glow)"><rect x="60" y="40" width="700" height="150" rx="16" fill="#1a1230" stroke="url(#m33a-grad)" stroke-width="2.5"/></g>
+                  <text x="84" y="70" fill="#c084fc" font-family="Inter,sans-serif" font-weight="700" font-size="16">🤖 Agente — papel com julgamento</text>
+                  <text x="84" y="90" fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11.5">escolhe qual skill, em que ordem, e revisa</text>
+                  <g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+                    <g class="m33-a"><rect x="96" y="116" width="190" height="52" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="191" y="139" text-anchor="middle" fill="#bfe6ff">skill: buscar docs</text><text x="191" y="157" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">um verbo</text></g>
+                    <g class="m33-a"><rect x="316" y="116" width="190" height="52" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="411" y="139" text-anchor="middle" fill="#bfe6ff">skill: rascunhar</text><text x="411" y="157" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">um verbo</text></g>
+                    <g class="m33-a"><rect x="536" y="116" width="190" height="52" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="631" y="139" text-anchor="middle" fill="#bfe6ff">skill: classificar</text><text x="631" y="157" text-anchor="middle" fill="#9ad6ff" font-weight="400" font-size="11">um verbo</text></g>
+                  </g>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-purple-400">Como ler:</strong> a caixa grande (roxa) é o agente; as três menores (ciano) são skills — cada uma um verbo. O que o agente adiciona não é mais um verbo: é o <em>julgamento</em> de qual chamar, quando e com qual revisão.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t1-p3" class="text-neutral-300 leading-relaxed mb-6">Porque confundir skill com agente é o erro que infla custo e fragilidade. Se a tarefa é um único verbo, ela é uma skill — criar um "agente" ali é exagero. O agente só se justifica quando há várias skills para coordenar com julgamento. Guardar essa fronteira evita o anti-padrão que abre a Trilha 1: pular para agentes cedo demais.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Verbo</div><div class="text-xs text-neutral-400">a skill</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Chef</div><div class="text-xs text-neutral-400">o agente</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Orquestra</div><div class="text-xs text-neutral-400">várias skills</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Julgamento</div><div class="text-xs text-neutral-400">qual, quando, revisa</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 2 -->
+          <section id="topico-2" data-inema-topic="modulo-3-3#topico-2" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+              <h2 class="text-2xl font-bold pt-1">🚪 O portão de revisão antes de algo sair</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t2-p1" class="text-neutral-300 leading-relaxed mb-6">O que torna um agente confiável não é só o que ele faz — é o <strong class="text-purple-400">portão de revisão</strong> (review gate) antes de qualquer coisa sair para o mundo. Todo agente que produz algo que vai para fora (um e-mail, um relatório, um lançamento) passa por um ponto de checagem: você, ou outro agente, confere antes do envio.</p>
+
+              <!-- SVG B: review gate flow -->
+              <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+                <svg viewBox="0 0 880 270" class="w-full h-auto" role="img" aria-label="O fluxo de um portão de revisão: o agente gera um rascunho, que passa por uma revisão; se aprovado, sai para fora; se reprovado, volta ao agente para refazer.">
+                  <defs>
+                    <linearGradient id="m33b-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+                    <filter id="m33b-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <pattern id="m33b-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#a855f7" opacity="0.1"/></pattern>
+                    <marker id="m33b-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+                    <marker id="m33b-ahr" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f87171"/></marker>
+                    <marker id="m33b-ahg" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"/></marker>
+                  </defs>
+                  <rect x="0" y="0" width="880" height="270" fill="url(#m33b-grid)"/>
+                  <!-- agente -->
+                  <rect x="40" y="100" width="150" height="56" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="115" y="132" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="600" font-size="13.5">Agente</text>
+                  <!-- rascunho -->
+                  <rect x="250" y="100" width="150" height="56" rx="11" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="325" y="132" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="600" font-size="13.5">Rascunho</text>
+                  <!-- diamante revisão (foco) -->
+                  <g filter="url(#m33b-glow)"><polygon points="540,80 620,128 540,176 460,128" fill="#1a1230" stroke="url(#m33b-grad)" stroke-width="2.5"/></g>
+                  <text x="540" y="124" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-weight="700" font-size="14">Revisão</text>
+                  <text x="540" y="142" text-anchor="middle" fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11">passa?</text>
+                  <!-- sai pra fora -->
+                  <rect x="690" y="100" width="160" height="56" rx="11" fill="#1a1230" stroke="#c084fc" stroke-width="2"/><text x="770" y="125" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-weight="700" font-size="13.5">Vai pra fora</text><text x="770" y="143" text-anchor="middle" fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11">e-mail, relatório…</text>
+                  <!-- setas -->
+                  <path d="M190,128 L250,128" fill="none" stroke="#38bdf8" stroke-width="2.2" opacity="0.7" marker-end="url(#m33b-ah)"/>
+                  <path d="M400,128 L460,128" fill="none" stroke="#38bdf8" stroke-width="2.2" opacity="0.7" marker-end="url(#m33b-ah)"/>
+                  <path d="M620,128 L690,128" fill="none" stroke="#c084fc" stroke-width="2.4" opacity="0.8" marker-end="url(#m33b-ahg)"/>
+                  <text x="652" y="118" text-anchor="middle" fill="#c084fc" font-family="Inter,sans-serif" font-size="11.5" font-weight="600">sim ✓</text>
+                  <!-- volta (reprovado) -->
+                  <path d="M540,176 C540,236 115,236 115,156" fill="none" stroke="#f87171" stroke-width="2.2" opacity="0.8" marker-end="url(#m33b-ahr)"/>
+                  <text x="320" y="232" text-anchor="middle" fill="#f87171" font-family="Inter,sans-serif" font-size="11.5" font-weight="600">não ✗ — volta e refaz</text>
+                </svg>
+              </div>
+              <p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-purple-400">Como ler:</strong> o rascunho do agente não sai direto. Ele passa pela revisão (o losango roxo). "Sim" segue para o mundo; "não" (vermelho) volta ao agente para refazer. Esse laço é o que evita que bobagem chegue ao cliente.</p>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Quem revisa</h3>
+                <p class="text-neutral-300 text-sm">O revisor pode ser <strong class="text-neutral-100">você</strong> (humano no loop, dando o OK final) ou <strong class="text-neutral-100">outro agente</strong> — o revisor cético do tópico 6. Em domínios sérios (dinheiro, jurídico), o portão é obrigatório; é ele que sustenta a confiança no agente.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t2-p2" class="text-neutral-300 leading-relaxed mb-6">Porque um agente sem portão é um risco solto. Com o review gate, você ganha autonomia sem perder controle: o agente trabalha, mas nada irreversível acontece sem passar pela checagem. É o equivalente, na camada de agentes, ao hack read-only da camada de ferramentas — segurança por desenho.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Review gate</div><div class="text-xs text-neutral-400">o portão de revisão</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Antes de sair</div><div class="text-xs text-neutral-400">checa o que vai pra fora</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Humano no loop</div><div class="text-xs text-neutral-400">você dá o OK</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Confiança</div><div class="text-xs text-neutral-400">autonomia com controle</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 3 -->
+          <section id="topico-3" data-inema-topic="modulo-3-3#topico-3" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+              <h2 class="text-2xl font-bold pt-1">🔼 Promova só uma rotina que você já faz à mão</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t3-p1" class="text-neutral-300 leading-relaxed mb-6">O critério de quando criar um agente é direto: só promova a agente uma rotina que você <strong class="text-purple-400">já executa à mão hoje</strong>, com skills que já existem para ele orquestrar. É o mesmo "comece manual" da camada de skills, um nível acima — agente não é onde você começa, é onde você chega.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+                  <h4 class="font-bold text-purple-400 mb-4">✓ Pronto para virar agente</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Você já faz essa rotina à mão, repetidamente.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Já existem skills para o agente orquestrar.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Há um portão de revisão claro antes do envio.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Agente-teatro</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Agente para algo que você nunca fez à mão.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Nenhuma skill embaixo — só promessa.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Parece poderoso, mas não entrega nada confiável.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> O erro nº1 do curso, de novo</h3>
+                <p class="text-neutral-300 text-sm">A maioria das pessoas começa pela camada de agentes — a última que deveriam tocar. Um agente é um "funcionário" que só faz sentido contratar depois que você tem contexto, skills e regras construídos. Sem essa base, o agente não tem em que se apoiar.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t3-p2" class="text-neutral-300 leading-relaxed mb-6">Porque é o freio contra o entusiasmo. Agentes são a parte "legal" e por isso a tentação de começar por eles é enorme. Promover só rotinas reais, com skills prontas embaixo, garante que cada agente seja um trabalhador de verdade — não um enfeite que impressiona e falha.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Rotina real</div><div class="text-xs text-neutral-400">já faz à mão</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Skills antes</div><div class="text-xs text-neutral-400">pré-requisito</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Última camada</div><div class="text-xs text-neutral-400">não a primeira</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Sem teatro</div><div class="text-xs text-neutral-400">trabalhador de verdade</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 4 -->
+          <section id="topico-4" data-inema-topic="modulo-3-3#topico-4" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+              <h2 class="text-2xl font-bold pt-1">🔀 Agente vs workflow vs sub-agentes descartáveis</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t4-p1" class="text-neutral-300 leading-relaxed mb-6">Nem todo trabalho merece um "funcionário" permanente. Antes de criar um agente, pergunte: <strong class="text-purple-400">você precisa mesmo de um agente, ou só de um processo que roda de vez em quando?</strong> Uma auditoria pontual de centenas de arquivos talvez seja um <strong class="text-neutral-100">workflow dinâmico</strong>, não um agente fixo. E quando precisa de mais força bruta, você sobe <strong class="text-neutral-100">sub-agentes descartáveis</strong>.</p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-5"><div class="text-2xl mb-2">🧑‍💼</div><div class="font-semibold mb-1">Agente fixo</div><p class="text-xs text-neutral-400">Um papel permanente que você "emprega". Faz sentido para rotinas recorrentes com julgamento — ex.: o agente de resposta.</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-5"><div class="text-2xl mb-2">⚙️</div><div class="font-semibold mb-1">Workflow dinâmico</div><p class="text-xs text-neutral-400">Um processo pontual, montado para uma tarefa específica — ex.: auditar 100s de arquivos uma vez. Não precisa de "funcionário".</p></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-xl p-5"><div class="text-2xl mb-2">🧨</div><div class="font-semibold mb-1">Sub-agentes descartáveis</div><p class="text-xs text-neutral-400">Quando você precisa de muito mais firepower, sobe vários agentes throwaway para a carga e depois os descarta.</p></div>
+              </div>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> A escala da escolha</h3>
+                <p class="text-neutral-300 text-sm">Pense em escala: tarefa única e grande → workflow. Rotina recorrente com julgamento → agente fixo. Pico de carga que exige paralelismo → sub-agentes descartáveis. Escolher a forma certa evita criar um "funcionário" permanente para um trabalho que acontece uma vez.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t4-p2" class="text-neutral-300 leading-relaxed mb-6">Porque "agente" não é a única — nem sempre a melhor — resposta. Tratar tudo como agente fixo enche o OS de papéis que raramente rodam. Distinguir agente, workflow e sub-agentes te faz aplicar a forma certa para cada carga, economizando contexto e manutenção.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Agente fixo</div><div class="text-xs text-neutral-400">papel permanente</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Workflow</div><div class="text-xs text-neutral-400">tarefa pontual</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Sub-agentes</div><div class="text-xs text-neutral-400">throwaway, sob carga</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Firepower</div><div class="text-xs text-neutral-400">paralelismo quando precisa</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 5 -->
+          <section id="topico-5" data-inema-topic="modulo-3-3#topico-5" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+              <h2 class="text-2xl font-bold pt-1">🗂️ Exemplos: agente de resposta e de deep research</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t5-p1" class="text-neutral-300 leading-relaxed mb-6">No Freedom OS, os agentes nasceram de rotinas que o autor já fazia à mão. Eles mostram a camada viva: cada agente é um "funcionário" com um trabalho claro, e novos vão surgindo conforme o OS amadurece.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-4">Por que aprender — como os agentes apareceram</h3>
+              <div class="space-y-6 mb-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Agente de resposta</h4><p class="text-neutral-300 text-sm">Tem acesso ao Gmail (via CLI). Quando o autor manda "varra meu e-mail", ele olha as mensagens das agências, junta os 10 documentos certos e <strong class="text-neutral-100">rascunha as respostas</strong> — o autor só confere e envia (review gate).</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Agente de deep research</h4><p class="text-neutral-300 text-sm">Monitora constantemente mudanças nas leis de passaporte e residência. Quando um país muda a legislação (ex.: a nova lei tributária da Turquia), ele sinaliza que vale revisitar aquela cidadania.</p></div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+                  <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Um OS vivo</h4><p class="text-neutral-300 text-sm">Cada parte é muito intencional, com review gates. Os agentes não nasceram de uma vez: foram empregados um a um, conforme as rotinas se firmavam.</p></div>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> O fio condutor</h3>
+                <p class="text-neutral-300 text-sm">Repare: o agente de resposta usa uma <strong class="text-neutral-100">CLI</strong> (Gmail) e várias <strong class="text-neutral-100">skills</strong> (buscar documento, rascunhar). Ele só foi possível porque as camadas de baixo — contexto, skills, ferramentas — já existiam. É a Trilha 3 inteira convergindo num agente.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t5-p2" class="text-neutral-300 leading-relaxed mb-6">Porque exemplos reais tiram o agente do abstrato. Eles mostram que um agente é um trabalhador com um recorte claro — não uma "IA mágica" — e que ele se apoia nas skills e ferramentas que você já construiu. É o seu modelo para desenhar o primeiro agente do seu OS.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Agente de resposta</div><div class="text-xs text-neutral-400">rascunha, você envia</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Deep research</div><div class="text-xs text-neutral-400">monitora mudanças</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Um a um</div><div class="text-xs text-neutral-400">empregue aos poucos</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">OS vivo</div><div class="text-xs text-neutral-400">intencional, com gates</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 6 -->
+          <section id="topico-6" data-inema-topic="modulo-3-3#topico-6" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+              <h2 class="text-2xl font-bold pt-1">🛡️ Review gates: o revisor cético</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t6-p1" class="text-neutral-300 leading-relaxed mb-6">O portão do tópico 2 ganha um nome quando o revisor é outro agente: o <strong class="text-purple-400">revisor cético</strong> (advogado do diabo). É um agente desenhado para "te xingar antes do contador" — ou do cliente: ele confere o trabalho com olhar adversarial antes de qualquer coisa sair.</p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+                  <h4 class="font-bold text-purple-400 mb-4">✓ Com revisor cético</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Você é "roasted" pelo seu OS antes do erro vazar.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Menos idas e vindas com o contador/cliente.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>O agente busca a fonte do problema antes de você.</span></li>
+                  </ul>
+                </div>
+                <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+                  <h4 class="font-bold text-red-400 mb-4">✗ Sem gate adversarial</h4>
+                  <ul class="space-y-3 text-neutral-300 text-sm">
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>O erro só aparece quando o contador reclama.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Retrabalho e desgaste com quem recebe.</span></li>
+                    <li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>O agente "vendedor de si mesmo" não se questiona.</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> Caso real</h3>
+                <p class="text-neutral-300 text-sm">No Tax OS, antes de enviar um ledger ao contador, um revisor cético checa se há algo estranho. Em consultoria, o revisor pode assumir a <strong class="text-neutral-100">voz do cliente</strong> — um agente nomeado com o contato, primado por todas as reuniões sintetizadas — e às vezes você quer <strong class="text-neutral-100">vários</strong> revisores adversariais, não um.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t6-p2" class="text-neutral-300 leading-relaxed mb-6">Porque o revisor cético é o que transforma autonomia em confiança. Ele baixa a chance de erro chegar a quem importa, reduz interações chatas (que matam o que você ama fazer) e te deixa delegar de verdade. É o review gate na sua forma mais poderosa.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Revisor cético</div><div class="text-xs text-neutral-400">advogado do diabo</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Adversarial</div><div class="text-xs text-neutral-400">questiona antes</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Voz do cliente</div><div class="text-xs text-neutral-400">revisor nomeado</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Vários gates</div><div class="text-xs text-neutral-400">às vezes mais de um</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 7 -->
+          <section id="topico-7" data-inema-topic="modulo-3-3#topico-7" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
+              <h2 class="text-2xl font-bold pt-1">🧠 Modelos mais espertos → menos instrução, talvez nenhum agente</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t7-p1" class="text-neutral-300 leading-relaxed mb-6">Um ponto que muda a forma como você cuida da camada: agentes <strong class="text-purple-400">mudam com o tempo</strong>. Conforme os modelos ficam mais espertos, o mesmo agente precisa de <strong class="text-neutral-100">menos instrução</strong> para o mesmo resultado — ou pode deixar de ser necessário, porque o Claude Code ou o Codex já faz aquilo nativamente.</p>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Revisite, não acumule</h3>
+                <p class="text-neutral-300 text-sm">Pergunte de tempos em tempos: "este agente ainda precisa de toda essa instrução? Ele ainda precisa <strong class="text-neutral-100">existir</strong>, ou o modelo já resolve sozinho?". Tratar agentes como permanentes para sempre é o caminho do inchaço; revisitá-los mantém o OS enxuto.</p>
+              </div>
+
+              <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> O que decai por domínio</h3>
+                <p class="text-neutral-300 text-sm">Lembre da Trilha 1: cada camada apodrece num ritmo. Agentes mudam porque os modelos evoluem; identidade tende a ser mais estática; contexto pode precisar de atualização mensal. Saber o que decai (e quando) é parte de manter o OS vivo.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t7-p2" class="text-neutral-300 leading-relaxed mb-6">Porque te protege do acúmulo. Se você nunca revisita agentes, fica com uma frota de "funcionários" que talvez o modelo novo já dispense. Auditar periodicamente — menos instrução? ainda necessário? — é o que mantém a camada de agentes proporcional ao que você realmente precisa.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Menos instrução</div><div class="text-xs text-neutral-400">modelos melhores</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Talvez nenhum</div><div class="text-xs text-neutral-400">o harness já faz</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Revisitar</div><div class="text-xs text-neutral-400">audite periodicamente</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Enxuto</div><div class="text-xs text-neutral-400">proporcional ao preciso</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TÓPICO 8 — PRÁTICO / COPY-RUN -->
+          <section id="topico-8" data-inema-topic="modulo-3-3#topico-8" class="mb-16" style="scroll-margin-top:5rem">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">8</span>
+              <h2 class="text-2xl font-bold pt-1">📄 Copy-run: o esqueleto de um AGENT.md</h2>
+            </div>
+            <div class="ml-0 sm:ml-16">
+              <div class="flex justify-start mb-5">
+                <button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"><span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
+              </div>
+              <p data-inema-block="m3-3-t8-p1" class="text-neutral-300 leading-relaxed mb-6">Hora de esboçar o seu primeiro agente. Um agente vive num arquivo <span class="font-mono text-sm">AGENT.md</span> (na pasta <span class="font-mono text-sm">agents/</span> do OS) com partes claras: o <strong class="text-purple-400">papel</strong>, as <strong class="text-purple-400">skills</strong> que orquestra, a <strong class="text-purple-400">ordem</strong>, o <strong class="text-purple-400">review gate</strong> e os <strong class="text-purple-400">limites</strong>. Copie o esqueleto abaixo e preencha para uma rotina que você já faz à mão.</p>
+
+              <!-- CODE BOX copy-run: esqueleto AGENT.md -->
+              <div class="bg-dark-800 border border-purple-500/30 rounded-xl p-5 mb-6">
+                <div class="flex items-center gap-2 mb-3"><span class="text-lg">📋</span><h4 class="font-bold text-purple-400">Copie e preencha — agents/&lt;nome&gt;/AGENT.md</h4></div>
+                <p class="text-sm text-neutral-300 mb-1"><strong class="text-neutral-100">Objetivo:</strong> esboçar um agente que orquestra skills que você já tem, com um portão de revisão antes de qualquer envio.</p>
+                <p class="text-xs text-neutral-500 mb-2 font-semibold">Crie o arquivo e troque o que está entre &lt; &gt;:</p>
+                <pre class="font-mono text-xs sm:text-sm text-neutral-200 bg-dark-900 border border-dark-600 rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap">---
+name: &lt;nome-do-agente&gt;
+role: &lt;o funcionário que ele é, ex.: "agente de resposta de e-mail"&gt;
+---
+
+## Quando empregar
+&lt;a rotina que eu JÁ faço à mão hoje e quero delegar&gt;
+
+## Skills que orquestra (já existem)
+- /&lt;skill-1&gt; — &lt;o que faz&gt;
+- /&lt;skill-2&gt; — &lt;o que faz&gt;
+
+## Ordem de operação
+1. &lt;primeiro passo&gt;
+2. &lt;segundo passo&gt;
+3. produzir um RASCUNHO (nunca enviar direto).
+
+## Review gate (obrigatório)
+- nada sai sem revisão: &lt;eu confiro / um revisor cético confere&gt;;
+- se reprovar, voltar ao passo &lt;N&gt; e refazer.
+
+## Limites (never)
+- &lt;ex.: nunca enviar e-mail sem meu OK&gt;;
+- &lt;ex.: só LER do CRM, nunca escrever&gt;.
+
+## Done-check
+- &lt;como sei que o agente fez um bom trabalho&gt;.</pre>
+                <div class="mt-3 bg-purple-900/20 border border-purple-500/30 rounded-lg p-3">
+                  <p class="text-sm text-neutral-300"><strong class="text-purple-400">Como verificar:</strong> leia o arquivo e confirme as cinco partes — papel, skills, ordem, review gate e limites. Se faltar o <strong class="text-neutral-100">review gate</strong> ou se alguma "skill" não existir de verdade na sua pasta <span class="font-mono text-xs">skills/</span>, o agente ainda não está pronto: volte e construa a base antes.</p>
+                </div>
+              </div>
+
+              <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica</h3>
+                <p class="text-neutral-300 text-sm">O bloco "produzir um RASCUNHO (nunca enviar direto)" + o review gate são o coração da segurança. Sem eles, você tem um agente que age sem freio. Comece sempre com o portão ligado e só relaxe quando confiar — nunca o contrário.</p>
+              </div>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Por que aprender</h3>
+              <p data-inema-block="m3-3-t8-p2" class="text-neutral-300 leading-relaxed mb-6">Porque fecha a Trilha 3 com um artefato seu. Ao preencher este esqueleto, você junta as três camadas de ação — skills (3.1), ferramentas (3.2) e agentes (3.3) — num único papel com julgamento e revisão. Daqui você segue para a Trilha 4, onde o <span class="font-mono text-sm">/os-coach</span> constrói tudo isso com você, camada por camada.</p>
+
+              <h3 class="text-lg font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Papel</div><div class="text-xs text-neutral-400">o funcionário que é</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Skills + ordem</div><div class="text-xs text-neutral-400">o que orquestra</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Review gate</div><div class="text-xs text-neutral-400">obrigatório</div></div>
+                <div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Limites</div><div class="text-xs text-neutral-400">o que nunca fazer</div></div>
+              </div>
+
+              <div class="flex justify-start mt-6">
+                <button type="button" data-inema-read-toggle aria-pressed="false">
+                  <span class="inema-ico-todo" aria-hidden="true">○</span>
+                  <span class="inema-ico-done" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 6"/></svg></span>
+                  <span class="inema-label-todo">Marcar como lido</span>
+                  <span class="inema-label-done">Lido</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- RESUMO -->
+          <section class="mb-8">
+            <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-6 sm:p-8">
+              <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do módulo</h2>
+              <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Skill = verbo; agente = chef</strong><span class="text-neutral-400"> — o agente orquestra várias skills com julgamento.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Review gate antes de algo sair</strong><span class="text-neutral-400"> — nada irreversível sem checagem; você ou um revisor cético.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Promova só o que já faz à mão</strong><span class="text-neutral-400"> — agente é a última camada; precisa de skills embaixo.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Agente vs workflow vs sub-agentes</strong><span class="text-neutral-400"> — escolha a forma certa para cada carga.</span></div></div>
+                <div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Modelos melhoram</strong><span class="text-neutral-400"> — menos instrução, talvez nenhum agente; revisite sempre. O AGENT.md tem papel, skills, gate e limites.</span></div></div>
+              </div>
+              <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+                <h3 class="font-semibold text-purple-400 mb-2">Próxima trilha:</h3>
+                <p class="text-neutral-300">Trilha 4 — Passo a passo: construa o seu OS com o /os-coach 🛠️</p>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para a Trilha</a>
+                <a href="../trilha4/index.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próxima trilha: Passo a passo →</a>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Engenharia de AIOS · INEMA.CLUB — 2026 · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS NÚCLEO v1 -->
+  <script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+
+  <!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+  <script src="../../assets/learn.js"></script>
+  <script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>
