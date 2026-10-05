@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Módulo 4.3 · next — Sustrato | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (amber) — texto cai para -800 (Erro #23) */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(180,83,9,0.08); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(180,83,9,0.08); }
+    html:not(.dark) .bg-amber-900\/30 { background-color: rgba(180,83,9,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(180,83,9,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m43-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m43-a { animation: m43-pulse 2.8s ease-in-out infinite; }
+      .m43-a:nth-child(2){animation-delay:.25s} .m43-a:nth-child(3){animation-delay:.5s}
+      .m43-a:nth-child(4){animation-delay:.75s} .m43-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha4/modulo-4-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha4/modulo-4-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha4/modulo-4-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/modulo-4-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha4/modulo-4-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-4-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="skip" href="#conteudo">Saltar al contenido</a>
+<!-- NAV (curso/trilhaN/ — T4 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Paso a paso</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap" href="../trilha5/index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avanzado</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">Mi recorrido</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Apariencia</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Oscuro</button><button data-inema-set-theme="claro" type="button">Claro</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Enfoque</button><button data-inema-set-theme="contraste" type="button">Alto contraste</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Fuente</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">Sistema</button><button data-inema-set-font="leitura" type="button">Lectura</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tamaño</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Ancho</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Estrecho</button><button data-inema-set-linewidth="68" type="button">Medio</button><button data-inema-set-linewidth="75" type="button">Amplio</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Entre líneas</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compacto</button><button data-inema-set-leading="1.7" type="button">Cómodo</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+<div class="inema-accent-grid">
+<button aria-label="Acento esmeralda" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Acento azul" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Acento morado" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Acento ámbar" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Acento teal" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Acento rosa" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Alternar tema claro/oscuro" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="4-3" data-inema-track="4" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Ruta de navegación" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-amber-400" href="../../index.html">Inicio</a><span>/</span>
+<a class="hover:text-amber-400" href="index.html">Ruta 4</a><span>/</span>
+<span class="text-amber-400">Módulo 4.3</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🗂️ <span class="font-mono text-2xl sm:text-3xl">siguiente</span> — Sustrato</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">La capa más grande y la que más se omite. Con el mismo <span class="font-mono text-amber-400">siguiente</span> tú abres el <strong class="text-neutral-300">Sustrato</strong>: el detrás de escena del OS. Aquí el coach arma el <span class="font-mono text-amber-400">sources.md</span> e o <span class="font-mono text-amber-400">compendium.md</span>, elimina la identificación de los datos sensibles y es honesto sobre lo que todavía no se puede responder.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">7</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">~45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Práctico</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Capa 2</div><div class="text-xs text-neutral-400">Sustrato</div></div>
+</div>
+<!-- progresso do módulo -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Progreso del módulo 4.3" class="inema-ring" data-inema-meter="modulo:4-3"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:4-3"><strong data-inema-meter-frac="">0 de 0</strong> temas leídos · <span data-inema-section-counter="">Sección 1 de 7</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Índice de la página" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">En este módulo</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-1">1. El comando next</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-2">2. sources + compendium</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-3">3. Desidentificación</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-4">4. Harvest opcional</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-5">5. Verificación de finalización multiparte</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-6">6. Antipatrón</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-7">7. Copiar y ejecutar</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">➡️ El comando <span class="font-mono">siguiente</span></h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t1-p1">Con la Identidad lista, ejecutas <span class="font-mono text-sm">/os-coach next</span>. Él <strong class="text-amber-400">lee el <span class="font-mono">memory.md</span></strong>, ve que la Identidad está <span class="text-amber-400">sólido</span> y abre la siguiente capa inacabada en el orden correcto: el <strong class="text-neutral-100">Sustrato</strong>. No eliges qué capa sigue; el coach sigue por ti la secuencia que funciona.</p>
+<div class="bg-dark-800 border border-amber-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-amber-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m4-3-t1-p2"><strong>Sustrato</strong> es todo el conocimiento real en el que funciona el OS, reunido en un solo lugar y depurado. Es la capa de los <strong>detrás de escena</strong> (la «cocina» de un restaurante): el cliente no la ve, pero es lo que hace que el plato salga bien. El orden de construcción es Identidad → <strong>Sustrato</strong> → Reglas → Habilidades → Herramientas → Agentes.</p>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> La capa más grande, la que más se omite</h3>
+<p class="text-neutral-300 text-sm">El Substrato suele ser la porción más grande de la «pizza» de un OS, y es justamente la que más gente ignora por las prisas de llegar a las skills y los agentes. El <span class="font-mono text-xs">siguiente</span> te obliga a pasar por ella en el momento adecuado: <strong class="text-neutral-100">no conversas con tus datos si el trasfondo es un desorden</strong>.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t1-p3">Porque <span class="font-mono text-sm">siguiente</span> es el comando que más repites en la ruta; vuelve a aparecer en los módulos 4.4 y 4.5. Entender que solo «abre la siguiente capa en orden» te quita el peso de decidir la secuencia. Tu única tarea es responder y dejar que el coach se encargue.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">siguiente</div><div class="text-xs text-neutral-400">abre la siguiente capa</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Lee la memoria</div><div class="text-xs text-neutral-400">sabe dónde se quedó</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Orden correcto</div><div class="text-xs text-neutral-400">Ahora viene el sustrato</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Tras bambalinas</div><div class="text-xs text-neutral-400">la capa más grande</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">🗄️ <span class="font-mono">sources.md</span> + <span class="font-mono">compendium.md</span></h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t2-p1">El coach crea una carpeta <span class="font-mono text-sm">substrate/</span> con dos archivos canónicos. El <span class="font-mono text-sm">sources.md</span> lista <strong class="text-amber-400">de dónde viene el material</strong> (documentos, trabajos anteriores, sitios web, especialistas). El <span class="font-mono text-sm">compendium.md</span> é a <strong class="text-amber-400">referencia destilada</strong> que el OS realmente lee — el material en bruto, depurado y organizado.</p>
+<!-- SVG: raw -> destilar -> compendium -->
+<div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="El pipeline del sustrato: las fuentes crudas y desordenadas de la izquierda pasan por un paso de destilación en el medio y se convierten en un compendio pequeño y limpio a la derecha, que es lo que el OS realmente lee." class="w-full h-auto" role="img" viewbox="0 0 880 250">
+<defs>
+<lineargradient id="m43-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbbf24"></stop><stop offset="1" stop-color="#f59e0b"></stop></lineargradient>
+<filter height="180%" id="m43-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m43-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#f59e0b" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m43-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"></path></marker>
+</defs>
+<rect fill="url(#m43-grid)" height="250" width="880" x="0" y="0"></rect>
+<g fill="none" opacity="0.6" stroke="#fbbf24" stroke-width="2">
+<path d="M250,125 L330,125" marker-end="url(#m43-ah)"></path>
+<path d="M548,125 L628,125" marker-end="url(#m43-ah)"></path>
+</g>
+<!-- raw bagunçado -->
+<g class="m43-a"><rect fill="#0e1b26" height="134" rx="13" stroke="#38bdf8" stroke-width="2" width="206" x="44" y="58"></rect></g>
+<text fill="#bfe6ff" font-family="monospace" font-size="13" font-weight="700" text-anchor="middle" x="147" y="84">📁 sources.md</text>
+<g fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10.5">
+<rect fill="#0a2233" height="18" rx="4" width="166" x="64" y="98"></rect><text x="72" y="111">PDF sueltos, correos…</text>
+<rect fill="#0a2233" height="18" rx="4" width="166" x="64" y="122"></rect><text x="72" y="135">hojas de cálculo, anotaciones…</text>
+<rect fill="#0a2233" height="18" rx="4" width="166" x="64" y="146"></rect><text x="72" y="159">sitios, trabajos anteriores…</text>
+<rect fill="#0a2233" height="14" rx="4" width="166" x="64" y="170"></rect>
+</g>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="147" y="210">crudo y desordenado</text>
+<!-- destilar -->
+<g filter="url(#m43-glow)"><circle cx="439" cy="125" fill="#241a05" r="52" stroke="url(#m43-grad)" stroke-width="2.5"></circle></g>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="439" y="120">destilar</text>
+<text fill="#fcd34d" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="439" y="139">simplificar + organizar</text>
+<!-- compendium limpo -->
+<g filter="url(#m43-glow)"><rect fill="#1d1606" height="94" rx="13" stroke="url(#m43-grad)" stroke-width="2.5" width="208" x="628" y="78"></rect></g>
+<text fill="#fbbf24" font-family="monospace" font-size="13" font-weight="700" text-anchor="middle" x="732" y="106">📄 compendium.md</text>
+<g fill="#fcd34d" font-family="Inter,sans-serif" font-size="10.5">
+<rect fill="#2a2008" height="14" rx="4" width="168" x="648" y="120"></rect><text x="656" y="131">lo esencial, destilado</text>
+<rect fill="#2a2008" height="14" rx="4" width="120" x="648" y="140"></rect><text x="656" y="151">pequeño y limpio</text>
+</g>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="732" y="190">lo que lee el OS</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-amber-400">Cómo leer:</strong> las fuentes en cian son el material en bruto (registrado en el <span class="font-mono text-xs">sources.md</span>). El paso de "destilar" simplifica todo en el <span class="font-mono text-xs">compendium.md</span> en ámbar — pequeño, limpio y organizado. Es el compendio, no la pila sin procesar, lo que consulta el OS.</p>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Recreación ilustrativa — la carpeta substrate/</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-amber-400">substrate/</span>
+├── sources.md       <span class="text-neutral-500"># de onde vem o material cru</span>
+├── compendium.md    <span class="text-neutral-500"># a referência destilada (o OS lê esta)</span>
+└── subject-matter-expertise/   <span class="text-neutral-500"># 1 subpasta por fonte (opcional)</span></pre>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t2-p2">Porque estos son los <strong class="text-neutral-100">nombres canónicos</strong>: la auditoría (módulo 4.6) busca exactamente <span class="font-mono text-sm">substrate/compendium.md</span> para puntuar esta capa. Saber qué guarda cada archivo te ayuda a responder bien cuando el coach pregunta "¿dónde vive tu conocimiento?".</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">sources.md</div><div class="text-xs text-neutral-400">de dónde viene</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">compendium.md</div><div class="text-xs text-neutral-400">el destilado que lee el OS</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Nombres canónicos</div><div class="text-xs text-neutral-400">la auditoría los busca</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Destilar</div><div class="text-xs text-neutral-400">crudo → conciso</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">🔏 Desidentificación</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t3-p1">El Substrato es donde los <strong class="text-amber-400">entran datos reales</strong> — y por eso es el lugar donde más se filtra información sin querer. Al destilar, cualquier nombre o valor que hayas marcado como sensible se convierte en un identificador estable («Cliente 1», iniciales, un código). El valor real nunca se escribe en el <span class="font-mono text-sm">substrate/</span>, en el <span class="font-mono text-sm">memory.md</span> ni en ningún otro archivo de la carpeta.</p>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> La nota de sensibilidad que se contradice</h3>
+<p class="text-neutral-300 text-sm">El error que debes evitar: escribir «eliminé los nombres de los clientes» y, justo debajo, enumerar los nombres. Esa contradicción es, por sí sola, una filtración. Si un identificador hiciera que el sustrato te resultara inútil, el coach <strong class="text-neutral-100">pregunta antes</strong> de registrar el valor real: no lo decide por sí solo.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Handle estable = utilidad sin exposición</h3>
+<p class="text-neutral-300 text-sm">"Estable" significa que "Pareja A" siempre es la misma pareja en todos los archivos. Así el OS sigue siendo útil (puede cruzar información) sin guardar nunca quién es "Pareja A" en la carpeta. Tú mantienes el mapa en tu cabeza; el disco queda limpio.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t3-p2">Porque es en el sustrato donde más trabaja la regla de oro n.º 8. Estás a punto de volcar conocimiento real: extractos, mensajes y hojas de cálculo. Saber que el coach elimina automáticamente los datos de identificación te permite traer el material sin miedo y te enseña a señalar lo que es sensible antes de pegarlo.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Handle estable</div><div class="text-xs text-neutral-400">siempre el mismo apodo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Valor real hacia afuera</div><div class="text-xs text-neutral-400">nunca en un archivo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Sin contradicciones</div><div class="text-xs text-neutral-400">excluido = no se lista</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Pregunta primero</div><div class="text-xs text-neutral-400">si el handle no sirve</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">🌾 Harvest opcional</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t4-p1">No necesitas tenerlo todo a mano para avanzar. Si el material ya existe, el coach ofrece <strong class="text-amber-400">recopilar y destilar en el momento</strong> (o <em>harvest</em>). Si no, lo anota en el <span class="font-mono text-sm">memory.md</span> lo que aún falta reunir y sigue — la brecha queda registrada, no olvidada.</p>
+<div class="space-y-6 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Señalar las fuentes</h4><p class="text-neutral-300 text-sm">Tú indicas dónde reside el conocimiento; el coach lo registra en <span class="font-mono text-xs">sources.md</span>.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Recopilar y destilar (si hay material)</h4><p class="text-neutral-300 text-sm">El coach lee lo que tienes, desidentifica la información sensible y escribe el <span class="font-mono text-xs">compendium.md</span>.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Registrar lo que falta</h4><p class="text-neutral-300 text-sm">Lo que no está listo se convierte en una nota en <span class="font-mono text-xs">memory.md</span> sobre "qué generar todavía".</p></div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Avanzar sin bloquearse</h3>
+<p class="text-neutral-300 text-sm">La gran ventaja del harvest opcional es que nunca te quedas esperando a "tenerlo todo". El OS puede quedar <span class="text-amber-400">in progress</span> con una lista clara de lo que falta, y lo completas después: el <span class="font-mono text-xs">memory.md</span> recuerda por ti.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t4-p2">Porque elimina la excusa más común para no empezar: "todavía no organicé mis datos". El coach trabaja con lo que existe ahora y registra lo demás. Terminas el módulo con un sustrato real, aunque sea parcial, y un plan explícito para completarlo.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Harvest</div><div class="text-xs text-neutral-400">recopilar + destilar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Opcional</div><div class="text-xs text-neutral-400">solo si hay material</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Registrar la brecha</div><div class="text-xs text-neutral-400">en memory.md</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Sin bloqueos</div><div class="text-xs text-neutral-400">completa después</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">🧪 Done-check de varias partes</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t5-p1">El Substrato solo se convierte en <span class="text-amber-400">sólido</span> cuándo el <span class="font-mono text-sm">compendium.md</span> responde <strong class="text-amber-400">todas las partes</strong> de tu pregunta difícil con los datos a mano. Si la pregunta tiene dos partes —por ejemplo, "qué vence en 10 días <strong>E</strong> lo que ya está atrasado" — y falta un dato para una de ellas, la capa es <span class="text-amber-400">in progress</span>, no <span class="text-amber-400">sólido</span>.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6">
+<h4 class="font-bold text-amber-400 mb-4">✓ sólido</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Responde cada parte de la pregunta difícil.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Está organizado, no es una pila de material crudo.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Los datos necesarios ya están en la carpeta.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ in progress</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Responde solo la mitad fácil de la pregunta.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Falta un input para la otra parte.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Sigue siendo más una pila que un compendio.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> Una honestidad que vale oro</h3>
+<p class="text-neutral-300 text-sm">Cuando algo está <span class="text-amber-400">in progress</span>, el coach dice <strong class="text-neutral-100">¿qué parte todavía no puede responder y qué dato resolvería eso</strong>. Ej.: "puedo decirte qué vence, pero solo sabré qué está atrasado cuando marques lo que ya se entregó". Eso se convierte en una acción clara, no en una nota vaga.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t5-p2">Porque el done-check de varias partes evita que un sustrato "mediocre" se haga pasar por terminado. Te da un criterio honesto: la capa solo está sólida cuando responde la pregunta completa. Y te deja servido el siguiente dato que debes buscar.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Multiparte</div><div class="text-xs text-neutral-400">responde todo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">in progress</div><div class="text-xs text-neutral-400">falta una parte</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">sólido</div><div class="text-xs text-neutral-400">la pregunta completa</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Di qué falta</div><div class="text-xs text-neutral-400">el input que lo resuelve</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">⚠️ Antipatrón: volcar todo sin procesar</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t6-p1">El error más común en el Sustrato es la tentación de <strong class="text-red-400">jugarlo todo en bruto</strong> en <span class="font-mono text-sm">compendium.md</span> y darlo por terminado. La regla del coach es lo opuesto: <strong class="text-amber-400">destila</strong>. Un compendio pequeño y limpio vence a uno gigante y desordenado cada vez.</p>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> La cocina llena de comida echada a perder</h3>
+<p class="text-neutral-300 text-sm">La analogía de la capa: no cocinas un buen plato en una cocina llena de comida podrida y frascos sin etiqueta. Volcar material sin procesar es llenar la cocina de basura. Destilar es limpiar la encimera y etiquetar los frascos: ese es el verdadero trabajo de esta capa.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6">
+<h4 class="font-bold text-amber-400 mb-4">✓ Destilar</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Extraer solo lo esencial de cada fuente.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Organizar por tema, fácil de leer para el OS.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Pequeño y limpio &gt; enorme y confuso.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Volcar</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Pegar PDFs y correos enteros sin filtrar.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Llenar la ventana de contexto de ruido.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Creer que "más es mejor" — no lo es.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t6-p2">Porque un sustrato sucio contamina todo lo que viene después: las skills leen ruido y los agentes deciden basándose en basura. Destilar bien ahora es lo que hace funcionar las capas de capacidad (módulo 4.5). Guarda el material en bruto como respaldo, pero incorpora solo el destilado.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Destilar &gt; volcar</div><div class="text-xs text-neutral-400">la regla de la capa</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Pequeño y limpio</div><div class="text-xs text-neutral-400">vence al gigante</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Sin ruido</div><div class="text-xs text-neutral-400">no satura el contexto</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">En bruto, por si acaso</div><div class="text-xs text-neutral-400">inyecta solo el destilado</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" data-inema-topic="modulo-4-3#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">▶️ Copy-run: ejecuta el <span class="font-mono">siguiente</span></h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t7-p1">Vuelve a la misma carpeta de tu OS (la que creaste en el módulo 4.2) y ejecuta el <span class="font-mono text-sm">siguiente</span>. El coach abrirá el Substrato, hará 2-3 preguntas sobre tus fuentes y lo que es sensible, y luego creará la carpeta <span class="font-mono text-sm">substrate/</span>.</p>
+<!-- COPY-RUN: next -->
+<div class="bg-dark-800 border border-amber-500/30 rounded-xl p-5 mb-3">
+<p class="text-sm text-amber-400 font-semibold mb-1">▶ Copy-run · construir el Substrato</p>
+<p class="text-xs text-neutral-400 mb-3"><strong>Objetivo:</strong> reunir y destilar el conocimiento de tu OS. Abre Claude Code <strong>en la misma carpeta</strong> dónde ejecutaste el <span class="font-mono">iniciar</span> y escribe:</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed bg-dark-900/60 rounded-lg p-4 border border-dark-600">/os-coach next</pre>
+<p class="text-xs text-neutral-400 mt-3"><strong class="text-amber-400">Qué va a pasar:</strong> él lee el <span class="font-mono">memory.md</span>, ve la Identidad lista y abre el Substrato. Va a preguntar <em>dónde vive tu conocimiento</em>, <em>cuál es la pregunta difícil</em> e <em>lo que es sensible</em>. Responde (él espera) y crea <span class="font-mono">substrate/sources.md</span> e <span class="font-mono">substrate/compendium.md</span>.</p>
+<p class="text-xs text-neutral-400 mt-2"><strong class="text-amber-400">Cómo verificar:</strong> abre el <span class="font-mono">compendium.md</span> y prueba tu pregunta difícil con él. ¿Responde todo? La capa está <span class="text-amber-400">sólido</span>. ¿Falta una parte? Él la marca <span class="text-amber-400">in progress</span> y dice qué dato buscar — y está bien seguir así para el módulo 4.4.</p>
+</div>
+<p class="text-xs text-neutral-500 mb-6 px-1">Confirma también que ningún valor sensible aparece sin ocultar en <span class="font-mono">substrate/</span> ni en el <span class="font-mono">memory.md</span> — solo handles.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-3-t7-p2">Porque es la segunda capa que construyes, y la más importante. Ejecutar el mismo <span class="font-mono text-sm">siguiente</span> de nuevo consolida el ritmo: un comando, una capa, siempre persistidos. Con Identidad y Sustrato en su lugar, la base de tu OS está lista.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Misma carpeta</div><div class="text-xs text-neutral-400">el coach retoma</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">siguiente de nuevo</div><div class="text-xs text-neutral-400">mismo verbo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">substrate/</div><div class="text-xs text-neutral-400">sources + compendium</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Prueba la pregunta</div><div class="text-xs text-neutral-400">sólido o en progreso</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 rounded-xl border border-amber-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">siguiente abre la próxima capa</strong><span class="text-neutral-400"> — en el orden correcto; después de Identidad viene el Sustrato.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">sources.md + compendium.md</strong><span class="text-neutral-400"> — de dónde viene frente a lo destilado que lee el OS.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Desidentificación automática</strong><span class="text-neutral-400"> — handles estables; el valor real nunca está en la carpeta.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Harvest opcional</strong><span class="text-neutral-400"> — destila lo que existe, registra lo que falta; sin bloquearte.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Done-check de varias partes</strong><span class="text-neutral-400"> — solid solo responde la pregunta completa; si no, in progress.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Destila, no viertas</strong><span class="text-neutral-400"> — ya ejecutaste <span class="font-mono text-sm">/os-coach next</span>.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-amber-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300">4.4 — <span class="font-mono">siguiente</span>: las Reglas, las barreras del OS 🚧</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="modulo-4-2.html">← Módulo anterior</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="modulo-4-4.html">Siguiente módulo →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Ingeniería de AIOS · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

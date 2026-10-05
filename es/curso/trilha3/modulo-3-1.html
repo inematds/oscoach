@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Módulo 3.1 · Habilidades — los verbos conquistados | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (purple) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/30 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m31-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m31-a { animation: m31-pulse 2.8s ease-in-out infinite; }
+      .m31-a:nth-child(2){animation-delay:.25s} .m31-a:nth-child(3){animation-delay:.5s}
+      .m31-a:nth-child(4){animation-delay:.75s} .m31-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha3/modulo-3-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha3/modulo-3-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha3/modulo-3-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/modulo-3-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-3-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="skip" href="#conteudo">Saltar al contenido</a>
+<!-- NAV (curso/trilhaN/ — T3 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap" href="../trilha4/index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Paso a paso</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap" href="../trilha5/index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avanzado</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">Mi recorrido</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Apariencia</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Oscuro</button><button data-inema-set-theme="claro" type="button">Claro</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Enfoque</button><button data-inema-set-theme="contraste" type="button">Alto contraste</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Fuente</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">Sistema</button><button data-inema-set-font="leitura" type="button">Lectura</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tamaño</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Ancho</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Estrecho</button><button data-inema-set-linewidth="68" type="button">Medio</button><button data-inema-set-linewidth="75" type="button">Amplio</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Entre líneas</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compacto</button><button data-inema-set-leading="1.7" type="button">Cómodo</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+<div class="inema-accent-grid">
+<button aria-label="Acento esmeralda" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Acento azul" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Acento morado" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Acento ámbar" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Acento teal" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Acento rosa" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Alternar tema claro/oscuro" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="3-1" data-inema-track="3" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Ruta de navegación" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-purple-400" href="../../index.html">Inicio</a><span>/</span>
+<a class="hover:text-purple-400" href="index.html">Ruta 3</a><span>/</span>
+<span class="text-purple-400">Módulo 3.1</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.1</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🛠️ Habilidades — los verbos conquistados</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">La primera capa de acción. Un <strong class="text-neutral-300">skill</strong> es un verbo repetible que empaquetas para ejecutarlo de la misma manera cada vez. La regla de oro: <strong class="text-purple-400">empieza manualmente y destila después</strong> — y nunca trates una skill como «terminada».</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">8</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">~50</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Inter.</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Práctico</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+<!-- progresso do módulo -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Progreso del módulo 3.1" class="inema-ring" data-inema-meter="modulo:3-1"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:3-1"><strong data-inema-meter-frac="">0 de 0</strong> temas leídos · <span data-inema-section-counter="">Sección 1 de 8</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Índice de la página" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">En este módulo</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-1">1. Empieza manualmente</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-2">2. Meta-prompting inverso</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-3">3. La señal del infinito</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-4">4. Post mortem con rúbrica</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-5">5. Skill vs. job programado</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-6">6. El error común</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-7">7. Copiar y ejecutar: comando slash</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-purple-400" href="#topico-8">8. Anatomía de un SKILL.md</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🖐️ Empieza manualmente: hazlo a mano y después captura el proceso</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t1-p1">La capa de Habilidades empieza de la manera menos obvia: <strong class="text-purple-400">a mano</strong>. Ejecutas la tarea de verdad por primera vez — a veces escribiendo durante una hora todo tu razonamiento sobre cómo abordar el problema — y solo <strong class="text-neutral-100">después</strong> captura eso en una skill. La meta es simple: al final de esa sesión, no tener que repetir nunca más ese nivel de instrucción.</p>
+<div class="bg-dark-800 border border-purple-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-purple-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m3-1-t1-p2">Una <strong>skill</strong> (habilidad) es una tarea empaquetada para ejecutarse igual cada vez; piensa en un <strong>tarjeta de receta</strong>. En Claude Code suele convertirse en un <strong>slash command</strong> (un comando que empieza con una barra, por ejemplo: <span class="font-mono text-xs">/monthly-review</span>), guardado en un archivo <span class="font-mono text-xs">SKILL.md</span> dentro de la carpeta <span class="font-mono text-xs">skills/</span> de tu OS. A veces "cocinas a ojo" y solo entonces escribes la receta.</p>
+</div>
+<!-- SVG A: manual -> captura -> skill -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="El camino para crear una habilidad: haces la tarea a mano, capturas el proceso con reverse meta-prompting y el resultado es una skill reutilizable que funciona igual cada vez." class="w-full h-auto" role="img" viewbox="0 0 900 230">
+<defs>
+<lineargradient id="m31a-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="m31a-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m31a-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m31a-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+</defs>
+<rect fill="url(#m31a-grid)" height="230" width="900" x="0" y="0"></rect>
+<g fill="none" opacity="0.6" stroke="#c084fc" stroke-width="2">
+<path d="M250,115 L350,115" marker-end="url(#m31a-ah)"></path>
+<path d="M600,115 L700,115" marker-end="url(#m31a-ah)"></path>
+</g>
+<g font-family="Inter,sans-serif" font-size="14" font-weight="600">
+<rect fill="#0e1b26" height="58" rx="12" stroke="#38bdf8" stroke-width="2" width="190" x="60" y="86"></rect><text fill="#bfe6ff" text-anchor="middle" x="155" y="111">Hazlo a mano</text><text fill="#9ad6ff" font-size="11.5" font-weight="400" text-anchor="middle" x="155" y="130">la tarea real</text>
+<rect fill="#0e1b26" height="58" rx="12" stroke="#38bdf8" stroke-width="2" width="250" x="350" y="86"></rect><text fill="#bfe6ff" text-anchor="middle" x="475" y="111">Captura</text><text fill="#9ad6ff" font-size="11.5" font-weight="400" text-anchor="middle" x="475" y="130">reverse meta-prompting</text>
+</g>
+<g filter="url(#m31a-glow)"><rect fill="#1a1230" height="66" rx="14" stroke="url(#m31a-grad)" stroke-width="2.5" width="150" x="700" y="82"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="16" font-weight="700" text-anchor="middle" x="775" y="110">Skill</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="775" y="130">se ejecuta igual siempre</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-purple-400">Cómo leer:</strong> la skill no nace de la nada. Es el último paso de un camino que empieza haciendo la tarea a mano; por eso, una skill para algo que nunca has hecho queda genérica.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-4">✓ Manual primero</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Compruebas que la tarea funciona antes de empaquetarla.</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>La receta refleja los detalles reales que solo aparecen al hacerlo.</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Sabes exactamente qué verificar al final.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Skill fantasma</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Escribir una skill sobre algo que nunca hiciste a mano.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Resultado genérico que falla en el primer caso real.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>No tienes criterios para saber si funcionó.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t1-p3">Porque es lo que separa una skill viva de una skill muerta. Hacerlo primero a mano incorpora a tu contexto todos los detalles precisos —excepciones, orden de los pasos, qué verificar— que una skill inventada desde cero no tiene. Capturarlo después convierte ese trabajo en un activo que nunca vuelves a hacer.</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Primero el manual</div><div class="text-xs text-neutral-400">hazlo antes de empaquetar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Priming</div><div class="text-xs text-neutral-400">llena el contexto de detalles</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Capturar</div><div class="text-xs text-neutral-400">se convierte en una receta reutilizable</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Nunca más</div><div class="text-xs text-neutral-400">no repitas la instrucción</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">🔁 Reverse meta-prompting</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t2-p1">Después de hacer la tarea a mano, viene la captura. El mecanismo se llama <strong class="text-purple-400">reverse meta-prompting</strong>: en lugar de escribir tú la skill, le pides a la IA que destile la conversación que acaban de tener en un comando reutilizable. Escribir la receta <strong class="text-neutral-100">después</strong> de cocinar, no antes.</p>
+<div class="bg-dark-800 border border-purple-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-purple-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m3-1-t2-p2">El "meta-prompting" común consiste en darle instrucciones a la IA. <strong>Reverse</strong> el meta-prompting invierte: la IA observa lo que ustedes ya hicieron juntos y <strong>extrae</strong> las instrucciones —el criterio, el orden, los cuidados— y las materializa en un archivo. Te conviertes en editor de una receta que la IA redactó a partir de tu propia acción.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> La idea clave</h3>
+<p class="text-neutral-300 text-sm">Pide siempre un <strong class="text-neutral-100">slash command que acepta un argumento</strong>. Este argumento es una frase en lenguaje natural que enriquece lo que hace el comando: así, la misma skill sirve para varios casos sin que tengas que reescribirla. Por debajo, debe tener un SOP (procedimiento operativo estándar): exactamente qué sucede y en qué secuencia.</p>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t2-p3">Porque es el atajo que transforma un esfuerzo único en una capacidad permanente. Sin reverse meta-prompting, cada tarea empieza desde cero. Con él, la primera ejecución manual "paga" por todas las siguientes, y además aprendes a estructurar la solicitud (destilar el criterio → materializar → aceptar el argumento).</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Destilar</div><div class="text-xs text-neutral-400">la IA extrae el criterio</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Materializar</div><div class="text-xs text-neutral-400">se convierte en archivo/comando</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Argumento</div><div class="text-xs text-neutral-400">enriquece en lenguaje natural</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">SOP</div><div class="text-xs text-neutral-400">la secuencia exacta</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">♾️ La señal del infinito: una skill nunca se termina</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t3-p1">Cuando tienes una V1 de la skill, la <strong class="text-purple-400">lanza</strong> (ship). Pero la capa de habilidades es la que más confunde: mucha gente cree que una skill «empieza y termina». No. Tiene un <strong class="text-neutral-100">señal de infinito</strong> aquí. El autor mantiene una skill que perfecciona casi todos los días desde hace seis meses.</p>
+<!-- SVG B: o loop infinito da skill -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="El ciclo vivo de una skill: lanzas la V1, la usas en el día a día, haces una retrospectiva al final de la sesión y ajustas la skill; luego vuelves a usarla, en un ciclo que nunca termina." class="w-full h-auto" role="img" viewbox="0 0 820 260">
+<defs>
+<filter height="180%" id="m31b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m31b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m31b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+</defs>
+<rect fill="url(#m31b-grid)" height="260" width="820" x="0" y="0"></rect>
+<g fill="none" opacity="0.6" stroke="#c084fc" stroke-width="2">
+<path d="M250,80 L470,80" marker-end="url(#m31b-ah)"></path>
+<path d="M590,120 L590,150" marker-end="url(#m31b-ah)"></path>
+<path d="M470,190 L250,190" marker-end="url(#m31b-ah)"></path>
+<path d="M170,150 L170,120" marker-end="url(#m31b-ah)"></path>
+</g>
+<g font-family="Inter,sans-serif" font-size="13.5" font-weight="600">
+<g filter="url(#m31b-glow)"><rect fill="#1a1230" height="48" rx="12" stroke="#c084fc" stroke-width="2" width="160" x="90" y="56"></rect></g><text fill="#c084fc" text-anchor="middle" x="170" y="85">1 · Lanza V1</text>
+<rect fill="#0e1b26" height="48" rx="12" stroke="#38bdf8" stroke-width="2" width="160" x="470" y="56"></rect><text fill="#bfe6ff" text-anchor="middle" x="550" y="85">2 · Usa en el día</text>
+<rect fill="#0e1b26" height="48" rx="12" stroke="#38bdf8" stroke-width="2" width="160" x="470" y="166"></rect><text fill="#bfe6ff" text-anchor="middle" x="550" y="195">3 · Post mortem</text>
+<rect fill="#0e1b26" height="48" rx="12" stroke="#38bdf8" stroke-width="2" width="160" x="90" y="166"></rect><text fill="#bfe6ff" text-anchor="middle" x="170" y="195">4 · Ajusta</text>
+</g>
+<text fill="#a855f7" font-family="Inter,sans-serif" font-size="26" font-weight="700" text-anchor="middle" x="410" y="135">∞</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-purple-400">Cómo leer:</strong> no hay un «final» en la esquina derecha. La skill gira: se lanza, se usa, se hace la retrospectiva, se ajusta y se vuelve a usar. El símbolo ∞ en el centro es la clave: la skill está viva mientras la usas.</p>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> La excepción que se convierte en regla</h3>
+<p class="text-neutral-300 text-sm">Hay un caso en que la skill «termina»: cuando se activa <strong class="text-neutral-100">100% autónoma</strong>, siempre con la misma entrada y salida. Entonces surge la pregunta correcta: ¿esto todavía debería ser una skill o ya es un script determinístico? (Es el tema 5.)</p>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t3-p2">Porque calibra las expectativas. Quien espera «terminar» una skill la abandona ante la primera dificultad y esta se deteriora. Quien entiende el ∞ vuelve, la ajusta y consigue una skill cada vez mejor: exactamente la mentalidad de «cultivar, no instalar» aplicada a la capa de acción.</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Ship a V1</div><div class="text-xs text-neutral-400">jugada imperfecta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">∞</div><div class="text-xs text-neutral-400">nunca termina</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Afinar</div><div class="text-xs text-neutral-400">pequeños ajustes</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Skill viva</div><div class="text-xs text-neutral-400">mejora con el uso</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">🧪 Post mortem al final de la sesión (con rúbrica)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t4-p1">¿Cómo haces girar, en la práctica, el ∞ del tema anterior? Con un <strong class="text-purple-400">post-mortem</strong> al final de la sesión. Le preguntas a Claude Code: "con base en cómo fue esta sesión, ¿cómo — si corresponde — deberíamos ajustar la skill?". Y entregas una <strong class="text-neutral-100">rúbrica</strong>: el criterio para decidir cuándo cambiar algo y cuándo dejarlo como está.</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-4">Por qué aprender — el post mortem en 4 pasos</h3>
+<div class="space-y-6 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Termina la sesión</h4><p class="text-neutral-300 text-sm">Usaste la skill en una tarea real. Antes de cerrar, todavía está fresca en la memoria del contexto.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Pregunta el ajuste</h4><p class="text-neutral-300 text-sm">"Dado cómo resultó, ¿deberíamos cambiar la skill? ¿Qué y por qué?" La IA propone ajustes puntuales.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Aplica la rúbrica</h4><p class="text-neutral-300 text-sm">La rúbrica indica cuándo conviene hacer un cambio (error recurrente, paso faltante) y cuándo no (fue un caso aislado).</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">4</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Persiste el aprendizaje</h4><p class="text-neutral-300 text-sm">El ajuste se incorpora a la skill (o a una regla). La próxima vez, la skill ya funciona mejor.</p></div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Por qué importa la rúbrica</h3>
+<p class="text-neutral-300 text-sm">Sin una rúbrica, la IA cambia la skill a la menor provocación, y acumulas cambios impulsivos que se contradicen. La rúbrica pone el freno: solo cambia cuando el criterio lo justifica. Puede parecer demasiado meticuloso, y hay otras formas de evaluar, pero es lo que mantiene estable la skill.</p>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Post-mortem</div><div class="text-xs text-neutral-400">retrospectiva al final</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Rúbrica</div><div class="text-xs text-neutral-400">cuándo cambiar vs. no</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Ajuste puntual</div><div class="text-xs text-neutral-400">pequeño, no una reescritura</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Persistir</div><div class="text-xs text-neutral-400">entra en la skill/regla</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">⏰ Skill vs. tarea programada (cron)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t5-p1">No todo lo que se repite debe ser una habilidad. Si algo se ejecuta <strong class="text-purple-400">100% autónomo</strong> — misma entrada, misma salida, sin criterio — quizá debería ser un <strong class="text-neutral-100">script determinista</strong> (un Python o JavaScript que la propia IA escribe), posiblemente ejecutado por un cron.</p>
+<div class="bg-dark-800 border border-purple-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-purple-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m3-1-t5-p2">Un <strong>cron</strong> (o «trabajo programado») es un reloj del sistema que ejecuta un comando automáticamente a una hora fija; por ejemplo, todos los lunes a las 8h. <strong>Determinista</strong> significa: dada la misma entrada, siempre la misma salida, sin que la IA "decida". Es lo opuesto a una skill que requiere criterio en cada uso.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-4">✓ Déjala como skill cuando</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Cada uso requiere algo de criterio o contexto nuevo.</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>El argumento cambia lo que hace cada vez.</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Todavía estás afinando el proceso.</span></li>
+</ul>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">→ Conviértelo en script/cron cuando</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400">→</span><span>Se activa de forma 100 % autónoma, siempre igual.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">→</span><span>No necesita estar en el contexto en cada sesión.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">→</span><span>Quieres ahorrar tokens y ventana de contexto.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t5-p3">Porque una skill no es la respuesta para todo, y tratar todo como skill encarece el OS. Un proceso 100 % predecible funciona de forma más económica y confiable como script: no consume contexto, no hace falta cargarlo en cada nueva sesión de Claude Code y no corre el riesgo de que la IA "improvise".</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">100% autónoma</div><div class="text-xs text-neutral-400">la señal de que se está convirtiendo en script</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Determinista</div><div class="text-xs text-neutral-400">misma entrada → mismo resultado</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Cron</div><div class="text-xs text-neutral-400">se ejecuta solo a la hora programada</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Economía</div><div class="text-xs text-neutral-400">menos tokens/contexto</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">⚠️ El error común: 10 skills a la vez / skill nunca utilizada</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t6-p1">La capa de habilidades tiene tres trampas clásicas: gente <strong class="text-red-400">subutiliza</strong> skills, gente <strong class="text-red-400">se acumula</strong> demasiadas skills, y la gente se cree lista y crea <strong class="text-red-400">muchas skills a la vez</strong> — que quedan <em>obsoleto</em> (muertas) sin que nunca se usen. A eso se suma lo peor: escribir una skill sobre algo que tú <strong class="text-neutral-100">nunca lo hizo a mano</strong>.</p>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> El error que debes evitar</h3>
+<p class="text-neutral-300 text-sm">Sentarse un fin de semana y generar 10 skills «porque parecen útiles». Sin uso real, envejecen, se contradicen y saturan la carpeta <span class="font-mono text-xs">skills/</span>. Empiezas a confiar en recetas que nunca se pusieron a prueba en el fuego.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-4">✓ Hábito saludable</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Empieza con UNA skill: la tarea que más repites.</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Toda skill nace de algo que ya se hizo a mano.</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span>Crea la siguiente solo cuando el problema vuelva a aparecer.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Antipatrones</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>10 skills a la vez «porque parecen útiles».</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Skill de algo que nunca ejecutaste.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Acumular recetas que nunca se ejecutan (stale).</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t6-p2">Porque la tentación de «convertir todo en skill» es fuerte y costosa. Una carpeta concisa de skills activas —cada una nacida de un problema real y mantenida con el uso— vale más que una biblioteca de recetas muertas. Menos es mejor, y siempre se parte de lo que ya haces.</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Una primero</div><div class="text-xs text-neutral-400">la más repetida</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Sin acaparamiento</div><div class="text-xs text-neutral-400">no acumules</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Obsoleto</div><div class="text-xs text-neutral-400">skill que nunca se ejecuta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Dolor real</div><div class="text-xs text-neutral-400">el disparador para crear</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 — PRÁTICO / COPY-RUN -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">📝 Copy-run: destila esta conversación en un slash command</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t7-p1">Hora de ponerse manos a la obra. Haz una tarea a mano con Claude Code (cualquiera: clasificar unos archivos, redactar una respuesta estándar). Al terminar, pega el prompt de abajo: aplica el <strong class="text-purple-400">reverse meta-prompting</strong> y materializa tu primera skill: un slash command que acepta un argumento.</p>
+<!-- CODE BOX copy-run -->
+<div class="bg-dark-800 border border-purple-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-center gap-2 mb-3"><span class="text-lg">📋</span><h4 class="font-bold text-purple-400">Copia y ejecuta en Claude Code</h4></div>
+<p class="text-sm text-neutral-300 mb-1"><strong class="text-neutral-100">Objetivo:</strong> destilar la conversación que acabas de tener en un slash command reutilizable que acepta un argumento en lenguaje natural.</p>
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Pega al final de la sesión (cambia lo que está entre &lt; &gt;):</p>
+<pre class="font-mono text-xs sm:text-sm text-neutral-200 bg-dark-900 border border-dark-600 rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap">Com base em TODA esta conversa, destile o critério exato que eu te dei e
+materialize-o como um slash command reutilizável.
+
+Crie a skill em: skills/&lt;nome-da-skill&gt;/SKILL.md
+
+O comando deve:
+- chamar-se /&lt;nome-da-skill&gt; e ACEITAR UM ARGUMENTO (uma frase em
+  linguagem natural que enriquece o que ele faz);
+- ter um procedimento operacional padrão (SOP): exatamente o que
+  acontece, em que sequência;
+- listar, no fim, um "done-check": como eu verifico que deu certo.
+
+Antes de escrever o arquivo, me mostre o SOP em bullets e espere meu OK.</pre>
+<div class="mt-3 bg-purple-900/20 border border-purple-500/30 rounded-lg p-3">
+<p class="text-sm text-neutral-300"><strong class="text-purple-400">Cómo verificar:</strong> ejecuta <span class="font-mono text-xs">/&lt;nombre-da-skill&gt; "un caso de prueba"</span> en una nueva sesión. Si el comando reproduce lo que hiciste a mano y respeta el argumento que pasaste, la skill está activa. Comprueba también que el archivo <span class="font-mono text-xs">skills/&lt;nome-da-skill&gt;/SKILL.md</span> existe y tiene el SOP + done-check.</p>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Consejo</h3>
+<p class="text-neutral-300 text-sm">Observa el "espera mi OK" al final del prompt. Pedir el SOP en viñetas antes de guardar el archivo te permite corregir la receta mientras la conversación aún está fresca: es reverse meta-prompting con una puerta de revisión incorporada.</p>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t7-p2">Porque es la diferencia entre leer sobre skills y <strong class="text-neutral-100">tener</strong> una. Al ejecutar este prompt experimentas el ciclo completo — manual → captura → V1 — y sales del módulo con un artefacto real en la carpeta <span class="font-mono text-sm">skills/</span> de tu OS.</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Argumento</div><div class="text-xs text-neutral-400">enriquece el comando</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">SOP</div><div class="text-xs text-neutral-400">la secuencia exacta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Done-check</div><div class="text-xs text-neutral-400">cómo verificar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Puerta</div><div class="text-xs text-neutral-400">revisa antes de guardar</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 8 -->
+<section class="mb-16" data-inema-topic="modulo-3-1#topico-8" id="topico-8" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">8</span>
+<h2 class="text-2xl font-bold pt-1">📄 Anatomía de un SKILL.md</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t8-p1">Para cerrar, veamos la receta por dentro. Un <span class="font-mono text-sm">SKILL.md</span> es solo un archivo de texto (Markdown) con cuatro partes importantes: <strong class="text-purple-400">nombre</strong>, <strong class="text-purple-400">cuándo usar</strong> (el disparador), el <strong class="text-purple-400">paso a paso</strong> (SOP) y <strong class="text-purple-400">cómo verificar</strong>. Conocer esta anatomía te permite leer, depurar y mejorar cualquier skill.</p>
+<!-- SVG C: anatomia do SKILL.md -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="La estructura de un archivo SKILL.md: el encabezado con el nombre y la descripción, la sección «cuándo usar» con el disparador, el paso a paso del procedimiento (SOP) y la comprobación final «done-check»." class="w-full h-auto" role="img" viewbox="0 0 760 300">
+<defs>
+<filter height="180%" id="m31c-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m31c-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.1" r="1.3"></circle></pattern>
+</defs>
+<rect fill="url(#m31c-grid)" height="300" width="760" x="0" y="0"></rect>
+<g filter="url(#m31c-glow)"><rect fill="#1a1230" height="34" rx="9" stroke="#c084fc" stroke-width="2.5" width="270" x="40" y="20"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="700" x="58" y="42">📄 SKILL.md</text>
+<g font-family="Inter,sans-serif" font-size="13.5">
+<rect fill="#0e1b26" height="42" rx="8" stroke="#38bdf8" stroke-width="1.6" width="600" x="96" y="74"></rect><text fill="#bfe6ff" font-weight="600" x="112" y="92">name + description</text><text fill="#9ad6ff" font-size="11.5" x="112" y="109">quién es la skill y qué hace, en 1 frase</text>
+<rect fill="#0e1b26" height="42" rx="8" stroke="#38bdf8" stroke-width="1.6" width="600" x="96" y="124"></rect><text fill="#bfe6ff" font-weight="600" x="112" y="142">Cuándo usar (trigger)</text><text fill="#9ad6ff" font-size="11.5" x="112" y="159">el disparador — en qué situación invocarlo</text>
+<rect fill="#0e1b26" height="42" rx="8" stroke="#38bdf8" stroke-width="1.6" width="600" x="96" y="174"></rect><text fill="#bfe6ff" font-weight="600" x="112" y="192">Paso a paso (SOP)</text><text fill="#9ad6ff" font-size="11.5" x="112" y="209">qué sucede y en qué secuencia</text>
+<rect fill="#1a1230" height="42" rx="8" stroke="#c084fc" stroke-width="1.8" width="600" x="96" y="224"></rect><text fill="#c084fc" font-weight="600" x="112" y="242">Done-check</text><text fill="#e9d5ff" font-size="11.5" x="112" y="259">cómo verificar que funcionó</text>
+</g>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-purple-400">Cómo leer:</strong> de arriba hacia abajo es el orden de lectura de la propia IA: ve el nombre, decide si coincide el activador, sigue el SOP y verifica el done-check. Las tres del medio están en cian; el done-check (en morado) es lo que más olvidas y lo que más importa.</p>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Esqueleto ilustrativo — un SKILL.md mínimo</p>
+<pre class="font-mono text-xs sm:text-sm text-neutral-300 overflow-x-auto leading-relaxed whitespace-pre-wrap">---
+name: monthly-review
+description: Revisa o extrato do mês e gera um resumo categorizado.
+---
+
+## Quando usar
+Quando eu pedir a revisão mensal de gastos, ou passar um extrato novo.
+
+## Passo a passo (SOP)
+1. Ler o extrato em &lt;arquivo&gt; (argumento).
+2. Categorizar cada transação.
+3. Apontar gastos fora do padrão.
+4. Gerar o resumo em resumo-&lt;mes&gt;.md.
+
+## Done-check
+- Todas as transações têm categoria.
+- O resumo lista os 3 maiores gastos do mês.</pre>
+</div>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m3-1-t8-p2">Porque la anatomía es el lenguaje común de toda la capa. Cuando lees una skill (tuya o de otra persona), buscar estas cuatro partes te indica enseguida si está completa; la ausencia de done-check es el fallo número uno. Con esto, terminas la Trilha 3.1 listo para la siguiente capa: Herramientas.</p>
+<h3 class="text-lg font-semibold text-purple-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">name</div><div class="text-xs text-neutral-400">el identificador</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Trigger</div><div class="text-xs text-neutral-400">cuándo llamar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">SOP</div><div class="text-xs text-neutral-400">el paso a paso</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-purple-400 font-semibold text-sm">Done-check</div><div class="text-xs text-neutral-400">la parte más olvidada</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Empieza manualmente y captura después</strong><span class="text-neutral-400"> — una skill sobre algo que nunca hiciste a mano queda genérica.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Reverse meta-prompting</strong><span class="text-neutral-400"> — la IA condensa la conversación en un slash command que acepta un argumento.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">La señal del infinito</strong><span class="text-neutral-400"> — publica una V1 y ajústala para siempre, con post-mortem + rúbrica.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Si funciona al 100%, quizá convenga convertirlo en un script</strong><span class="text-neutral-400"> — lo determinista cuesta menos tokens y contexto.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-neutral-100">Una skill primero</strong><span class="text-neutral-400"> — sin acumulación; cada SKILL.md tiene name, trigger, SOP y done-check.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300">3.2 — Herramientas y conexiones: los hilos hacia afuera 🔌</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-2.html">Siguiente módulo →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Ingeniería de AIOS · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

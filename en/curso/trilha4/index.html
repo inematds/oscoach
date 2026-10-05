@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Track 4 · Step by step with /os-coach | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento da trilha (amber) — texto cai para -800 (Erro #23) */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(180,83,9,0.08); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(180,83,9,0.08); }
+    html:not(.dark) .bg-amber-900\/30 { background-color: rgba(180,83,9,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(180,83,9,0.18); }
+    html:not(.dark) .hover\:border-amber-500\/30:hover { border-color: rgba(180,83,9,0.25); }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    /* outras trilhas no nav (hover) */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes t4-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .t4-a { animation: t4-pulse 2.8s ease-in-out infinite; }
+      .t4-a:nth-child(2){animation-delay:.2s} .t4-a:nth-child(3){animation-delay:.4s}
+      .t4-a:nth-child(4){animation-delay:.6s} .t4-a:nth-child(5){animation-delay:.8s} .t4-a:nth-child(6){animation-delay:1s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha4/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha4/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha4/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha4/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<a class="skip" href="#conteudo">Skip to content</a>
+<!-- NAV (curso/trilhaN/ — T4 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentals</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Technique I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Technique II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Step-by-step</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap" href="../trilha5/index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Advanced</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">My journey</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Appearance</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Topic</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Dark</button><button data-inema-set-theme="claro" type="button">Clear</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Focus</button><button data-inema-set-theme="contraste" type="button">High contrast</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Source</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">System</button><button data-inema-set-font="leitura" type="button">Reading</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Size</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Width</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Narrow</button><button data-inema-set-linewidth="68" type="button">Intermediate</button><button data-inema-set-linewidth="75" type="button">Broad</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Subtext</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compact</button><button data-inema-set-leading="1.7" type="button">Comfortable</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Accent</span>
+<div class="inema-accent-grid">
+<button aria-label="Emerald accent" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Blue accent" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Purple accent" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Amber accent" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Teal accent" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Pink accent" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Toggle light/dark theme" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main id="conteudo">
+<!-- HEADER da trilha -->
+<header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">TRACK 4</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">⚙️ Step by step with <span class="font-mono text-2xl sm:text-3xl">/os-coach</span></h1>
+<p class="text-lg text-neutral-400 max-w-3xl">The hands-on track. You install a skill that does the technical work for you and build a real OS, one layer at a time, command by command: <span class="font-mono text-amber-400">start</span> → <span class="font-mono text-amber-400">next</span> → <span class="font-mono text-amber-400">audit</span>. Every module has a ready-to-copy-and-run example.</p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">6</div><div class="text-xs text-neutral-400">Modules</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">43</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">~4h</div><div class="text-xs text-neutral-400">Duration</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Practical</div><div class="text-xs text-neutral-400">Level</div></div>
+</div>
+<!-- progresso da trilha -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Track 4 progress" class="inema-ring" data-inema-meter="trilha:4"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="trilha:4"><strong data-inema-meter-frac="">0 of 0</strong> topics read</div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- HERO SVG da trilha: a esteira de comandos do /os-coach -->
+<div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-12 overflow-hidden">
+<svg aria-label="The os-coach command pipeline: the start command creates Identity, three next commands build Substrate, Rules, then Skills, Tools, and Agents, and the audit command scores everything. Each step saves progress to the memory.md file, and the audit returns feedback for the next step, resulting in a living OS." class="w-full h-auto" role="img" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="t4-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbbf24"></stop><stop offset="1" stop-color="#f59e0b"></stop></lineargradient>
+<filter height="180%" id="t4-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="t4-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#f59e0b" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="t4-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"></path></marker>
+<marker id="t4-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#t4-grid)" height="300" width="1000" x="0" y="0"></rect>
+<!-- esteira de comandos (amber) -->
+<g fill="none" opacity="0.6" stroke="#fbbf24" stroke-width="2">
+<path d="M186,72 L214,72" marker-end="url(#t4-ah)"></path>
+<path d="M366,72 L394,72" marker-end="url(#t4-ah)"></path>
+<path d="M546,72 L574,72" marker-end="url(#t4-ah)"></path>
+<path d="M726,72 L754,72" marker-end="url(#t4-ah)"></path>
+</g>
+<g font-family="Inter,sans-serif" font-size="13" font-weight="700">
+<g class="t4-a"><rect fill="#241a05" height="44" rx="11" stroke="url(#t4-grad)" stroke-width="2.5" width="150" x="36" y="50"></rect><text fill="#fbbf24" font-family="monospace" text-anchor="middle" x="111" y="77">start</text></g>
+<g class="t4-a"><rect fill="#241a05" height="44" rx="11" stroke="url(#t4-grad)" stroke-width="2.5" width="150" x="216" y="50"></rect><text fill="#fbbf24" font-family="monospace" text-anchor="middle" x="291" y="77">next</text></g>
+<g class="t4-a"><rect fill="#241a05" height="44" rx="11" stroke="url(#t4-grad)" stroke-width="2.5" width="150" x="396" y="50"></rect><text fill="#fbbf24" font-family="monospace" text-anchor="middle" x="471" y="77">next</text></g>
+<g class="t4-a"><rect fill="#241a05" height="44" rx="11" stroke="url(#t4-grad)" stroke-width="2.5" width="150" x="576" y="50"></rect><text fill="#fbbf24" font-family="monospace" text-anchor="middle" x="651" y="77">next</text></g>
+<g class="t4-a"><rect fill="#241a05" height="44" rx="11" stroke="url(#t4-grad)" stroke-width="2.5" width="150" x="756" y="50"></rect><text fill="#fbbf24" font-family="monospace" text-anchor="middle" x="831" y="77">audit</text></g>
+</g>
+<!-- camada que cada comando constrói (cyan) -->
+<g fill="none" opacity="0.45" stroke="#38bdf8" stroke-width="1.6">
+<path d="M111,94 L111,128"></path><path d="M291,94 L291,128"></path><path d="M471,94 L471,128"></path><path d="M651,94 L651,128"></path><path d="M831,94 L831,128"></path>
+</g>
+<g font-family="Inter,sans-serif" font-size="11" font-weight="600">
+<g><rect fill="#0e1b26" height="40" rx="9" stroke="#38bdf8" stroke-width="1.6" width="150" x="36" y="128"></rect><text fill="#bfe6ff" text-anchor="middle" x="111" y="153">1 · Identity</text></g>
+<g><rect fill="#0e1b26" height="40" rx="9" stroke="#38bdf8" stroke-width="1.6" width="150" x="216" y="128"></rect><text fill="#bfe6ff" text-anchor="middle" x="291" y="153">2 · Substrate</text></g>
+<g><rect fill="#0e1b26" height="40" rx="9" stroke="#38bdf8" stroke-width="1.6" width="150" x="396" y="128"></rect><text fill="#bfe6ff" text-anchor="middle" x="471" y="153">3 · Rules</text></g>
+<g><rect fill="#0e1b26" height="40" rx="9" stroke="#38bdf8" stroke-width="1.6" width="150" x="576" y="128"></rect><text fill="#bfe6ff" text-anchor="middle" x="651" y="148">4·5·6</text><text fill="#9ad6ff" font-size="9.5" font-weight="400" text-anchor="middle" x="651" y="162">Skills·Tools·Agents</text></g>
+<g><rect fill="#0e1b26" height="40" rx="9" stroke="#38bdf8" stroke-width="1.6" width="150" x="756" y="128"></rect><text fill="#bfe6ff" text-anchor="middle" x="831" y="153">Scorecard</text></g>
+</g>
+<!-- memory.md: tudo grava aqui -->
+<g fill="none" opacity="0.4" stroke="#fbbf24" stroke-dasharray="4 5" stroke-width="1.4">
+<path d="M111,168 L111,212"></path><path d="M291,168 L291,212"></path><path d="M471,168 L471,212"></path><path d="M651,168 L651,212"></path><path d="M831,168 L831,212"></path>
+</g>
+<rect fill="#1d1606" height="40" opacity="0.92" rx="11" stroke="#fbbf24" stroke-width="2" width="870" x="36" y="212"></rect>
+<text fill="#fcd34d" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="471" y="237"><tspan font-family="monospace">memory.md</tspan>  · remembers exactly where you left off, even between sessions</text>
+<!-- audit -> feedback de volta -->
+<path d="M906,72 C962,72 962,272 471,272 C300,272 200,272 60,262" fill="none" marker-end="url(#t4-ahc)" opacity="0.5" stroke="#38bdf8" stroke-dasharray="7 7" stroke-width="1.8"></path>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="640" y="288">the audit comes back as feedback for the next step</text>
+<!-- OS vivo -->
+<g filter="url(#t4-glow)"><rect fill="#241a05" height="60" rx="13" stroke="url(#t4-grad)" stroke-width="2.5" width="62" x="924" y="118"></rect></g>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="955" y="144">OS</text>
+<text fill="#fcd34d" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="955" y="160">alive</text>
+<path d="M906,148 L922,148" fill="none" marker-end="url(#t4-ah)" opacity="0.6" stroke="#fbbf24" stroke-width="2"></path>
+</svg>
+<p class="text-xs text-neutral-400 mt-3 px-1"><strong class="text-amber-400">How to read:</strong> the top row is the commands you type; just below, in cyan, is the layer each one builds. Everything flows into the <span class="font-mono text-xs">memory.md</span>, which saves your place. At the end, <span class="font-mono text-xs">audit</span> scores the OS and comes back as feedback. This path follows that pipeline from beginning to end.</p>
+</div>
+<!-- MAPA DA TRILHA (obrigatório) -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Learning path map</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-1">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.1</span><span class="text-xs text-neutral-500">~40 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">⚙️ Install the OS Coach</h3>
+<p class="text-xs text-neutral-400">One skill, six commands</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-2">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.2</span><span class="text-xs text-neutral-500">~40 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🎯 start — Identity</h3>
+<p class="text-xs text-neutral-400">The goal becomes the soul</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-3">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.3</span><span class="text-xs text-neutral-500">~45 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🗂️ next — Substrate</h3>
+<p class="text-xs text-neutral-400">Fix the background setup</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-4">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.4</span><span class="text-xs text-neutral-500">~40 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🚧 next — Rules</h3>
+<p class="text-xs text-neutral-400">The OS guardrails</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-5">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.5</span><span class="text-xs text-neutral-500">~45 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🧩 Skills → Tools → Agents</h3>
+<p class="text-xs text-neutral-400">Capability on top</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-6">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.6</span><span class="text-xs text-neutral-500">~50 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">📊 audit — scoring</h3>
+<p class="text-xs text-neutral-400">The scorecard against the goal</p>
+</a>
+</div>
+</section>
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- MÓDULO 4.1 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-amber-400 font-bold">4.1</span>
+<div class="flex items-center gap-3">
+<span class="text-xs text-neutral-500">~40 min</span>
+<div aria-label="Module 4.1 progress" class="inema-ring" data-inema-meter="modulo:4-1" style="--ring-size:2.4rem"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+</div>
+</div>
+<h3 class="text-2xl font-bold mb-2">⚙️ Install and understand the OS Coach</h3>
+<p class="text-neutral-400 text-sm">Copy the skill into a folder, learn the 6 commands, the <span class="font-mono text-xs">memory.md</span>, the 8 golden rules, the guards, and the loop that holds everything together.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t41-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">📦</span><div><span class="font-medium">Install the skill</span><span class="text-neutral-500 text-sm ml-2">- cp -r os-coach ~/.claude/skills/</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-1"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Installing means copying the folder <span class="font-mono text-xs">os-coach</span> for <span class="font-mono text-xs">~/.claude/skills/</span>. One command, no build, no dependencies.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the only prerequisite. Without it, the <span class="font-mono text-xs">/os-coach</span> doesn’t exist on your machine.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">cp -r · skills folder · zero dependencies.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t41-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🧭</span><div><span class="font-medium">What the skill does</span><span class="text-neutral-500 text-sm ml-2">- nontechnical guide, one layer at a time</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-2"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A copilot that does the technical work for you. It asks, you decide; it creates the files.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">You don’t need to know how to code — assume you’ve never opened a terminal.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Does it for you · one layer at a time · you decide.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t41-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">⌨️</span><div><span class="font-medium">The 6 commands</span><span class="text-neutral-500 text-sm ml-2">- start / next / layer / status / audit / help</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-3"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Six verbs: <span class="font-mono text-xs">start</span> (begins), <span class="font-mono text-xs">next</span> (next layer), <span class="font-mono text-xs">layer</span> (skip to one), <span class="font-mono text-xs">status</span> (map), <span class="font-mono text-xs">audit</span> (scores), <span class="font-mono text-xs">help</span> (explains).</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the entire keyboard you’ll use on this learning path. Memorizing these six is enough.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">start · next · layer · status · audit · help.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t41-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🧠</span><div><span class="font-medium">memory.md</span><span class="text-neutral-500 text-sm ml-2">- memory between sessions</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A file that stores the goal, current layer, and decisions. Read first and updated last on every turn.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s what lets you stop halfway and come back days later without losing your place.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Persistent state · resume later · always up to date.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t41-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">📜</span><div><span class="font-medium">The 8 golden rules</span><span class="text-neutral-500 text-sm ml-2">- how the coach behaves</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-5"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Talk like a human, one step at a time, the skill does the building, never generic, always persistent, end the turn the same way, no em dashes, protect sensitive information.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Knowing the rules tells you what to expect—and when the coach is going off script.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">8 rules · grounded in reality · protect data.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t41-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🛡️</span><div><span class="font-medium">The guards</span><span class="text-neutral-500 text-sm ml-2">- safeguards before each workflow</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-6"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Checks that prevent errors: run <span class="font-mono text-xs">next</span> without having <span class="font-mono text-xs">start</span>, overwrite an OS, invent a 7th layer.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Understanding the guards explains why the coach sometimes stops and asks instead of acting.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">No memory → ask to start · don't overwrite · don't make things up.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t41-7" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+<span class="text-lg">🔁</span><div><span class="font-medium">The Ask→Build→Persist→Next→Audit loop</span><span class="text-neutral-500 text-sm ml-2">- copy-run /os-coach help</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t41-7"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">The engine: ask, build, persist, advance, audit. All reading and writing to the same <span class="font-mono text-xs">memory.md</span>.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the rhythm of the entire learning path. Your first hands-on action: run <span class="font-mono text-xs">/os-coach help</span>.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Ask · Build · Persist · Next · Audit.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-1')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors" href="modulo-4-1.html">View Full</a>
+</div>
+</div>
+<!-- MÓDULO 4.2 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-amber-400 font-bold">4.2</span>
+<div class="flex items-center gap-3">
+<span class="text-xs text-neutral-500">~40 min</span>
+<div aria-label="Module 4.2 progress" class="inema-ring" data-inema-meter="modulo:4-2" style="--ring-size:2.4rem"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+</div>
+</div>
+<h3 class="text-2xl font-bold mb-2">🎯 <span class="font-mono">start</span> — objective + Identity</h3>
+<p class="text-neutral-400 text-sm">The first command. You state your goal, answer 2-3 questions, and the coach writes the <span class="font-mono text-xs">CLAUDE.md</span> — the lean soul of your OS.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t42-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🚀</span><div><span class="font-medium">The start command</span><span class="text-neutral-500 text-sm ml-2">- /os-coach start &lt;objetivo&gt;</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-1"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">The command that creates a new OS in the current folder and captures your goal in your own words.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Everything afterward is anchored to that goal—starting well prevents a generic OS.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">start · goal in your own words · folder = OS.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t42-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">❓</span><div><span class="font-medium">The 2–3 questions</span><span class="text-neutral-500 text-sm ml-2">- goal, for whom, always/never</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-2"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Who is the OS for, what would you like to simply ask it to do, and one thing it should always do and one it should never do.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Three short answers already give you almost all of the Identity. It's fast by design.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Who it’s for · what to ask · always / never.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t42-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">♻️</span><div><span class="font-medium">Reuse answers</span><span class="text-neutral-500 text-sm ml-2">- never ask twice</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-3"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">The coach checks what you’ve already said and reuses it. It never asks “who’s this for?” twice.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Shows that the goal + the start answers already cover almost all of Identity.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Reuse · no repetition · only the question that’s missing.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t42-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🪪</span><div><span class="font-medium">The generated CLAUDE.md</span><span class="text-neutral-500 text-sm ml-2">- the lean soul, &lt; 30 lines</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A short file: who the OS is, whom it serves, the goal, 2-3 defaults, and 2-3 hard refusals.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the first file the OS reads. Lean is better — cut until it hurts.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">&lt; 30 lines · defaults · hard refusals.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t42-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🔒</span><div><span class="font-medium">Sensitive data protection</span><span class="text-neutral-500 text-sm ml-2">- handles instead of the actual value</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-5"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">If you mark a field as private, the coach records an identifier (“Client A”), never the real value.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Protects names, emails, and values from the first layer, without you having to police them.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Handle · real value outside · no leaks.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t42-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">✅</span><div><span class="font-medium">Done-check</span><span class="text-neutral-500 text-sm ml-2">- the stranger test</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-6"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A stranger reads the <span class="font-mono text-xs">CLAUDE.md</span> and correctly describes what the OS is for and one thing it refuses.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the green light for Identity. Pass the test, and the layer is solid.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Stranger test · solid · one clear refusal.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t42-7" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+<span class="text-lg">▶️</span><div><span class="font-medium">Copy-run</span><span class="text-neutral-500 text-sm ml-2">- /os-coach start &lt;your goal&gt;</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t42-7"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Your first real build: run the <span class="font-mono text-xs">start</span> with your goal, inside a new folder.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Move from concept to creating the first files: <span class="font-mono text-xs">memory.md</span> + <span class="font-mono text-xs">CLAUDE.md</span>.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Hands-on · concrete goal · verify the files.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-2')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors" href="modulo-4-2.html">View Full</a>
+</div>
+</div>
+<!-- MÓDULO 4.3 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-amber-400 font-bold">4.3</span>
+<div class="flex items-center gap-3">
+<span class="text-xs text-neutral-500">~45 min</span>
+<div aria-label="Module 4.3 progress" class="inema-ring" data-inema-meter="modulo:4-3" style="--ring-size:2.4rem"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+</div>
+</div>
+<h3 class="text-2xl font-bold mb-2">🗂️ <span class="font-mono">next</span> — Substrate</h3>
+<p class="text-neutral-400 text-sm">The largest and most skipped layer. The <span class="font-mono text-xs">next</span> open the Substrate: <span class="font-mono text-xs">sources.md</span> + <span class="font-mono text-xs">compendium.md</span>, de-identification and the multi-part done check.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t43-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">➡️</span><div><span class="font-medium">The next command</span><span class="text-neutral-500 text-sm ml-2">- opens the next unfinished layer</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-1"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">O <span class="font-mono text-xs">next</span> read the <span class="font-mono text-xs">memory.md</span> and opens the next unfinished layer. After Identity, you move to Substrate.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the command you repeat most. It follows the right order for you.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">next · build order · one layer at a time.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t43-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🗄️</span><div><span class="font-medium">sources.md + compendium.md</span><span class="text-neutral-500 text-sm ml-2">- where it comes from vs. the distillate</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-2"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm"><span class="font-mono text-xs">sources.md</span> list where the material comes from; <span class="font-mono text-xs">compendium.md</span> is the distilled reference the OS actually reads.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">These are the two canonical files. The audit looks for them by these names.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">sources · compendium · distilled &gt; raw pile.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t43-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🔏</span><div><span class="font-medium">De-identification</span><span class="text-neutral-500 text-sm ml-2">- sensitive values outside the folder</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-3"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">When distilling, names and values marked as sensitive become handles. Never create a file that says “I excluded X” and lists X.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">The substrate is where accidental leaks are most likely—it’s where real data enters.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Stable handle · no contradictions · ask first.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t43-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🌾</span><div><span class="font-medium">Optional harvest</span><span class="text-neutral-500 text-sm ml-2">- distill now if the material exists</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">If you already have the material, the coach offers to gather and distill it on the spot; otherwise, it notes what’s missing in the <span class="font-mono text-xs">memory.md</span>.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">You make progress even without everything in hand — the gap is recorded, not forgotten.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Gather · distill · record what’s missing.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t43-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🧪</span><div><span class="font-medium">Multi-part done-check</span><span class="text-neutral-500 text-sm ml-2">- in progress vs solid</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-5"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">If the tough question has two parts (“what’s winning AND what’s already overdue”) and a piece of data is missing, the layer is <span class="text-amber-400">in progress</span>, not <span class="text-amber-400">solid</span>.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">The coach is honest about what it still can’t answer—and tells you what data would resolve it.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Multi-part · honesty · which input is missing.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t43-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">⚠️</span><div><span class="font-medium">Anti-pattern</span><span class="text-neutral-500 text-sm ml-2">- dump everything raw</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-6"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Throw everything in raw into <span class="font-mono text-xs">compendium.md</span>. A small, clean compendium beats a giant, messy one.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Dirty substrate clogs context. Distilling is the real work of this layer.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Distill &gt; dump · small and clean.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t43-7" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+<span class="text-lg">▶️</span><div><span class="font-medium">Copy-run</span><span class="text-neutral-500 text-sm ml-2">- /os-coach next</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t43-7"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Run <span class="font-mono text-xs">/os-coach next</span> in the same folder for the coach to open and build the Substrate.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Create the folder <span class="font-mono text-xs">substrate/</span> with the canonical files, anchored to your goal.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">next · substrate/ · check the compendium.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-3')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors" href="modulo-4-3.html">View Full</a>
+</div>
+</div>
+<!-- MÓDULO 4.4 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-amber-400 font-bold">4.4</span>
+<div class="flex items-center gap-3">
+<span class="text-xs text-neutral-500">~40 min</span>
+<div aria-label="Module 4.4 progress" class="inema-ring" data-inema-meter="modulo:4-4" style="--ring-size:2.4rem"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+</div>
+</div>
+<h3 class="text-2xl font-bold mb-2">🚧 <span class="font-mono">next</span> — Rules</h3>
+<p class="text-neutral-400 text-sm">The OS guardrails: <span class="font-mono text-xs">always.md</span> + <span class="font-mono text-xs">never.md</span>. The worst mistake becomes a never, plus an automatic reflex and the private-data rule.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t44-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">📋</span><div><span class="font-medium">always.md + never.md</span><span class="text-neutral-500 text-sm ml-2">- the two rule files</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-1"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">The folder <span class="font-mono text-xs">rules/</span> with <span class="font-mono text-xs">always.md</span> (what to always follow) and <span class="font-mono text-xs">never.md</span> (hard stops).</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Written rules become reliable behavior — they don’t depend on you remembering.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">always · never · rules/.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t44-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🛑</span><div><span class="font-medium">Worst mistake → never rule</span><span class="text-neutral-500 text-sm ml-2">- the question that becomes a rule</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-2"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">"What’s the worst mistake this OS could make?" The answer becomes a clear never-rule.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Turns your biggest fear into a black-and-white fence.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Worst mistake · concrete never-rule · black-and-white.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t44-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">⚙️</span><div><span class="font-medium">Automatic reflex</span><span class="text-neutral-500 text-sm ml-2">- the hook that acts on its own</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-3"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A hook is a locked door: a reminder, check, or backup that happens every time without anyone having to remember.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">A rule is a “no entry” sign; a hook is stronger because it can’t be ignored.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Hook &gt; rule · automatic · locked door.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t44-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🔒</span><div><span class="font-medium">Private data rule</span><span class="text-neutral-500 text-sm ml-2">- never share the folder</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">If there’s private data in the folder, add a never rule: “never upload or share this folder publicly.”</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">A leak can't be undone. This rule is usually the audit's #1 action.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Public never · irreversible · high priority.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t44-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🎯</span><div><span class="font-medium">Concrete vs. vague rule</span><span class="text-neutral-500 text-sm ml-2">- testable, not “be careful”</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-5"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">"Be careful" isn’t a rule. "Never mix numbers from two clients" is — you can test it.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">A vague rule protects nothing. Concrete and testable is the default.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Concrete · testable · no vagueness.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t44-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">✅</span><div><span class="font-medium">Done-check</span><span class="text-neutral-500 text-sm ml-2">- worst mistake in writing + 1 reflection</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-6"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">The layer is ready when the worst mistake has become a clear never-rule and at least one automatic reflex has been identified.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Sets an objective target for “Rules ready” instead of an endless list.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Never written · 1 reflex · clear target.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t44-7" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+<span class="text-lg">▶️</span><div><span class="font-medium">Copy-run</span><span class="text-neutral-500 text-sm ml-2">- /os-coach next</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t44-7"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Run <span class="font-mono text-xs">/os-coach next</span> again so the coach can open the Rules and write <span class="font-mono text-xs">always.md</span> + <span class="font-mono text-xs">never.md</span>.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Reinforces that <span class="font-mono text-xs">next</span> is the same command for every layer—the order is automatic.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">next · rules/ · same verb.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-4')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors" href="modulo-4-4.html">View Full</a>
+</div>
+</div>
+<!-- MÓDULO 4.5 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-amber-400 font-bold">4.5</span>
+<div class="flex items-center gap-3">
+<span class="text-xs text-neutral-500">~45 min</span>
+<div aria-label="Module 4.5 progress" class="inema-ring" data-inema-meter="modulo:4-5" style="--ring-size:2.4rem"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+</div>
+</div>
+<h3 class="text-2xl font-bold mb-2">🧩 Skills → Tools → Agents</h3>
+<p class="text-neutral-400 text-sm">The three capability layers, in order. The first skill (the one you repeat most), the <span class="font-mono text-xs">tools.md</span> read-only and the first agent — only after the skills.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t45-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🛠️</span><div><span class="font-medium">First skill</span><span class="text-neutral-500 text-sm ml-2">- start with the most repeated one</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-1"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A folder <span class="font-mono text-xs">skills/</span> with ONE <span class="font-mono text-xs">SKILL.md</span>: when to use it, the steps, and how to tell whether it worked well.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Start with the task you repeat most often. One good skill beats ten half-finished ones.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">One skill · the most repeated · SKILL.md.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t45-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">✋</span><div><span class="font-medium">Start manually</span><span class="text-neutral-500 text-sm ml-2">- do it by hand, then capture it</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-2"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">You cook by feel a few times, then write down the recipe. A skill is a verb you earn.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Writing a skill for something you've never done by hand produces the wrong recipe.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Manual first · capture later · earned verb.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t45-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🔌</span><div><span class="font-medium">tools.md read-only</span><span class="text-neutral-500 text-sm ml-2">- a window, not the keys to the house</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-3"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">One <span class="font-mono text-xs">tools.md</span> that lists every connection, what it's for, and whether it's read-only or write-enabled. Never keep secrets in the folder.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">The read-only pattern is the security hack: the OS looks, but doesn't touch.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Read-only · no secrets · only where writing is needed.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t45-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🤖</span><div><span class="font-medium">First agent</span><span class="text-neutral-500 text-sm ml-2">- only after the skills exist</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">One <span class="font-mono text-xs">AGENT.md</span> for the first role worth promoting: what it does, which skills it orchestrates, and the review gate before it goes out.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Only promote a routine to an agent if you already do it manually today — and there are skills for it to orchestrate.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">AGENT.md · orchestrates skills · review gate.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t45-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🪜</span><div><span class="font-medium">Don't skip steps</span><span class="text-neutral-500 text-sm ml-2">- the course's #1 mistake</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-5"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Skills before Tools before Agents. The coach blocks building an agent without skills for it to orchestrate.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Going to Agents too early is the most common mistake. The order protects you from it.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Order · skills first · agents last.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t45-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">⏭️</span><div><span class="font-medium">Layer that doesn’t apply</span><span class="text-neutral-500 text-sm ml-2">- not started, don't make it up</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-6"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">If a layer doesn’t yet apply to your goal, the coach marks it <span class="text-amber-400">not started</span> with a one-line reason and moves on.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Honesty is better than inventing work. You're not pushed toward an unnecessary agent.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">not started · reason in 1 line · no busywork.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t45-7" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+<span class="text-lg">▶️</span><div><span class="font-medium">Copy-run</span><span class="text-neutral-500 text-sm ml-2">- /os-coach next (×3)</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t45-7"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Three <span class="font-mono text-xs">next</span> in sequence cover Skills, Tools, and Agents—each when it's ready.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">You build the three capability layers of your OS, in the safe order.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">next ×3 · skills/ · tools.md · agents/.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-5')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors" href="modulo-4-5.html">View Full</a>
+</div>
+</div>
+<!-- MÓDULO 4.6 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-amber-400 font-bold">4.6</span>
+<div class="flex items-center gap-3">
+<span class="text-xs text-neutral-500">~50 min</span>
+<div aria-label="Module 4.6 progress" class="inema-ring" data-inema-meter="modulo:4-6" style="--ring-size:2.4rem"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+</div>
+</div>
+<h3 class="text-2xl font-bold mb-2">📊 <span class="font-mono">audit</span> — score against the objective</h3>
+<p class="text-neutral-400 text-sm">The command that closes the loop. Scores the 6 layers, writes the <span class="font-mono text-xs">OS-AUDIT.md</span>, gives you the 3 highest-leverage moves and wraps up with the guided photographer example.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t46-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">📊</span><div><span class="font-medium">The audit command</span><span class="text-neutral-500 text-sm ml-2">- /os-coach audit</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-1"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Read the <span class="font-mono text-xs">memory.md</span>, opens the actual folder and scores each layer against your goal.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It’s the command that honestly tells you where your OS really stands.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">audit · against the objective · scans the folder.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">📄</span><div><span class="font-medium">OS-AUDIT.md</span><span class="text-neutral-500 text-sm ml-2">- the saveable scorecard</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-2"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A file with the scorecard, the next 3 steps, and what already works—written for you to keep.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Because it can be saved, it must never contain leaked sensitive data.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Scorecard · savable · no leaks.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🏅</span><div><span class="font-medium">The 4 levels</span><span class="text-neutral-500 text-sm ml-2">- Missing / Started / Solid / Compounding</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-3"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Missing (doesn't exist), Started (thin), Solid (passes the done check), Compounding (improves on its own over time).</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">It's the honest yardstick. Most new OSs are Missing or Started — and that's okay.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">4 levels · honest · start small.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🎯</span><div><span class="font-medium">The 3 highest-leverage moves</span><span class="text-neutral-500 text-sm ml-2">- in priority order</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Instead of a huge list, three actions in order, each tied to the goal and a real file.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Focus. You leave the audit knowing exactly what to do next.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">3 moves · by leverage · real file.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🔍</span><div><span class="font-medium">Non-generic test</span><span class="text-neutral-500 text-sm ml-2">- each line cites its OS</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-5"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Every line in the audit must fail if pasted into a stranger's audit. It cites real goals, gaps, and file names.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">A generic audit is a failed audit. This test ensures advice that works for YOU.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Specific · cites files · no boilerplate.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">⚖️</span><div><span class="font-medium">Prioritization logic</span><span class="text-neutral-500 text-sm ml-2">- urgent rules → substrate → skills → agents</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-6"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">Urgent/irreversible hard rules come first; otherwise, a substrate gap takes priority; skills only with substrate; agents last.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Explains why the audit sometimes ignores the “fun part” and tells you to fix the foundation.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Precedence · foundation before capability · agents last.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-7" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span>
+<span class="text-lg">🔁</span><div><span class="font-medium">Feedback in the loop</span><span class="text-neutral-500 text-sm ml-2">- the audit rewrites the memory</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-7"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">The audit rewrites the status block in the <span class="font-mono text-xs">memory.md</span> and note the date — then the next <span class="font-mono text-xs">next</span> already starts from there.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Close the loop: auditing isn’t a dead report; it’s fuel for the next step.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">Feedback · rewrites status · feeds the next.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button aria-controls="t46-8" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">8</span>
+<span class="text-lg">📷</span><div><span class="font-medium">Complete guided example</span><span class="text-neutral-500 text-sm ml-2">- the wedding photographer</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t46-8"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">What is:</span><p class="text-neutral-300 text-sm">A real run, condensed: from the <span class="font-mono text-xs">start</span> ("never miss a deadline again") to <span class="font-mono text-xs">audit</span>, with handles “Couple A/B”.</p></div>
+<div><span class="text-amber-400 font-semibold">Why learn:</span><p class="text-neutral-300 text-sm">Ties the whole track to a single case — you watch the OS take shape and get scored.</p></div>
+<div><span class="text-amber-400 font-semibold">Key concepts:</span><p class="text-neutral-300 text-sm">End-to-end example · handles · real scorecard.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-6')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors" href="modulo-4-6.html">View Full</a>
+</div>
+</div>
+<!-- Navegação entre trilhas -->
+<div class="flex flex-col sm:flex-row gap-4 mt-10">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="../trilha3/index.html">← Previous track: Technique II</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="../trilha5/index.html">Next track: Advanced →</a>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>AIOS Engineering · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- MODAIS (iframe carrega a página completa do módulo) -->
+<div class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.1</span><span class="font-semibold">Install and understand OS Coach</span></div>
+<button aria-label="Close" class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-1.html" title="Module 4.1"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.2</span><span class="font-semibold">start — goal + Identity</span></div>
+<button aria-label="Close" class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-2.html" title="Module 4.2"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.3</span><span class="font-semibold">next — Substrate</span></div>
+<button aria-label="Close" class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-3.html" title="Module 4.3"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-4" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.4</span><span class="font-semibold">next — Rules</span></div>
+<button aria-label="Close" class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-4.html" title="Module 4.4"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-5" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.5</span><span class="font-semibold">Skills → Tools → Agents</span></div>
+<button aria-label="Close" class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-5.html" title="Module 4.5"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-6" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.6</span><span class="font-semibold">audit — score against the objective</span></div>
+<button aria-label="Close" class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-6.html" title="Module 4.6"></iframe>
+</div>
+</div>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(function (exp) {
+        if (exp !== explanation) {
+          exp.classList.remove('active');
+          var b = exp.closest('.topic-item').querySelector('button[aria-controls]');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+      });
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }
+  </script>
+</body>
+</html>

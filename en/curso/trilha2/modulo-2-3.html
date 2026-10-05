@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Module 2.3 · Rules &amp; Hooks — the fences | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento da trilha (blue) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/30 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .bg-sky-900\/20 { background-color: rgba(3,105,161,0.08); }
+    html:not(.dark) .border-sky-500\/30 { border-color: rgba(3,105,161,0.25); }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-green-400 { color: #15803d; }
+    html:not(.dark) .bg-green-900\/20 { background-color: rgba(21,128,61,0.08); }
+    html:not(.dark) .border-green-500\/30 { border-color: rgba(21,128,61,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m23-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m23-a { animation: m23-pulse 2.8s ease-in-out infinite; }
+      .m23-a:nth-child(2){animation-delay:.25s} .m23-a:nth-child(3){animation-delay:.5s}
+      .m23-a:nth-child(4){animation-delay:.75s} .m23-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha2/modulo-2-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha2/modulo-2-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha2/modulo-2-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<a class="skip" href="#conteudo">Skip to content</a>
+<!-- NAV (curso/trilhaN/ — T2 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentals</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Technique I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Technique II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap" href="../trilha4/index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Step-by-step</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap" href="../trilha5/index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Advanced</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">My journey</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Appearance</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Topic</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Dark</button><button data-inema-set-theme="claro" type="button">Clear</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Focus</button><button data-inema-set-theme="contraste" type="button">High contrast</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Source</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">System</button><button data-inema-set-font="leitura" type="button">Reading</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Size</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Width</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Narrow</button><button data-inema-set-linewidth="68" type="button">Intermediate</button><button data-inema-set-linewidth="75" type="button">Broad</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Subtext</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compact</button><button data-inema-set-leading="1.7" type="button">Comfortable</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Accent</span>
+<div class="inema-accent-grid">
+<button aria-label="Emerald accent" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Blue accent" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Purple accent" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Amber accent" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Teal accent" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Pink accent" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Toggle light/dark theme" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="2-3" data-inema-track="2" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Navigation path" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-blue-400" href="../../index.html">Start</a><span>/</span>
+<a class="hover:text-blue-400" href="index.html">Track 2</a><span>/</span>
+<span class="text-blue-400">Module 2.3</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MODULE 2.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🚧 Rules &amp; Hooks — the Fences</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">The third foundation layer: limits. <strong class="text-neutral-300">Rule</strong> is a “do not enter” sign — a strong suggestion, but not guaranteed. <strong class="text-neutral-300">Hook</strong> is a locked door — deterministic, always/never. The production rule: <strong class="text-blue-400">where it hurts (PII, money, database writes), use a hook, not a soft rule</strong>.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">8</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">~55</div><div class="text-xs text-neutral-400">Minutes</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Intermediate.</div><div class="text-xs text-neutral-400">Level</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Practical</div><div class="text-xs text-neutral-400">Type</div></div>
+</div>
+<!-- progresso do módulo -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Module 2.3 progress" class="inema-ring" data-inema-meter="modulo:2-3"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:2-3"><strong data-inema-meter-frac="">0 of 0</strong> topics read · <span data-inema-section-counter="">Section 1 of 8</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Page index" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">In this module</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-1">1. Rule = strong suggestion</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-2">2. Hook = deterministic</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-3">3. Gradually promote to rules/</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-4">4. Reflex hooks</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-5">5. settings.json: ban writing</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-6">6. PII pre-commit</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-7">7. Done-check: worst mistake</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-blue-400" href="#topico-8">8. Hands-on: settings.json</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Detailed content</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🪧 Rule = strong suggestion (non-deterministic)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t1-p1">A <strong class="text-blue-400">rule</strong> is a <strong class="text-neutral-100">strong suggestion</strong> to the model—not a guarantee. It's the “do not enter” sign by the side of the road: most people respect it, but nothing physically stops anyone who decides to enter. Rules are <strong class="text-neutral-100">non-deterministic</strong>: the model follows them most of the time, but can slip, especially deep into a long conversation.</p>
+<div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-blue-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m2-3-t1-p2"><strong>Deterministic</strong> = always happens the same way, without relying on judgment. <strong>Nondeterministic</strong> = depends on the model "deciding" at the time, so it varies. A rule written in the <span class="font-mono text-xs">CLAUDE.md</span> is nondeterministic: it’s text that influences, not code that enforces.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> When one rule is enough</h3>
+<p class="text-neutral-300 text-sm">For preferences and common sense — "prefer tables to paragraphs," "always use a formal tone with clients" — the rule is perfect: cheap, flexible, and easy to adjust. The problem is trusting it where a slip-up is costly.</p>
+</div>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t1-p3">Because knowing that a rule is “soft” calibrates your confidence. You stop treating every limit as unbreakable and save the heavy artillery (hooks) for what truly cannot fail. Understanding this distinction is at the heart of the Guardrails layer.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Rule</div><div class="text-xs text-neutral-400">strong suggestion</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Non-deterministic</div><div class="text-xs text-neutral-400">can slip</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">“Do not enter” sign</div><div class="text-xs text-neutral-400">the analogy</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Good for preferences</div><div class="text-xs text-neutral-400">where mistakes are cheap</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">🔒 Hook = deterministic (always/never)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t2-p1">One <strong class="text-blue-400">hook</strong> (hook) is <strong class="text-neutral-100">deterministic</strong>: it <em>always</em> does or <em>never</em> lets you do it without relying on the model’s judgment. It’s the locked door — no matter how deep into the conversation the OS is, the hook fires the same way. “Never let me send an email with my birth certificate attached” becomes a hook, not a rule.</p>
+<!-- SVG A: regra (placa, mole) vs gancho (porta trancada) -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Rule versus hook: on the left, a rule is a dashed fence with a no entry sign — a risky action can get through; on the right, a hook is a solid, locked door — the same action is deterministically blocked." class="w-full h-auto" role="img" viewbox="0 0 760 320">
+<defs>
+<filter height="180%" id="m23a-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m23a-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m23a-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#22d3ee"></path></marker>
+<marker id="m23a-ahr" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f87171"></path></marker>
+</defs>
+<rect fill="url(#m23a-grid)" height="320" width="760" x="0" y="0"></rect>
+<!-- LADO REGRA -->
+<text fill="#93c5fd" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="190" y="40">RULE — strong suggestion</text>
+<line stroke="#60a5fa" stroke-dasharray="7 7" stroke-width="3" x1="120" x2="120" y1="120" y2="240"></line>
+<line stroke="#60a5fa" stroke-dasharray="7 7" stroke-width="3" x1="260" x2="260" y1="120" y2="240"></line>
+<line stroke="#60a5fa" stroke-dasharray="7 7" stroke-width="2.5" x1="120" x2="260" y1="160" y2="160"></line>
+<rect fill="#0e1f3a" height="26" rx="5" stroke="#60a5fa" stroke-width="1.6" width="64" x="158" y="92"></rect><text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="190" y="110">don’t enter</text>
+<path d="M40,200 L300,200" fill="none" marker-end="url(#m23a-ahr)" opacity="0.85" stroke="#f87171" stroke-dasharray="3 5" stroke-width="2.4"></path>
+<text fill="#fca5a5" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="170" y="226">can sometimes get through</text>
+<!-- LADO GANCHO -->
+<text fill="#a5f3fc" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="570" y="40">HOOK — deterministic</text>
+<g filter="url(#m23a-glow)"><rect fill="#0e2330" height="148" rx="10" stroke="#22d3ee" stroke-width="3" width="140" x="500" y="92"></rect></g>
+<rect fill="#0e1626" height="40" rx="5" stroke="#22d3ee" stroke-width="2.5" width="28" x="556" y="150"></rect>
+<circle cx="570" cy="164" fill="none" r="6" stroke="#67e8f9" stroke-width="2.5"></circle>
+<path d="M570 164 L570 178" stroke="#67e8f9" stroke-width="2.5"></path>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="570" y="226">locked: always/never</text>
+<path d="M420,200 L498,200" fill="none" marker-end="url(#m23a-ahr)" opacity="0.85" stroke="#f87171" stroke-width="2.4"></path>
+<text fill="#fca5a5" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="436" y="186">✗ blocked</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="290">the same risky action (red arrow): the rule <tspan fill="#fca5a5">leaks</tspan>; the hook <tspan fill="#7dd3fc">lock</tspan></text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-blue-400">How to read:</strong> the same risky action (red arrow) hits both fences. With the rule (dashed fence), it can slip through; with the hook (solid, locked gate), it’s blocked every time. That’s why what really hurts becomes a hook.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t2-p2">Because the rule/hook distinction is the OS’s most important security decision. PII, money, and database writes can’t depend on the model “remembering”—they need a mechanism that always fires. Knowing how to turn a boundary into a hook is what makes the OS safe enough for real use.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Hook (hook)</div><div class="text-xs text-neutral-400">deterministic</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Always / never</div><div class="text-xs text-neutral-400">fires the same way</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Locked door</div><div class="text-xs text-neutral-400">the analogy</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Where it hurts</div><div class="text-xs text-neutral-400">PII, money, database</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">📑 Breaking up the bloated CLAUDE.md into rules/</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t3-p1">Remember the discipline from Module 2.1 — keep the <span class="font-mono text-sm">CLAUDE.md</span> concise? When it starts to bloat with “always do X / never do Y,” it’s time to <strong class="text-blue-400">graduate</strong> these lines into a folder <span class="font-mono text-sm">rules/</span> dedicated. The identity stays short; the rules get an organized home in <span class="font-mono text-sm">rules/always.md</span> e <span class="font-mono text-sm">rules/never.md</span>.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">📗 rules/always.md</h4>
+<p class="text-neutral-300 text-sm mb-3">What the OS should <strong class="text-neutral-100">always</strong> do.</p>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>"Always convert amounts to CAD."</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>"Always cite the policy source."</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">📕 rules/never.md</h4>
+<p class="text-neutral-300 text-sm mb-3">What the OS <strong class="text-neutral-100">never</strong> should do.</p>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"I never mix personal expenses with business expenses."</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"I never promise anything outside the playbook."</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Promote means move, not duplicate</h3>
+<p class="text-neutral-300 text-sm">When moving a rule to <span class="font-mono text-xs">rules/</span>, <strong class="text-neutral-100">remove it</strong> from the <span class="font-mono text-xs">CLAUDE.md</span> and leave only a pointer there (“see rules/”). Duplicating is the fastest way to create conflicting rules.</p>
+</div>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t3-p2">Because this is how the foundation grows without turning into a mess: the identity stays lean, and the rules become an auditable set. Separating <span class="font-mono text-sm">always</span> of <span class="font-mono text-sm">never</span> also makes explicit what is “always” — a candidate for becoming a deterministic hook.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Promote</div><div class="text-xs text-neutral-400">move to rules/</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">always.md</div><div class="text-xs text-neutral-400">what to always do</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">never.md</div><div class="text-xs text-neutral-400">what never to do</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Move &gt; duplicate</div><div class="text-xs text-neutral-400">avoids contradictions</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">⚡ Reflex hooks: block PII on push</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t4-p1">The most classic example of a hook is the <strong class="text-blue-400">reflex hook</strong> (reflex hook): a mechanism that triggers <strong class="text-neutral-100">right away</strong> when faced with a dangerous trigger. The author’s example: if you try to <strong class="text-neutral-100">upload something with PII to GitHub</strong> — Social Security number (SIN), credit card — the reflex <strong class="text-neutral-100">blocks immediately</strong> and you see “action blocked.”</p>
+<div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-blue-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m2-3-t4-p2"><strong>PII</strong> (<em>Personal Identifiable Information</em>) is any data that identifies you: CPF/SIN, credit card number, certificates. <strong>Push to GitHub</strong> = send your files to a remote repository in the cloud. Put the two together: a push with PII can publicly expose sensitive data—exactly what the reflex hook prevents.</p>
+</div>
+<div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-sky-400 mb-2 flex items-center"><span class="mr-2">🛟</span> Reflex, not memory</h3>
+<p class="text-neutral-300 text-sm">The point of the reflex is that it doesn’t depend on the model remembering. Even if the OS “forgets” the rule deep into a long session, the hook stays on guard. It’s the difference between <em>ask</em> care and <em>ensure</em> care.</p>
+</div>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t4-p3">Because the most costly errors are the silent ones—a PII leak you discover only later. A reflex hook turns “I hope it doesn’t happen” into “it can’t happen.” This is the layer that makes the OS safe for real tasks involving sensitive data.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Reflex hook</div><div class="text-xs text-neutral-400">fires immediately</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">PII</div><div class="text-xs text-neutral-400">data that identifies you</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Action blocked</div><div class="text-xs text-neutral-400">immediate feedback</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Reflex &gt; memory</div><div class="text-xs text-neutral-400">doesn’t depend on the model</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">⚙️ settings.json: ban write commands</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t5-p1">The harness comes with a file, ready to use <span class="font-mono text-sm">settings.json</span>. That's where you create permission hooks: ask Claude Code to <strong class="text-blue-400">ban write commands</strong> — for example, <strong class="text-neutral-100">never write to a specific database table</strong> — <strong class="text-neutral-100">unless there is an explicit override</strong>. It adds these commands to a Bash blocklist, and that's it: dangerous writes are prohibited by default.</p>
+<div class="bg-dark-800 border border-blue-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-blue-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m2-3-t5-p2">O <strong>Bash</strong> is the terminal through which the OS runs commands on your computer. The <span class="font-mono text-xs">settings.json</span> has a section <span class="font-mono text-xs">permissions.deny</span> that <strong>refuses</strong> certain commands before they run. <strong>Override</strong> = an exception you deliberately allow. That way, the default is safe, and risk exists only when you decide.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Safe default</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Writing in sensitive tables: <strong>denied</strong>.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>Destructive Bash commands: on the blocklist.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span><span>You allow access case by case, intentionally.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Without the hook</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>One wrong command deep in the context erases data.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>You trust that the model “won’t do it.”</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>The mistake only shows up when it’s too late.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t5-p3">Because the <span class="font-mono text-sm">settings.json</span> is where "never write here" stops being persuasive text and becomes a machine rule. It’s the easiest hook to install and one of the most rewarding: it protects your data from a single careless command.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">settings.json</div><div class="text-xs text-neutral-400">comes out of the box</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">permissions.deny</div><div class="text-xs text-neutral-400">refuses commands</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Ban writing</div><div class="text-xs text-neutral-400">safe default</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Override saved</div><div class="text-xs text-neutral-400">your exception</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">🔍 PII pre-commit hook</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t6-p1">A cousin of the reflex hook is the <strong class="text-blue-400">pre-commit hook</strong>: a checker that runs <strong class="text-neutral-100">before every commit</strong> and gives it one last check. The author’s practice: whenever something is going to be sent to GitHub, the pre-commit <strong class="text-neutral-100">checks twice</strong> if there's nothing specific to it—PII—in that content. If there is, the commit is blocked.</p>
+<!-- SVG B: pre-commit barra PII no caminho do GitHub -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="The pre-commit hook on the GitHub path: the commit goes through a checker; a clean file proceeds to GitHub, while a file with PII is blocked and returned with a blocked action warning." class="w-full h-auto" role="img" viewbox="0 0 820 220">
+<defs>
+<filter height="180%" id="m23b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m23b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m23b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#22d3ee"></path></marker>
+<marker id="m23b-ahg" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+<marker id="m23b-ahr" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f87171"></path></marker>
+</defs>
+<rect fill="url(#m23b-grid)" height="220" width="820" x="0" y="0"></rect>
+<g class="m23-a"><rect fill="#0e1f3a" height="52" rx="11" stroke="#3b82f6" stroke-width="2" width="130" x="30" y="84"></rect><text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="95" y="108">git commit</text><text fill="#93c5fd" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="95" y="126">files to send</text></g>
+<path d="M160,110 L222,110" fill="none" marker-end="url(#m23b-ah)" stroke="#22d3ee" stroke-width="2.2"></path>
+<g filter="url(#m23b-glow)"><rect fill="#0e2330" height="64" rx="13" stroke="#22d3ee" stroke-width="2.5" width="170" x="224" y="78"></rect></g>
+<text fill="#a5f3fc" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="309" y="104">🔍 pre-commit hook</text>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="309" y="124">scans for PII</text>
+<path d="M394,96 C460,80 500,70 560,70" fill="none" marker-end="url(#m23b-ahg)" stroke="#34d399" stroke-width="2.2"></path>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="478" y="58">clean ✓</text>
+<path d="M394,128 C460,150 500,162 560,162" fill="none" marker-end="url(#m23b-ahr)" stroke="#f87171" stroke-width="2.2"></path>
+<text fill="#fca5a5" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="478" y="176">has PII ✗ blocked</text>
+<g filter="url(#m23b-glow)"><rect fill="#0e2018" height="52" rx="11" stroke="#34d399" stroke-width="2.5" width="160" x="562" y="44"></rect></g>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="642" y="68">🐙 GitHub</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="642" y="86">private backup</text>
+<rect fill="#2a1115" height="50" rx="11" stroke="#f87171" stroke-width="2" width="200" x="562" y="138"></rect>
+<text fill="#fca5a5" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="662" y="160">blocked action</text>
+<text fill="#fda4af" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="662" y="178">remove the PII and try again</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-blue-400">How to read:</strong> every commit goes through the checker (cyan). A clean file goes to GitHub (green); a file with PII is blocked (red) and returned. The backup happens — but only for what’s safe.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t6-p2">Because you’ll want to version and back up the OS on GitHub (Track 5), and a backup without safeguards is a leak waiting to happen. The PII pre-commit hook lets you back up with peace of mind: it ensures sensitive data never crosses the boundary—combining with the <span class="font-mono text-sm">.gitignore</span> of what’s private.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Pre-commit</div><div class="text-xs text-neutral-400">runs before sending</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Double-check</div><div class="text-xs text-neutral-400">final check</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Blocks the commit</div><div class="text-xs text-neutral-400">if it finds PII</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">+ .gitignore</div><div class="text-xs text-neutral-400">double guardrail</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">🧪 Done check: worst mistake → never rule + 1 reflex</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t7-p1">The done criteria for this layer are simple and powerful: think of the <strong class="text-blue-400">worst possible mistake</strong> your domain and make sure it’s written as a <strong class="text-neutral-100">clear never-rule</strong> in <span class="font-mono text-sm">rules/never.md</span> — and that you have identified <strong class="text-neutral-100">at least 1 automatic reflex</strong> (hook) for what hurts the most.</p>
+<div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">✅</span> The 3-step done check</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600"><p class="text-neutral-300 text-sm">Name the <strong class="text-neutral-100">worst mistake</strong>: “what, if it happened, would I be unable to undo or defend?”.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600"><p class="text-neutral-300 text-sm">Write it as a clear never-rule in <span class="font-mono text-xs">rules/never.md</span> (text, the soft fence).</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600"><p class="text-neutral-300 text-sm">Reinforce with <strong class="text-neutral-100">1 reflection</strong> deterministic (settings.json or pre-commit) — the locked door.</p></div>
+</div>
+</div>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> The mistake of stopping at the rule</h3>
+<p class="text-neutral-300 text-sm">Writing the never-rule and thinking you're done is the trap. A rule is a suggestion; if the worst mistake is irreversible, it <strong class="text-neutral-100">requires</strong> with a deterministic reflex on top. Rule + reflex = the double fence that actually holds.</p>
+</div>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t7-p2">Because it’s an actionable criterion you can apply to any domain in 5 minutes. It forces the right question ("what must not fail?") and the right-sized answer (text for everything else, a hook for the irreversible). It’s exactly the done-check that the <span class="font-mono text-sm">/os-coach</span> is charged in Track 4.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Worst mistake</div><div class="text-xs text-neutral-400">the irreversible part</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Never-rule</div><div class="text-xs text-neutral-400">writing and clear</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">1 reflection</div><div class="text-xs text-neutral-400">the supporting hook</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Double fence</div><div class="text-xs text-neutral-400">rule + reflex</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 8 (PRÁTICO — copy-run) -->
+<section class="mb-16" data-inema-topic="modulo-2-3#topico-8" id="topico-8" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">8</span>
+<h2 class="text-2xl font-bold pt-1">⚡ Practical: settings.json with write deny rules</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t8-p1">Time to install a real locked door. Below is a <span class="font-mono text-sm">.claude/settings.json</span> <strong class="text-blue-400">copy-run</strong>: it <strong class="text-neutral-100">denies</strong> Bash write/destructive commands (permission hook) and adds a <strong class="text-neutral-100">PreToolUse hook</strong> that blocks database writes unless overridden. Change only the sections between <span class="font-mono text-xs text-blue-400">&lt;brackets&gt;</span>.</p>
+<div class="bg-dark-800 border border-blue-500/30 rounded-xl p-5 mb-4">
+<p class="text-sm font-semibold text-blue-400 mb-1">🎯 Objective</p>
+<p class="text-sm text-neutral-300">Leave this section with a real deterministic hook: the OS physically rejects dangerous write commands, without relying on you to “remember” the rule.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-4">
+<div class="flex items-center justify-between mb-2">
+<p class="text-xs text-neutral-500 font-semibold">Save to .claude/settings.json — copy-run</p>
+<span class="text-xs text-neutral-500 font-mono">json</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed whitespace-pre">{
+  <span class="text-blue-400">"permissions"</span>: {
+    <span class="text-blue-400">"deny"</span>: [
+      <span class="text-green-400">"Bash(rm:*)"</span>,
+      <span class="text-green-400">"Bash(git push:*)"</span>,
+      <span class="text-green-400">"Bash(psql:*)"</span>,
+      <span class="text-green-400">"Bash(sqlite3:*)"</span>,
+      <span class="text-green-400">"Bash(<span class="text-blue-400">&lt;sua-cli&gt;</span> write:*)"</span>,
+      <span class="text-green-400">"Bash(<span class="text-blue-400">&lt;sua-cli&gt;</span> delete:*)"</span>
+    ]
+  },
+  <span class="text-blue-400">"hooks"</span>: {
+    <span class="text-blue-400">"PreToolUse"</span>: [
+      {
+        <span class="text-blue-400">"matcher"</span>: <span class="text-green-400">"Bash"</span>,
+        <span class="text-blue-400">"hooks"</span>: [
+          {
+            <span class="text-blue-400">"type"</span>: <span class="text-green-400">"command"</span>,
+            <span class="text-blue-400">"command"</span>: <span class="text-green-400">"jq -r '.tool_input.command' | grep -qiE '(INSERT|UPDATE|DELETE|DROP|TRUNCATE).*<span class="text-blue-400">&lt;tabela_sensivel&gt;</span>' &amp;&amp; [ \"$ALLOW_DB_WRITE\" != \"1\" ] &amp;&amp; { echo 'Escrita no banco bloqueada (gancho). Use ALLOW_DB_WRITE=1 para override.' &gt;&amp;2; exit 2; } || exit 0"</span>
+          }
+        ]
+      }
+    ]
+  }
+}</pre>
+</div>
+<div class="bg-sky-900/20 rounded-xl border border-sky-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-sky-400 mb-2 flex items-center"><span class="mr-2">✔️</span> How to verify</h3>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">1.</span><span>Ask the OS to run a <span class="font-mono text-xs">git push</span> or one <span class="font-mono text-xs">rm</span> — should be <strong class="text-neutral-100">refused</strong> through the list <span class="font-mono text-xs">deny</span>.</span></li>
+<li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">2.</span><span>Ask for a command that writes to the <span class="font-mono text-xs">&lt;sensitive_table&gt;</span> — the PreToolUse hook must block it with the message (exit 2).</span></li>
+<li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">3.</span><span>Repeat with <span class="font-mono text-xs">ALLOW_DB_WRITE=1</span> in the environment — it now passes (explicit override working).</span></li>
+<li class="flex items-start gap-2"><span class="text-sky-400 mt-0.5">4.</span><span>One <span class="font-mono text-xs">SELECT</span> (read) is NOT blocked—the hook targets writing only.</span></li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Why this is a hook, not a rule</h3>
+<p class="text-neutral-300 text-sm">Nothing here depends on the model "deciding" to obey: the <span class="font-mono text-xs">deny</span> e o <span class="font-mono text-xs">exit 2</span> from the hook is code that runs <strong class="text-neutral-100">before</strong> for the command to run. It’s the locked door from Topic 2, now in a file. <em>Illustrative example — adjust the commands and pattern to your harness and database.</em></p>
+</div>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m2-3-t8-p2">Because it turns all the theory about fences into real protection in minutes. With this file, you already have the “1 reflex” from the Topic 7 done-check—and the foundation ready for the production OSs in Track 5, where money and sensitive data make this mandatory.</p>
+<h3 class="text-lg font-semibold text-blue-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">permissions.deny</div><div class="text-xs text-neutral-400">refuses commands</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">PreToolUse hook</div><div class="text-xs text-neutral-400">runs before Bash</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">exit 2 = blocks</div><div class="text-xs text-neutral-400">deterministic</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-blue-400 font-semibold text-sm">Override</div><div class="text-xs text-neutral-400">only when you want</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Rule = strong suggestion; hook = deterministic</strong><span class="text-neutral-400"> — “do not enter” sign vs. locked door.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Promote the bloated CLAUDE.md to rules/</strong><span class="text-neutral-400"> — always.md and never.md; move, don’t duplicate.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Reflex hooks and PII pre-commit</strong><span class="text-neutral-400"> — block immediately; reflex &gt; memory.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">settings.json: ban writes unless overridden</strong><span class="text-neutral-400"> — safe pattern with your exception.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-neutral-100">Done-check: worst mistake → never-rule + 1 reflex</strong><span class="text-neutral-400"> — the double fence that holds.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">You’ve completed the OS foundation!</h3>
+<p class="text-neutral-300">With Identity, Substrate, and Fences ready, the next track provides <strong class="text-neutral-100">capacity</strong>: Skills, Tools, and Agents. → Track 3 · Technique II 🤖</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="modulo-2-2.html">← Previous module</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="../trilha3/index.html">Next track: Technical II →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>AIOS Engineering · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

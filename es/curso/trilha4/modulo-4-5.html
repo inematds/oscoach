@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Módulo 4.5 · Habilidades → Herramientas → Agentes | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (amber) — âmbar NUNCA como texto claro: cai p/ -800 (#23) */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .bg-amber-900\/30 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m45-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m45-a { animation: m45-pulse 2.8s ease-in-out infinite; }
+      .m45-a:nth-child(2){animation-delay:.25s} .m45-a:nth-child(3){animation-delay:.5s}
+      .m45-a:nth-child(4){animation-delay:.75s} .m45-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha4/modulo-4-5.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha4/modulo-4-5.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha4/modulo-4-5.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/modulo-4-5.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha4/modulo-4-5.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-4-5.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="skip" href="#conteudo">Saltar al contenido</a>
+<!-- NAV (curso/trilhaN/ — T4 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Paso a paso</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap" href="../trilha5/index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avanzado</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">Mi recorrido</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Apariencia</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Oscuro</button><button data-inema-set-theme="claro" type="button">Claro</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Enfoque</button><button data-inema-set-theme="contraste" type="button">Alto contraste</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Fuente</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">Sistema</button><button data-inema-set-font="leitura" type="button">Lectura</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tamaño</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Ancho</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Estrecho</button><button data-inema-set-linewidth="68" type="button">Medio</button><button data-inema-set-linewidth="75" type="button">Amplio</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Entre líneas</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compacto</button><button data-inema-set-leading="1.7" type="button">Cómodo</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+<div class="inema-accent-grid">
+<button aria-label="Acento esmeralda" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Acento azul" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Acento morado" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Acento ámbar" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Acento teal" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Acento rosa" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Alternar tema claro/oscuro" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="4-5" data-inema-track="4" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Ruta de navegación" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-amber-400" href="../../index.html">Inicio</a><span>/</span>
+<a class="hover:text-amber-400" href="index.html">Ruta 4</a><span>/</span>
+<span class="text-amber-400">Módulo 4.5</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.5</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🧩 Habilidades → Herramientas → Agentes</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Las tres capas de <strong class="text-neutral-300">capacidad</strong>, construidas en el orden que funciona. Primero la <strong class="text-amber-400">skill más repetida</strong>, después un <span class="font-mono text-neutral-300">tools.md</span> solo lectura, y solo entonces el <strong class="text-amber-400">primer agente</strong> — nunca antes de las skills que orquesta. ¿Una capa que todavía no aplica? El coach marca <span class="font-mono text-neutral-300">no iniciado</span> y sigue.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">7</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">~50</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Práctico</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Guiado</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+<!-- progresso do módulo -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Progreso del módulo 4.5" class="inema-ring" data-inema-meter="modulo:4-5"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:4-5"><strong data-inema-meter-frac="">0 de 0</strong> temas leídos · <span data-inema-section-counter="">Sección 1 de 7</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Índice de la página" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">En este módulo</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-1">1. Tres capas, un orden</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-2">2. Skill = verbo conquistado</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-3">3. Anatomía del SKILL.md</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-4">4. Herramientas de solo lectura</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-5">5. Agente = rol con criterio</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-6">6. No te saltes pasos</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-amber-400" href="#topico-7">7. Verificaciones de finalización + copiar y ejecutar</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🧩 Tres capas, un orden</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t1-p1">Este módulo cubre de una vez las tres capas de <strong class="text-neutral-100">capacidad</strong>: <strong class="text-amber-400">Habilidades</strong> (capa 4), <strong class="text-amber-400">Herramientas</strong> (capa 5) y <strong class="text-amber-400">Agentes</strong> (capa 6). El <span class="font-mono text-sm">siguiente</span> te lleva por ellas en esta secuencia, y no es casualidad: un agente solo tiene sentido cuando hay skills que pueda orquestar, y las skills solo tienen sentido cuando hay un sustrato que puedan leer.</p>
+<div class="bg-dark-800 border border-amber-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-amber-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m4-5-t1-p2"><strong>Skill</strong> (en PT: <strong>habilidad</strong>) es un trabajo repetible escrito como una receta, para ejecutarlo igual cada vez. <strong>Herramienta</strong> es un cable que conecta el OS con una fuente de datos real (una base de datos, un calendario, una hoja de cálculo). <strong>Agente</strong> es un «trabajador» con un rol, que decide qué skills usar y en qué orden, y revisa antes de que algo salga.</p>
+</div>
+<!-- SVG A: progressão verbo -> fio -> papel (aninhamento crescente) -->
+<div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="La capacidad sube en tres niveles: una habilidad es un verbo, una herramienta es un hilo hacia afuera y un agente es un rol que orquesta varias habilidades a través de herramientas." class="w-full h-auto" role="img" viewbox="0 0 820 260">
+<defs>
+<lineargradient id="m45a-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbbf24"></stop><stop offset="1" stop-color="#f59e0b"></stop></lineargradient>
+<filter height="180%" id="m45a-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m45a-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#f59e0b" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m45a-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"></path></marker>
+</defs>
+<rect fill="url(#m45a-grid)" height="260" width="820" x="0" y="0"></rect>
+<g fill="none" opacity="0.5" stroke="#fbbf24" stroke-width="1.8">
+<path d="M210,130 L250,130" marker-end="url(#m45a-ah)"></path>
+<path d="M430,130 L470,130" marker-end="url(#m45a-ah)"></path>
+</g>
+<!-- 4 Habilidade -->
+<g font-family="Inter,sans-serif">
+<rect fill="#161310" height="76" rx="12" stroke="#fbbf24" stroke-width="2" width="170" x="40" y="92"></rect>
+<text fill="#fbbf24" font-size="15" font-weight="700" text-anchor="middle" x="125" y="120">4 · Habilidad</text>
+<text fill="#e5e7eb" font-size="12" text-anchor="middle" x="125" y="142">un verbo</text>
+<text fill="#fcd9a0" font-size="11" text-anchor="middle" x="125" y="160">skills/&lt;nome&gt;/SKILL.md</text>
+</g>
+<!-- 5 Ferramenta -->
+<g font-family="Inter,sans-serif">
+<rect fill="#0c151f" height="76" rx="12" stroke="#38bdf8" stroke-width="2" width="170" x="260" y="92"></rect>
+<text fill="#bfe6ff" font-size="15" font-weight="700" text-anchor="middle" x="345" y="120">5 · Herramienta</text>
+<text fill="#e5e7eb" font-size="12" text-anchor="middle" x="345" y="142">un hilo hacia afuera</text>
+<text fill="#9ad6ff" font-size="11" text-anchor="middle" x="345" y="160">tools.md (solo lectura)</text>
+</g>
+<!-- 6 Agente (caixa-foco, contém) -->
+<g filter="url(#m45a-glow)"><rect fill="#1f1604" height="132" rx="14" stroke="url(#m45a-grad)" stroke-width="2.5" width="300" x="480" y="64"></rect></g>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="630" y="92">6 · Agente — rol con criterio</text>
+<g font-family="Inter,sans-serif" font-size="11.5" font-weight="600">
+<g class="m45-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="84" x="500" y="108"></rect><text fill="#bfe6ff" text-anchor="middle" x="542" y="128">skill A</text></g>
+<g class="m45-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="84" x="592" y="108"></rect><text fill="#bfe6ff" text-anchor="middle" x="634" y="128">skill B</text></g>
+<g class="m45-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="84" x="684" y="108"></rect><text fill="#bfe6ff" text-anchor="middle" x="726" y="128">skill C</text></g>
+</g>
+<rect fill="#161310" height="30" rx="8" stroke="#fbbf24" stroke-width="1.6" width="268" x="500" y="150"></rect>
+<text fill="#fcd9a0" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" x="634" y="170">barrera de revisión antes de salir</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-amber-400">Cómo leer:</strong> la capacidad crece de izquierda a derecha. El agente (cuadro ámbar) <strong>contiene</strong> las skills que orquesta y una puerta de revisión. Por eso va al final: sin skills dentro, no tiene nada que coordinar.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t1-p3">Porque el error nº1 de quienes están entusiasmados es saltar directamente a los agentes —la parte "divertida"— y crear un agente que no tiene ninguna skill para usar. Saber el orden te evita construir el techo antes que las paredes. Ganas capacidad real, capa por capa, en vez de una cáscara vacía.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Capacidad</div><div class="text-xs text-neutral-400">capas 4-5-6</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Skill</div><div class="text-xs text-neutral-400">un verbo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Herramienta</div><div class="text-xs text-neutral-400">un hilo hacia afuera</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Agente</div><div class="text-xs text-neutral-400">rol, al final</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">🛠️ Skill = verbo conquistado (primero la más repetida)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t2-p1">La analogía del coach: una skill es una <strong class="text-amber-400">ficha de receta</strong>. Las primeras veces cocinas «a ojo»; después anotas la receta para que cualquiera pueda repetirla igual. Por eso tú <strong class="text-neutral-100">logro</strong> una skill: haz el trabajo a mano algunas veces y solo entonces captura los pasos. El coach comienza por <strong>UNA</strong> skill: tu tarea más repetida.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-4">Las preguntas que hace</h3>
+<div class="space-y-6 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">¿Qué tarea repites?</h4><p class="text-neutral-300 text-sm">"...y te gustaría que funcionara igual cada vez?" Esa es una candidata para la primera skill.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">¿Cómo lo haces a mano?</h4><p class="text-neutral-300 text-sm">"Muéstrame el paso a paso." De aquí salen los pasos de la receta.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">¿Cómo sabes si quedó bien?</h4><p class="text-neutral-300 text-sm">Se convierte en la línea «qué es un buen resultado»: el criterio de calidad de la skill.</p></div>
+</div>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> El error común</h3>
+<p class="text-neutral-300 text-sm">Intentar escribir diez skills de una vez, o escribir una skill para algo que tú <strong class="text-neutral-100">nunca lo hizo a mano</strong>. Primero gana experiencia: haz el trabajo de verdad algunas veces y luego captúralo. Una skill es la foto de un proceso que ya funciona, no una suposición.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t2-p2">Porque empezar por la tarea más repetida ofrece el mayor retorno con el menor riesgo. Es la tarea que conoces de memoria, así que la receta queda precisa, y es la que más tiempo te ahorra después. Y el coach te recuerda que una skill nunca está «lista»: mejorarás la receta con cada uso.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Ficha de receta</div><div class="text-xs text-neutral-400">la analogía</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Conquistar</div><div class="text-xs text-neutral-400">hazlo a mano primero</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Una primero</div><div class="text-xs text-neutral-400">la más repetida</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Nunca lista</div><div class="text-xs text-neutral-400">mejora al usarlo</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">📂 Anatomía de skills/&lt;nome&gt;/SKILL.md</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t3-p1">Cuando respondes, el coach crea la carpeta <span class="font-mono text-sm">skills/</span> y, dentro de ella, una subcarpeta por skill con un <span class="font-mono text-sm">SKILL.md</span> simple. Captura tres cosas: <strong class="text-amber-400">cuándo usar</strong>, <strong class="text-amber-400">los pasos</strong> e <strong class="text-amber-400">qué es un buen resultado</strong>. Nada de jerga: es tu receta, escrita para que puedas repetirla.</p>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Recreación ilustrativa — skills/checar-prazos/SKILL.md</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-amber-400"># Revisar plazos</span>
+
+<span class="text-amber-400">## Cuándo usar</span>
+Todas las mañanas, o cuando pregunte "¿qué vence?".
+
+<span class="text-amber-400">## Pasos</span>
+1. Leer el tracker en substrate/compendium.md.
+2. Calcular los plazos a partir de cada fecha.
+3. Enumerar lo que vence en 10 días y lo que ya está atrasado.
+
+<span class="text-amber-400">## Qué es un buen resultado</span>
+Una lista breve, con fechas y días restantes, sin olvidar ningún plazo.</pre>
+</div>
+<div class="bg-dark-800 border border-amber-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-amber-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m4-5-t3-p2">En Claude Code, una habilidad suele convertirse en un <strong>slash command</strong> — un atajo que activas escribiendo <span class="font-mono text-xs">/algo</span>. O <span class="font-mono text-xs">SKILL.md</span> es el archivo de texto que describe esa skill: el harness lo lee y aprende a ejecutar esa receta cuando la invocas.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t3-p3">Porque el done-check de la capa es exactamente esto: <strong class="text-neutral-100">un trabajo real y repetitivo, escrito como skill, con pasos claros y una línea de «buen resultado»</strong>. Ver la anatomía te permite reconocer cuándo una skill está completa y cuándo todavía es solo una idea suelta.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Cuándo usar</div><div class="text-xs text-neutral-400">el disparador</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Pasos</div><div class="text-xs text-neutral-400">la receta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Buen resultado</div><div class="text-xs text-neutral-400">el criterio</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Comando slash</div><div class="text-xs text-neutral-400">el atajo /algo</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">🔌 Herramientas: el cable de solo lectura</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t4-p1">La capa 5 conecta el OS con fuentes de datos reales. La analogía del coach es contundente: una herramienta es <strong class="text-amber-400">una ventana por la que el OS mira, no una llave de toda la casa</strong>. De forma predeterminada es <strong class="text-neutral-100">solo lectura</strong> (solo lectura): puede leer, pero no puede modificar. Y ningún secreto (contraseña, clave) entra en la carpeta.</p>
+<div class="bg-dark-800 border border-amber-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-amber-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m4-5-t4-p2"><strong>Read-only</strong> (solo lectura) significa que la conexión puede <strong>ver</strong> los datos, pero no puede <strong>cambiar</strong> nada. <strong>API</strong> es la "toma" oficial de un servicio para que los programas se comuniquen con él; <strong>CLI</strong> es un comando de terminal que ejecutas; <strong>MCP</strong> es un conector listo entre la IA y una herramienta. El coach te ayuda a elegir el camino más simple para cada fuente.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Recreación ilustrativa — tools.md</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-amber-400"># Tools</span>
+<span class="text-neutral-500"># Cada fonte: pra quê, e nível de acesso.</span>
+
+- Calendário  — ler datas de entrega   — <span class="text-amber-400">só-leitura</span>
+- Planilha    — ler bookings            — <span class="text-amber-400">só-leitura</span>
+- E-mail      — rascunhar (não enviar)  — <span class="text-amber-400">só-leitura</span>
+
+<span class="text-neutral-500"># Segredos (senhas/chaves) ficam FORA desta pasta.</span></pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6">
+<h4 class="font-bold text-amber-400 mb-4">✓ Patrón seguro</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Solo lectura de forma predeterminada.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Secretos fuera de la carpeta.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Redacción solo donde realmente sea necesaria.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ El error común</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Dar permisos de escritura en todo «por si acaso».</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Guardar la contraseña dentro de la carpeta del OS.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Conectar fuentes que el objetivo no requiere.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t4-p3">Porque escribir en todo es el camino más corto hacia un daño irreversible. Solo lectura es la versión de "mirar por la ventana": el OS te da respuestas con datos reales sin el riesgo de desordenar la fuente. El done-check es directo: cada fuente que necesita el objetivo está listada con su nivel de acceso, y no hay ningún secreto en la carpeta.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Ventana, no clave</div><div class="text-xs text-neutral-400">la analogía</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Solo lectura</div><div class="text-xs text-neutral-400">el estándar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Sin secretos</div><div class="text-xs text-neutral-400">fuera de la carpeta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Skill, CLI o MCP</div><div class="text-xs text-neutral-400">el camino más sencillo</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">🤖 Agente: rol con criterio + portón de revisión</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t5-p1">La analogía que lo cierra todo: <strong class="text-amber-400">las skills son las herramientas de cocina; el agente es el chef</strong> que sabe cuál elegir y <strong class="text-neutral-100">prueba el plato antes de que salga</strong>. Un agente es un rol con criterio: decide qué skills usar y en qué orden, y ejecuta una revisión obligatoria antes de que nada salga. El coach solo crea un agente para una rutina que tú <strong>ya lo hace manualmente hoy</strong>.</p>
+<!-- SVG B: fluxo do agente com portão de revisão -->
+<div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="El agente recibe una tarea, elige y encadena varias habilidades, pasa el resultado por una puerta de revisión obligatoria y solo entonces deja que salga." class="w-full h-auto" role="img" viewbox="0 0 860 220">
+<defs>
+<lineargradient id="m45b-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbbf24"></stop><stop offset="1" stop-color="#f59e0b"></stop></lineargradient>
+<filter height="180%" id="m45b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m45b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#f59e0b" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m45b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"></path></marker>
+</defs>
+<rect fill="url(#m45b-grid)" height="220" width="860" x="0" y="0"></rect>
+<g fill="none" opacity="0.55" stroke="#fbbf24" stroke-width="1.8">
+<path d="M150,110 L196,110" marker-end="url(#m45b-ah)"></path>
+<path d="M404,110 L450,110" marker-end="url(#m45b-ah)"></path>
+<path d="M628,110 L674,110" marker-end="url(#m45b-ah)"></path>
+</g>
+<g font-family="Inter,sans-serif">
+<rect fill="#161310" height="52" rx="11" stroke="#9ca3af" stroke-width="1.8" width="120" x="30" y="84"></rect><text fill="#e5e7eb" font-size="13" font-weight="600" text-anchor="middle" x="90" y="108">Tarea</text><text fill="#9ca3af" font-size="11" text-anchor="middle" x="90" y="125">entra</text>
+</g>
+<!-- agente caixa-foco contém skills -->
+<g filter="url(#m45b-glow)"><rect fill="#1f1604" height="128" rx="14" stroke="url(#m45b-grad)" stroke-width="2.5" width="208" x="196" y="46"></rect></g>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="300" y="72">Agente (chef)</text>
+<g font-family="Inter,sans-serif" font-size="11.5" font-weight="600">
+<g class="m45-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="80" x="214" y="90"></rect><text fill="#bfe6ff" text-anchor="middle" x="254" y="110">skill</text></g>
+<g class="m45-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="80" x="306" y="90"></rect><text fill="#bfe6ff" text-anchor="middle" x="346" y="110">skill</text></g>
+</g>
+<text fill="#fcd9a0" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="300" y="150">elige el orden</text>
+<!-- portão de revisão -->
+<g font-family="Inter,sans-serif">
+<rect fill="#161310" height="64" rx="12" stroke="#fbbf24" stroke-width="2" width="178" x="450" y="78"></rect><text fill="#fbbf24" font-size="13" font-weight="700" text-anchor="middle" x="539" y="104">🛂 Portón de revisión</text><text fill="#e5e7eb" font-size="11" text-anchor="middle" x="539" y="124">prueba el plato antes de salir</text>
+</g>
+<g font-family="Inter,sans-serif">
+<rect fill="#0c151f" height="52" rx="11" stroke="#38bdf8" stroke-width="1.8" width="150" x="674" y="84"></rect><text fill="#bfe6ff" font-size="13" font-weight="600" text-anchor="middle" x="749" y="108">Salida aprobada</text><text fill="#9ad6ff" font-size="11" text-anchor="middle" x="749" y="125">solo entonces va</text>
+</g>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-amber-400">Cómo leer:</strong> la tarea entra, el chef encadena skills, pero <strong>no sale nada</strong> sin pasar por la puerta de revisión. Esa puerta es lo que hace que delegar sea seguro: no es el agente quien decide por su cuenta qué publica.</p>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Recreación ilustrativa — agents/&lt;nome&gt;/AGENT.md</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-amber-400"># Gerente de entregas</span>
+
+<span class="text-amber-400">## Papel</span>
+Cuidar pra nenhuma entrega de cliente atrasar.
+
+<span class="text-amber-400">## Skills que orquestra</span>
+- checar-prazos
+- rascunhar-aviso
+
+<span class="text-amber-400">## Portão de revisão (obrigatório)</span>
+Nada vai a um cliente sem você ler e aprovar primeiro.</pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6">
+<h4 class="font-bold text-amber-400 mb-4">✓ Un agente</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Tiene UN papel claro.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Orquesta skills existentes.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span>Tiene una puerta de revisión obligatoria.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Agente «todoterreno»</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Quiere resolver diez roles a la vez.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Se construye antes de que exista una skill.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Deja que el trabajo salga sin revisión.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t5-p2">Porque el punto de revisión es lo que separa "una automatización útil" de "una automatización que asusta". Sin él, un agente podría enviar algo incorrecto a un cliente. Con él, delegas la coordinación, pero conservas la última palabra. El done-check: una rutina real, orquestada y con un punto de revisión claro.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Chef</div><div class="text-xs text-neutral-400">orquesta skills</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Puerta de revisión</div><div class="text-xs text-neutral-400">prueba antes de salir</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Un rol</div><div class="text-xs text-neutral-400">no «lo hace todo»</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Rutina real</div><div class="text-xs text-neutral-400">que ya haces</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">🚦 No te saltes pasos (y el "not started" honesto)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t6-p1">Dos medidas de seguridad guían este módulo. La primera: <strong class="text-amber-400">nunca un agente antes de que existan las skills que orquestaría</strong> — no te empujan a construir el chef antes de tener las ollas. Segundo: si una capa <strong class="text-neutral-100">aún no se aplica a tu objetivo</strong>, el coach la marca como <span class="font-mono text-sm">no iniciado</span> con un motivo de una línea, en vez de inventar trabajo inútil.</p>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🧭</span> Cuándo marcar «not started»</h3>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li><strong class="text-neutral-100">Herramientas</strong> — ¿Tu objetivo todavía solo lee archivos locales? Sin fuente externa, marca not started: "todavía no se necesita ninguna fuente externa".</li>
+<li><strong class="text-neutral-100">Agents</strong> — ¿Solo tienes una skill? No hay nada que orquestar. Not started: "vuelve cuando haya 2-3 skills que se puedan encadenar".</li>
+<li>La señal de honestidad: una línea con el motivo &gt; una carpeta vacía que finge trabajo.</li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300 text-sm">"Capa vacía" no es un fracaso. Un OS honesto con 3 capas sólidas y 3 marcadas <span class="font-mono text-xs">no iniciado</span> vale más que un OS con 6 capas mediocres. El coach prefiere la verdad — y la auditoría del 4.6 también.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t6-p2">Porque la tentación de saltar al agente es el error n.º 1, y el honesto «not started» es el antídoto contra lo contrario: llenar el OS de capas falsas para que parezca completo. Juntos, ambos frenos mantienen real tu sistema: solo tiene lo que sirve al objetivo y en el orden que permite dar el siguiente paso.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Agente al final</div><div class="text-xs text-neutral-400">skills primero</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">no iniciado</div><div class="text-xs text-neutral-400">con un motivo de 1 línea</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Sin trabajo innecesario</div><div class="text-xs text-neutral-400">no inventa trabajo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Honestidad</div><div class="text-xs text-neutral-400">real &gt; completo-de-mentira</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" data-inema-topic="modulo-4-5#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">✅ Done-checks + copy-run</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t7-p1">Cada una de las tres capas tiene su verificación de finalización. Ejecutas <span class="font-mono text-sm">/os-coach next</span> una vez por capa, y el coach construye el artefacto y marca el estado en el <span class="font-mono text-sm">memory.md</span>.</p>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-amber-400 mb-3">Las tres comprobaciones de finalización</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span><strong>Skills:</strong> un trabajo real y repetitivo se convirtió en una skill con pasos claros y una línea de «buen resultado».</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span><strong>Herramientas:</strong> toda fuente que el objetivo necesita está incluida con su nivel de acceso, y no hay secretos en la carpeta.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-400">✓</span><span><strong>Agents:</strong> una rutina real, orquestada, con un punto de revisión claro.</span></li>
+</ul>
+</div>
+<!-- COPY-RUN -->
+<div class="bg-dark-800 border border-amber-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-center gap-2 mb-3"><span aria-hidden="true" class="text-amber-400">⌨</span><span class="text-sm font-semibold text-amber-400">Copy-run · primera skill → tools.md → primer agente</span></div>
+<p class="text-sm text-neutral-400 mb-3"><strong class="text-neutral-200">Objetivo:</strong> recorrer las tres capas de capacidad, una a la vez, dejando que el coach construya cada artefacto.</p>
+<p class="text-xs text-neutral-500 mb-2 font-semibold">1) Abre la capa de Skills:</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed mb-3 bg-dark-900/60 rounded-lg p-3">/os-coach next</pre>
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Responde (cámbialo por los tuyos):</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed mb-4 bg-dark-900/60 rounded-lg p-3">Tarefa que repito: <span class="text-amber-400">&lt;ex.: checar quais entregas vencem&gt;</span>
+À mão eu faço assim: <span class="text-amber-400">&lt;passo 1; passo 2; passo 3&gt;</span>
+Fica bom quando: <span class="text-amber-400">&lt;ex.: nenhuma data passa batida&gt;</span></pre>
+<p class="text-xs text-neutral-500 mb-2 font-semibold">2) Vuelve a ejecutarlo para Tools; responde cuáles son las fuentes y el acceso:</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed mb-4 bg-dark-900/60 rounded-lg p-3">/os-coach next
+Fontes: <span class="text-amber-400">&lt;ex.: calendário e planilha de bookings&gt;</span>  → só-leitura</pre>
+<p class="text-xs text-neutral-500 mb-2 font-semibold">3) Vuelve a ejecutarlo para Agents (solo si ya tienes skills encadenables):</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed mb-4 bg-dark-900/60 rounded-lg p-3">/os-coach next
+Rotina que encadeio à mão: <span class="text-amber-400">&lt;ex.: checar prazos e rascunhar o aviso&gt;</span>
+Revisão antes de sair: <span class="text-amber-400">&lt;ex.: eu aprovo todo aviso a cliente&gt;</span></pre>
+<p class="text-sm text-neutral-400"><strong class="text-neutral-200">Cómo verificar:</strong> confirma que existen <span class="font-mono text-xs">skills/&lt;nome&gt;/SKILL.md</span> e <span class="font-mono text-xs">tools.md</span>, y que el <span class="font-mono text-xs">tools.md</span> dice "solo lectura". Ejecuta <span class="font-mono text-xs">/os-coach status</span>: las capas que no se usan aparecen como <span class="font-mono text-xs">no iniciado</span> con un motivo, no como error.</p>
+</div>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m4-5-t7-p2">Porque al final de este módulo tu OS tiene capacidad real: al menos una skill que se ejecuta igual, conexiones de solo lectura a los datos que necesita y, si tiene sentido, un agente con una puerta de revisión. Es el momento adecuado para detenerte y <strong class="text-neutral-100">puntuar todo según el objetivo</strong> — lo que haces en el Módulo 4.6 con el <span class="font-mono text-sm">audit</span>.</p>
+<h3 class="text-lg font-semibold text-amber-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">siguiente por capa</div><div class="text-xs text-neutral-400">un paso a la vez</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">3 verificaciones de finalización</div><div class="text-xs text-neutral-400">skills/tools/agents</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">estado</div><div class="text-xs text-neutral-400">revisa el mapa</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-amber-400 font-semibold text-sm">Siguiente</div><div class="text-xs text-neutral-400">audit (4.6)</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 rounded-xl border border-amber-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Skills → Tools → Agents, en ese orden</strong><span class="text-neutral-400"> — el agente va después de las skills que orquesta.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Skill = verbo dominado</strong><span class="text-neutral-400"> — empieza por la más repetida; hazla a mano antes de automatizarla.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Herramientas = conexión de solo lectura</strong><span class="text-neutral-400"> — ventana, no llave; secretos fuera de la carpeta.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Agente = chef con puerta de revisión</strong><span class="text-neutral-400"> — nada sale sin revisión.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-neutral-100">Capa que no aplica = no iniciada</strong><span class="text-neutral-400"> — con un motivo de 1 línea, sin tareas innecesarias.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-amber-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300">4.6 — audit: puntuar según el objetivo 📊</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="modulo-4-6.html">Siguiente módulo →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Ingeniería de AIOS · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

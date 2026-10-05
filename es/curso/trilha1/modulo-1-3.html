@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Módulo 1.3 · Glosario esencial | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (emerald) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/30 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .hover\:text-teal-400:hover { color: #0d9488; }
+    html:not(.dark) .hover\:bg-teal-500\/10:hover { background-color: rgba(13,148,136,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m13-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m13-a { animation: m13-pulse 2.8s ease-in-out infinite; }
+      .m13-a:nth-child(2){animation-delay:.25s} .m13-a:nth-child(3){animation-delay:.5s}
+      .m13-a:nth-child(4){animation-delay:.75s} .m13-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha1/modulo-1-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha1/modulo-1-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha1/modulo-1-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha1/modulo-1-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-1-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="skip" href="#conteudo">Saltar al contenido</a>
+<!-- NAV (curso/trilhaN/ — T1 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap" href="../trilha4/index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Paso a paso</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-teal-400 hover:bg-teal-500/10 transition-colors whitespace-nowrap" href="../trilha5/index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avanzado</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">Mi recorrido</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Apariencia</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Oscuro</button><button data-inema-set-theme="claro" type="button">Claro</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Enfoque</button><button data-inema-set-theme="contraste" type="button">Alto contraste</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Fuente</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">Sistema</button><button data-inema-set-font="leitura" type="button">Lectura</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tamaño</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Ancho</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Estrecho</button><button data-inema-set-linewidth="68" type="button">Medio</button><button data-inema-set-linewidth="75" type="button">Amplio</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Entre líneas</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compacto</button><button data-inema-set-leading="1.7" type="button">Cómodo</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+<div class="inema-accent-grid">
+<button aria-label="Acento esmeralda" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Acento azul" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Acento morado" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Acento ámbar" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Acento teal" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Acento rosa" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Alternar tema claro/oscuro" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="1-3" data-inema-track="1" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Ruta de navegación" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../index.html">Inicio</a><span>/</span>
+<a class="hover:text-emerald-400" href="index.html">Ruta 1</a><span>/</span>
+<span class="text-emerald-400">Módulo 1.3</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📖 Glosario esencial</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Todo el vocabulario, en un solo lugar. Cada término del curso recibe aquí una <strong class="text-neutral-300">frase concreta</strong> y una <strong class="text-emerald-400">analogía cotidiana</strong> — para que ninguna palabra técnica quede huérfana cuando llegues a las rutas siguientes.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">8</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">~35</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Inicial</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Glosario</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+<!-- progresso do módulo -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Progreso del módulo 1.3" class="inema-ring" data-inema-meter="modulo:1-3"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:1-3"><strong data-inema-meter-frac="">0 de 0</strong> temas leídos · <span data-inema-section-counter="">Sección 1 de 8</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Índice de la página" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">En este módulo</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-1">1. Identidad &amp; CLAUDE.md</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-2">2. Sustrato vs. Contexto</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-3">3. Regla vs. Hook</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-4">4. Skill</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-5">5. Agente</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-6">6. Skill·CLI·MCP·API</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-7">7. Nugget · deterioro · reversa</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-emerald-400" href="#topico-8">8. raw vs sintetizado</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Contenido detallado</h2>
+<p class="text-neutral-300 leading-relaxed mb-10 bg-dark-800 border border-dark-600 rounded-xl p-5">Este es el módulo de <strong class="text-emerald-400">referencia</strong> de la Ruta 1. No necesitas memorizarlo todo: léelo una vez para reconocer los términos y vuelve aquí siempre que una palabra aparezca "de la nada" en una ruta técnica. La regla de cada entrada es sencilla: <strong class="text-neutral-100">una frase concreta + una analogía cotidiana</strong>.</p>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🪪 Identidad y CLAUDE.md</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es Identidad?</h3>
+<p class="text-neutral-300 mb-3" data-inema-block="m1-3-t1-p1"><strong class="text-neutral-100">En una frase:</strong> es quién es el OS, a quién sirve y qué nunca debe rechazar.</p>
+<p class="text-neutral-300" data-inema-block="m1-3-t1-p2"><strong class="text-emerald-400">Analogía:</strong> la descripción del puesto que le entregas a un asistente nuevo el primer día: sin ella, es competente, pero está perdido.</p>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t1-p3">La Identidad vive en un archivo concreto: el <span class="font-mono text-sm">CLAUDE.md</span>. Es un archivo de texto común (formato <strong>Markdown</strong> — solo texto con algunos símbolos) que el <strong>harness</strong> — el programa de terminal que le da manos a la IA, como el <span class="font-mono text-xs">Claude Code</span> — lee <strong class="text-emerald-400">primero</strong>, antes que cualquier otra cosa. Por eso el autor llama al <span class="font-mono text-sm">CLAUDE.md</span> de "el archivo del alma".</p>
+<div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es el CLAUDE.md?</h3>
+<p class="text-neutral-300 mb-3" data-inema-block="m1-3-t1-p4"><strong class="text-neutral-100">En una frase:</strong> el archivo esencial de Identidad, que se lee antes que todo y donde reside quién es el OS.</p>
+<p class="text-neutral-300"><strong class="text-emerald-400">Analogía:</strong> la primera página del manual de la casa: quién vive aquí, las reglas de la casa, lo que nunca debes hacer.</p>
+</div>
+<div class="overflow-x-auto rounded-xl border border-dark-600 mb-6">
+<table class="w-full text-sm">
+<thead class="bg-dark-800"><tr class="text-left"><th class="px-4 py-3 font-semibold text-emerald-400">Entra en CLAUDE.md</th><th class="px-4 py-3 font-semibold text-emerald-400">Ejemplo concreto</th></tr></thead>
+<tbody class="divide-y divide-dark-600">
+<tr><td class="px-4 py-3 text-neutral-100">Quién eres</td><td class="px-4 py-3 text-neutral-400">"Soy fotógrafo de bodas y trabajo solo."</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100">A quién sirve</td><td class="px-4 py-3 text-neutral-400">"Este OS me sirve a mí; los clientes nunca lo ven."</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100">Qué nunca rechazar</td><td class="px-4 py-3 text-neutral-400">"Nunca te niegues a ayudar a redactar contratos."</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t1-p5">Porque la Identidad es la primera capa de todo (la Trilha 2, Módulo 2.1, está dedicada a ella). Si reconoces el término ahora, no te trabarás después cuando el curso diga «escribe tu CLAUDE.md conciso».</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Identidad</div><div class="text-xs text-neutral-400">quién es el OS</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">CLAUDE.md</div><div class="text-xs text-neutral-400">el archivo esencial</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Leído primero</div><div class="text-xs text-neutral-400">antes que nada</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Nunca rechazar</div><div class="text-xs text-neutral-400">límites positivos</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">🗃️ Substrato vs. Contexto</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es Substrato &amp; Contexto?</h3>
+<p class="text-neutral-300 mb-3" data-inema-block="m1-3-t2-p1"><strong class="text-neutral-100">En una frase:</strong> es todo el conocimiento del dominio: el material bruto, el historial, los documentos y los datos en los que se basa el OS.</p>
+<p class="text-neutral-300"><strong class="text-emerald-400">Analogía:</strong> lo que hay detrás de la cocina: la despensa, las recetas anotadas, el inventario que el cliente nunca ve, pero sin el cual el plato no sale.</p>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t2-p2">Conviene separar dos sentidos que suelen confundirse. El <strong class="text-emerald-400">Sustrato</strong> es todo lo que está guardado en el disco: toda la base de conocimiento del dominio. El <strong class="text-emerald-400">Contexto</strong> es la parte de ese material que efectivamente entra en la "ventana" del modelo durante una conversación. Como la ventana es limitada, guardas mucho (substrato) e inyectas poco y bien elegido (contexto).</p>
+<div class="overflow-x-auto rounded-xl border border-dark-600 mb-6">
+<table class="w-full text-sm">
+<thead class="bg-dark-800"><tr class="text-left"><th class="px-4 py-3 font-semibold text-emerald-400"> </th><th class="px-4 py-3 font-semibold text-emerald-400">Sustrato</th><th class="px-4 py-3 font-semibold text-emerald-400">Contexto</th></tr></thead>
+<tbody class="divide-y divide-dark-600">
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Qué es</td><td class="px-4 py-3 text-neutral-400">todo lo que está en el disco</td><td class="px-4 py-3 text-neutral-400">lo que entra en la conversación</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Tamaño</td><td class="px-4 py-3 text-neutral-400">grande, siempre crece</td><td class="px-4 py-3 text-neutral-400">pequeño, limitado por la ventana</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Analogía</td><td class="px-4 py-3 text-neutral-400">la despensa entera</td><td class="px-4 py-3 text-neutral-400">los ingredientes sobre la mesa ahora</td></tr>
+</tbody>
+</table>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Por qué importa la distinción</h3>
+<p class="text-neutral-300 text-sm">"El camión de basura en llamas" (Módulo 2.2) es precisamente el sustrato desordenado. Organizarlo antes de conectar la IA permite inyectar en el contexto solo lo que importa, sin desperdiciar la ventana con ruido.</p>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t2-p3">Porque esta capa representa, en muchos dominios, la mayor porción de la pizza. Quien confunde "guardar todo" con "inyectar todo" satura el contexto y empeora las respuestas. La distinción te enseña a separar el archivo (sustrato) de lo que sirves (contexto).</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Sustrato</div><div class="text-xs text-neutral-400">todo en el disco</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Contexto</div><div class="text-xs text-neutral-400">lo que entra en la ventana</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Ventana limitada</div><div class="text-xs text-neutral-400">por eso elige bien</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Tras bambalinas</div><div class="text-xs text-neutral-400">la cocina detrás de todo</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">🚧 Regla vs. Gancho</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t3-p1">Este es el par más importante que no debes confundir. Ambos sirven para imponer límites, pero tienen <strong class="text-emerald-400">fuerzas diferentes</strong>: una <strong>regla</strong> pide, un <strong>gancho</strong> obliga.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es una Regla?</h3>
+<p class="text-neutral-300 text-sm mb-3" data-inema-block="m1-3-t3-p2"><strong class="text-neutral-100">En una frase:</strong> una sugerencia <strong>sólida</strong> al modelo: casi siempre obedece, pero no está garantizado.</p>
+<p class="text-neutral-300 text-sm"><strong class="text-emerald-400">Analogía:</strong> un letrero de «no entres». Convence a casi todo el mundo, pero no lo impide físicamente.</p>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es un Gancho?</h3>
+<p class="text-neutral-300 text-sm mb-3" data-inema-block="m1-3-t3-p3"><strong class="text-neutral-100">En una frase:</strong> una acción <strong>determinista</strong> que siempre (o nunca) ocurre — no es una opinión del modelo, es código.</p>
+<p class="text-neutral-300 text-sm"><strong class="text-blue-400">Analogía:</strong> una puerta cerrada con llave. No importa lo que quieras: no se abre.</p>
+</div>
+</div>
+<div class="overflow-x-auto rounded-xl border border-dark-600 mb-6">
+<table class="w-full text-sm">
+<thead class="bg-dark-800"><tr class="text-left"><th class="px-4 py-3 font-semibold text-emerald-400"> </th><th class="px-4 py-3 font-semibold text-emerald-400">Regla (rule)</th><th class="px-4 py-3 font-semibold text-blue-400">Gancho (hook)</th></tr></thead>
+<tbody class="divide-y divide-dark-600">
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Fuerza</td><td class="px-4 py-3 text-neutral-400">probabilística (casi siempre)</td><td class="px-4 py-3 text-neutral-400">determinista (siempre/nunca)</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Dónde vive</td><td class="px-4 py-3 text-neutral-400">texto en <span class="font-mono text-xs">rules/</span></td><td class="px-4 py-3 text-neutral-400">código (p. ej.: <span class="font-mono text-xs">settings.json</span>, pre-commit)</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Úsala para</td><td class="px-4 py-3 text-neutral-400">tono, preferencias, buenas prácticas</td><td class="px-4 py-3 text-neutral-400">lo que NO puede fallar (PII, dinero, escritura en la base de datos)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> La regla práctica</h3>
+<p class="text-neutral-300 text-sm">Determinista donde importa. Si un error cuesta caro —filtrar un dato personal, borrar una tabla, enviar dinero por error— no confíes en una regla «flexible»: usa un gancho. Para el resto (estilo, tono, orden de preferencia), basta con la regla.</p>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t3-p4">Porque la Trilha 2 (Módulo 2.3) trata por completo sobre graduar reglas e instalar ganchos. Confundir ambos te lleva a confiar en un cartel cuando necesitabas una puerta cerrada con llave, y así ocurren los accidentes costosos.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Regla</div><div class="text-xs text-neutral-400">sugerencia firme</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Gancho</div><div class="text-xs text-neutral-400">determinista</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Señal vs. puerta</div><div class="text-xs text-neutral-400">la imagen clave</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Determinista donde importa</div><div class="text-xs text-neutral-400">el criterio</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">🧩 Skill (habilidad)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es una Skill?</h3>
+<p class="text-neutral-300 mb-3" data-inema-block="m1-3-t4-p1"><strong class="text-neutral-100">En una frase:</strong> una tarea repetible, empaquetada para ejecutarse igual cada vez: un único «verbo» que el OS sabe ejecutar.</p>
+<p class="text-neutral-300"><strong class="text-emerald-400">Analogía:</strong> una tarjeta de receta. Los mismos pasos, en el mismo orden, dan el mismo plato cada vez que la sigues.</p>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t4-p2">No <span class="font-mono text-sm">Claude Code</span>, una skill suele aparecer como un <strong>slash command</strong> — un comando que empieza con barra, como <span class="font-mono text-sm">/resumo</span>. Activás el verbo por su nombre y ejecuta el proceso que empaquetaste. El autor refuerza una idea central: empieza <strong class="text-emerald-400">manual</strong> (hazlo a mano primero), captura los pasos después y nunca dejes de perfeccionarlo.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Buena candidata a skill</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Algo que ya haces a mano y repites mucho.</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Pasos estables, con un resultado predecible.</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Vale la pena empaquetarlo porque ahorra tiempo de verdad.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Skill deficiente</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Algo que nunca hiciste a mano (no sabes los pasos).</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Escribir 10 de una vez, sin usar ninguna.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Tratarla como «lista»: una skill nunca se termina.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t4-p3">Porque las skills son la primera capa de "acción" (Trilha 3, Módulo 3.1). Saber que es un verbo repetible y que comienza de forma manual evita el error clásico de intentar automatizar algo que todavía no entiendes.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Skill = 1 verbo</div><div class="text-xs text-neutral-400">repetible</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Comando slash</div><div class="text-xs text-neutral-400">el disparador</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Empieza manualmente</div><div class="text-xs text-neutral-400">después de capture</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Nunca termina</div><div class="text-xs text-neutral-400">refina siempre</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">🤖 Agente</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es un Agente?</h3>
+<p class="text-neutral-300 mb-3" data-inema-block="m1-3-t5-p1"><strong class="text-neutral-100">En una frase:</strong> un papel con <strong>criterio</strong> que elige qué skills usar, en qué orden, normalmente con una instancia de revisión antes de que algo salga.</p>
+<p class="text-neutral-300"><strong class="text-emerald-400">Analogía:</strong> el chef que elige la herramienta adecuada, prepara el plato y lo prueba antes de servirlo — a diferencia de la tarjeta de receta (skill), que solo ejecuta un paso.</p>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t5-p2">La diferencia con skill es la clave: la <strong class="text-emerald-400">skill es un verbo</strong> (hace una cosa); el <strong class="text-emerald-400">un agente es un trabajador</strong> (decide qué verbos usar). Por eso el agente es la última capa: necesita skills para orquestar. Y solo vale la pena ascender a agente una rutina que tú <strong class="text-neutral-100">ya lo hace manualmente hoy</strong>.</p>
+<div class="overflow-x-auto rounded-xl border border-dark-600 mb-6">
+<table class="w-full text-sm">
+<thead class="bg-dark-800"><tr class="text-left"><th class="px-4 py-3 font-semibold text-emerald-400"> </th><th class="px-4 py-3 font-semibold text-emerald-400">Skill</th><th class="px-4 py-3 font-semibold text-emerald-400">Agente</th></tr></thead>
+<tbody class="divide-y divide-dark-600">
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Es un…</td><td class="px-4 py-3 text-neutral-400">verbo (1 tarea)</td><td class="px-4 py-3 text-neutral-400">rol (decide tareas)</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Juicio</td><td class="px-4 py-3 text-neutral-400">ninguno: solo ejecuta</td><td class="px-4 py-3 text-neutral-400">elige y ordena</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Analogía</td><td class="px-4 py-3 text-neutral-400">tarjeta de receta</td><td class="px-4 py-3 text-neutral-400">el chef</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t5-p3">Porque «agente» es la palabra que más entusiasma y más confunde. Fijar que agente = chef (criterio) y skill = receta (ejecución) te inmuniza contra el error n.º 1 del Módulo 1.2: saltar a los agentes antes de tener skills.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Rol</div><div class="text-xs text-neutral-400">no es un verbo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Juicio</div><div class="text-xs text-neutral-400">elige skills</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Puerta de revisión</div><div class="text-xs text-neutral-400">antes de salir</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Ya lo hace a mano</div><div class="text-xs text-neutral-400">prerrequisito</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">🔌 Skill vs. CLI vs. MCP vs. API</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t6-p1">Estas son las cuatro formas en que el OS "actúa en el mundo" — y cómo saber <strong class="text-emerald-400">cuándo usar cada una</strong> es una de las preguntas centrales del curso (Módulo 3.2). Van desde lo más «tuyo» (una skill que tú mismo empaquetas) hasta lo más externo (la API sin procesar de un servicio).</p>
+<!-- SVG A: as 4 formas de conexão, do mais 'seu' ao mais externo -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Cuatro tarjetas en secuencia — Skill, CLI, MCP y API — desde la más vinculada contigo (Skill) hasta la más externa (API). Skill: verbo empaquetado. CLI: control remoto ligero que creas sobre una API. MCP: adaptador estándar que pierde relevancia con el tiempo. API: la puerta de datos directa del servicio." class="w-full h-auto" role="img" viewbox="0 0 820 320">
+<defs>
+<filter height="180%" id="m13a-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.6"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m13a-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#10b981" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m13a-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#7dd3fc"></path></marker>
+</defs>
+<rect fill="url(#m13a-grid)" height="320" width="820" x="0" y="0"></rect>
+<g font-family="Inter,sans-serif">
+<g class="m13-a" filter="url(#m13a-glow)"><rect fill="#0e2018" height="170" rx="14" stroke="#34d399" stroke-width="2.5" width="170" x="30" y="56"></rect></g>
+<text fill="#34d399" font-size="18" font-weight="700" text-anchor="middle" x="115" y="92">Skill</text>
+<text fill="#e5e7eb" font-size="12.5" text-anchor="middle" x="115" y="124">Verbo empaquetado</text>
+<text fill="#9ca3af" font-size="11" text-anchor="middle" x="115" y="148">tu propio proceso</text>
+<text fill="#a7f3d0" font-size="11" text-anchor="middle" x="115" y="196">analogía: la forma de hacer las cosas en casa</text>
+<g class="m13-a" filter="url(#m13a-glow)"><rect fill="#0e2018" height="170" rx="14" stroke="#10b981" stroke-width="2.5" width="170" x="220" y="56"></rect></g>
+<text fill="#34d399" font-size="18" font-weight="700" text-anchor="middle" x="305" y="92">CLI</text>
+<text fill="#e5e7eb" font-size="12.5" text-anchor="middle" x="305" y="124">Control remoto compacto</text>
+<text fill="#9ca3af" font-size="11" text-anchor="middle" x="305" y="148">tú creas sobre una API</text>
+<text fill="#a7f3d0" font-size="11" text-anchor="middle" x="305" y="196">puede ser de solo lectura</text>
+<g class="m13-a" filter="url(#m13a-glow)"><rect fill="#0e1b26" height="170" rx="14" stroke="#38bdf8" stroke-width="2.5" width="170" x="410" y="56"></rect></g>
+<text fill="#7dd3fc" font-size="18" font-weight="700" text-anchor="middle" x="495" y="92">MCP</text>
+<text fill="#e5e7eb" font-size="12.5" text-anchor="middle" x="495" y="124">Adaptador de enchufe</text>
+<text fill="#9ca3af" font-size="11" text-anchor="middle" x="495" y="148">conector predeterminado</text>
+<text fill="#bfe6ff" font-size="11" text-anchor="middle" x="495" y="196">baja con el tiempo</text>
+<g class="m13-a" filter="url(#m13a-glow)"><rect fill="#0e1b26" height="170" rx="14" stroke="#22d3ee" stroke-width="2.5" width="170" x="600" y="56"></rect></g>
+<text fill="#67e8f9" font-size="18" font-weight="700" text-anchor="middle" x="685" y="92">API</text>
+<text fill="#e5e7eb" font-size="12.5" text-anchor="middle" x="685" y="124">Punto de entrada del servicio</text>
+<text fill="#9ca3af" font-size="11" text-anchor="middle" x="685" y="148">la puerta de datos sin procesar</text>
+<text fill="#bfe6ff" font-size="11" text-anchor="middle" x="685" y="196">la base de todo</text>
+<path d="M70,262 L760,262" fill="none" marker-end="url(#m13a-ah)" stroke="#7dd3fc" stroke-width="2"></path>
+<text fill="#9ca3af" font-size="11" x="120" y="252">más «tuyo» / vinculado a ti</text>
+<text fill="#9ca3af" font-size="11" text-anchor="end" x="700" y="252">más infraestructura externa →</text>
+</g>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Cómo leer:</strong> de izquierda a derecha, pasas de lo que es "muy tuyo" (una Skill que empaqueta tu manera de hacer las cosas) a lo que es "puramente externo" (la API sin procesar del servicio). La CLI queda en el medio: la construyes sobre una API para tener un control sencillo y seguro.</p>
+<div class="overflow-x-auto rounded-xl border border-dark-600 mb-6">
+<table class="w-full text-sm">
+<thead class="bg-dark-800"><tr class="text-left"><th class="px-4 py-3 font-semibold text-emerald-400">Término</th><th class="px-4 py-3 font-semibold text-emerald-400">En una frase</th><th class="px-4 py-3 font-semibold text-emerald-400">Analogía</th><th class="px-4 py-3 font-semibold text-emerald-400">Cuándo usar</th></tr></thead>
+<tbody class="divide-y divide-dark-600">
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">Skill</td><td class="px-4 py-3 text-neutral-400">verbo repetible que empaquetas</td><td class="px-4 py-3 text-neutral-400">la forma de hacer las cosas aquí</td><td class="px-4 py-3 text-neutral-400">proceso tuyo, sin necesitar un servicio externo</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">CLI</td><td class="px-4 py-3 text-neutral-400">programa de línea de comandos para un servicio</td><td class="px-4 py-3 text-neutral-400">control remoto conciso</td><td class="px-4 py-3 text-neutral-400">cuándo quieres control (y seguridad de solo lectura)</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">MCP</td><td class="px-4 py-3 text-neutral-400">protocolo que conecta la IA con una herramienta</td><td class="px-4 py-3 text-neutral-400">adaptador de corriente</td><td class="px-4 py-3 text-neutral-400">conexión rápida y estándar (menos relevante con el tiempo)</td></tr>
+<tr><td class="px-4 py-3 text-neutral-100 font-semibold">API</td><td class="px-4 py-3 text-neutral-400">la puerta de datos de un servicio</td><td class="px-4 py-3 text-neutral-400">la entrada de servicio del edificio</td><td class="px-4 py-3 text-neutral-400">la base — sueles envolverla en una CLI</td></tr>
+</tbody>
+</table>
+</div>
+<div class="bg-dark-800 border border-emerald-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-emerald-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m1-3-t6-p2"><strong>CLI</strong> = "command-line interface", un programa que manejas escribiendo comandos. <strong>MCP</strong> = "Model Context Protocol", una forma estándar de conectar herramientas a la IA. <strong>API</strong> = "application programming interface", la puerta por la que los programas solicitan datos a un servicio. No necesitas saber programar ninguno de ellos ahora; solo reconocer qué significa cada sigla.</p>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t6-p3">Porque la pregunta «¿skill, CLI, MCP o API?» vuelve a aparecer cada vez que el OS necesita interactuar con algo externo. Con este esquema en mente, eliges con intención y entiendes por qué el autor prefiere CLIs de solo lectura para lo que es peligroso.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Skill</div><div class="text-xs text-neutral-400">tu manera de hacer las cosas</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">CLI</div><div class="text-xs text-neutral-400">control conciso</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">MCP</div><div class="text-xs text-neutral-400">adaptador predeterminado</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">API</div><div class="text-xs text-neutral-400">la puerta sin procesar</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">💎 Nugget · context rot · reverse meta-prompting</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t7-p1">Tres términos que el autor dice que <strong class="text-emerald-400">"la mayoría de las personas ignora"</strong> — y que distinguen un OS amateur de uno que se mantiene activo. Cada uno viene con su frase y su analogía.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-5">
+<div class="text-2xl mb-2">💎</div>
+<h4 class="font-bold text-emerald-400 mb-2">Nugget</h4>
+<p class="text-neutral-300 text-sm mb-3" data-inema-block="m1-3-t7-p2">Un resumen muy destilado (como 10 viñetas) del material en bruto, listo para inyectar en el contexto.</p>
+<p class="text-xs text-neutral-400"><strong class="text-emerald-400">Analogía:</strong> el concentrado reducido — concentrado, sin el agua.</p>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<div class="text-2xl mb-2">⏳</div>
+<h4 class="font-bold text-blue-400 mb-2">Context rot</h4>
+<p class="text-neutral-300 text-sm mb-3" data-inema-block="m1-3-t7-p3">El deterioro del contexto: el punto en que la información envejece y necesita actualizarse.</p>
+<p class="text-xs text-neutral-400"><strong class="text-blue-400">Analogía:</strong> comida con fecha de vencimiento: en algún momento se echa a perder.</p>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-5">
+<div class="text-2xl mb-2">🔄</div>
+<h4 class="font-bold text-emerald-400 mb-2">Reverse meta-prompting</h4>
+<p class="text-neutral-300 text-sm mb-3" data-inema-block="m1-3-t7-p4">Pedirle a la IA que, al final de una sesión, destile la conversación en una skill reutilizable.</p>
+<p class="text-xs text-neutral-400"><strong class="text-emerald-400">Analogía:</strong> escribir la receta después de haber cocinado.</p>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Cómo se conectan los tres</h3>
+<p class="text-neutral-300 text-sm">Destilas el material en <strong class="text-neutral-100">hallazgos</strong>, monitorea el <strong class="text-neutral-100">context rot</strong> para saber cuándo actualizarlos, y usa <strong class="text-neutral-100">reverse meta-prompting</strong> para convertir lo que aprendiste en una skill, en vez de reescribir todo desde cero la próxima vez.</p>
+</div>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t7-p5">Porque son los conceptos que mantienen el OS "cultivado" (Módulo 1.1) en lugar de dejarlo pudrirse. Vuelven a aparecer en Trilha 5 (producción): los crons de síntesis, los puntos de corte por dominio y los resúmenes posteriores a la sesión salen de aquí.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Nugget</div><div class="text-xs text-neutral-400">caldo reducido</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Context rot</div><div class="text-xs text-neutral-400">fecha de vencimiento</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Reverse meta-prompting</div><div class="text-xs text-neutral-400">la receta después</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Mantener vivo</div><div class="text-xs text-neutral-400">lo que conecta los tres</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 8 -->
+<section class="mb-16" data-inema-topic="modulo-1-3#topico-8" id="topico-8" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">8</span>
+<h2 class="text-2xl font-bold pt-1">📦 datos sin procesar vs. sintetizados</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">📖</span> ¿Qué es raw vs. sintetizado?</h3>
+<p class="text-neutral-300 mb-3" data-inema-block="m1-3-t8-p1"><strong class="text-neutral-100">En una frase:</strong> tú guardas el material en bruto en una carpeta <span class="font-mono text-sm">raw/</span> (como garantía) e inyecta en el OS solo la versión destilada —los nuggets— de una carpeta <span class="font-mono text-sm">synthesized/</span>.</p>
+<p class="text-neutral-300"><strong class="text-emerald-400">Analogía:</strong> despensa (crudo, guardado) vs. plato listo (destilado, servido). Cocinas a partir de la despensa, pero sirves solo el plato.</p>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t8-p2">La regla de oro del autor es una sola frase: <strong class="text-emerald-400">"inyecta solo las pepitas"</strong>. El material en bruto (transcripciones completas, PDFs largos) se guarda, pero nunca va directo al contexto, porque llenaría la ventana de ruido. Un modelo barato (un "workhorse", como Gemini Flash) resume el material en bruto en nuggets, en un bucle.</p>
+<!-- SVG B: pipeline raw -> sintetizado -> contexto -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Pipeline de datos: la carpeta raw con transcripciones en bruto pasa por un modelo workhorse que resume; el resultado se convierte en nuggets en la carpeta synthesized; y solo los nuggets se inyectan en el contexto del OS." class="w-full h-auto" role="img" viewbox="0 0 820 230">
+<defs>
+<filter height="180%" id="m13b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.6"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m13b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#10b981" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m13b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+</defs>
+<rect fill="url(#m13b-grid)" height="230" width="820" x="0" y="0"></rect>
+<g font-family="Inter,sans-serif" font-size="13.5" font-weight="600">
+<g filter="url(#m13b-glow)"><rect fill="#0e2018" height="90" rx="13" stroke="#34d399" stroke-width="2.5" width="190" x="36" y="70"></rect></g>
+<text fill="#34d399" font-size="15" text-anchor="middle" x="131" y="104">📁 raw/</text>
+<text fill="#a7f3d0" font-size="11" font-weight="400" text-anchor="middle" x="131" y="128">transcripciones sin procesar</text>
+<text fill="#9ca3af" font-size="11" font-weight="400" text-anchor="middle" x="131" y="146">guardado como respaldo</text>
+<path d="M232,115 L300,115" fill="none" marker-end="url(#m13b-ah)" stroke="#34d399" stroke-width="2.4"></path>
+<text fill="#9ca3af" font-size="10.5" font-weight="400" text-anchor="middle" x="266" y="104">workhorse</text>
+<text fill="#9ca3af" font-size="10.5" font-weight="400" text-anchor="middle" x="266" y="138">resume</text>
+<g filter="url(#m13b-glow)"><rect fill="#0e2018" height="90" rx="13" stroke="#10b981" stroke-width="2.5" width="200" x="306" y="70"></rect></g>
+<text fill="#34d399" font-size="15" text-anchor="middle" x="406" y="104">📁 synthesized/</text>
+<text fill="#a7f3d0" font-size="11" font-weight="400" text-anchor="middle" x="406" y="128">💎 nuggets destilados</text>
+<text fill="#9ca3af" font-size="11" font-weight="400" text-anchor="middle" x="406" y="146">el concentrado reducido</text>
+<path d="M512,115 L580,115" fill="none" marker-end="url(#m13b-ah)" stroke="#7dd3fc" stroke-width="2.4"></path>
+<text fill="#bfe6ff" font-size="10.5" font-weight="400" text-anchor="middle" x="546" y="104">inyecta</text>
+<text fill="#bfe6ff" font-size="10.5" font-weight="400" text-anchor="middle" x="546" y="138">solo esto</text>
+<g filter="url(#m13b-glow)"><rect fill="#0e1b26" height="90" rx="13" stroke="#38bdf8" stroke-width="2.5" width="198" x="586" y="70"></rect></g>
+<text fill="#7dd3fc" font-size="15" text-anchor="middle" x="685" y="104">🧠 Contexto del OS</text>
+<text fill="#bfe6ff" font-size="11" font-weight="400" text-anchor="middle" x="685" y="128">la ventana del modelo</text>
+<text fill="#9ca3af" font-size="11" font-weight="400" text-anchor="middle" x="685" y="146">limpia y concisa</text>
+<text fill="#e5e7eb" font-size="14" text-anchor="middle" x="410" y="40">Inyecta solo los nuggets</text>
+</g>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-emerald-400">Cómo leer:</strong> lo bruto entra por la izquierda y queda guardado; el modelo workhorse lo reduce a nuggets; y solo los nuggets cruzan la última flecha hacia el contexto. La carpeta <span class="font-mono text-xs">raw/</span> nunca alimenta el modelo directamente — es la protección, no el ingrediente del plato.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m1-3-t8-p3">Porque «raw → sintetizado → inyectado» es el patrón de datos que se repite en TODO el dominio del curso. Fijarlo ahora hace que la Trilha 2 (Substrato) y la Trilha 5 (producción) parezcan obvias: ya sabes que guardas mucho e inyectas poco.</p>
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">raw/</div><div class="text-xs text-neutral-400">crudo, guardado</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">synthesized/</div><div class="text-xs text-neutral-400">hallazgos destilados</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Inyecta solo nuggets</div><div class="text-xs text-neutral-400">la regla de oro</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-emerald-400 font-semibold text-sm">Workhorse model</div><div class="text-xs text-neutral-400">resume de forma económica, en bucle</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Identidad / CLAUDE.md</strong><span class="text-neutral-400"> — quién es el OS, en el archivo central que se lee primero (la descripción del puesto).</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Sustrato vs. contexto</strong><span class="text-neutral-400"> — toda la despensa frente a los ingredientes que tienes ahora en la mesa.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Regla vs. gancho</strong><span class="text-neutral-400"> — letrero de "no entres" (fuerte) vs. puerta cerrada (determinista).</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Skill vs. agente</strong><span class="text-neutral-400"> — tarjeta de receta (1 verbo) frente al chef (un rol con criterio).</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-neutral-100">Skill·CLI·MCP·API y raw→sintetizado</strong><span class="text-neutral-400"> — los hilos hacia afuera y el patrón de datos: inyecta solo los nuggets.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Siguiente ruta:</h3>
+<p class="text-neutral-300">Ruta 2 · Técnica I — empieza por la Identidad (2.1), la primera capa real. 🪪</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="../trilha2/index.html">Siguiente ruta: Técnica I →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Ingeniería de AIOS · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

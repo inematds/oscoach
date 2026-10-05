@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Module 5.4 · Content OS | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (teal — T5) */
+    html:not(.dark) .text-teal-400 { color: #0d9488; }
+    html:not(.dark) .bg-teal-500\/20 { background-color: rgba(13,148,136,0.12); }
+    html:not(.dark) .bg-teal-500\/10 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/20 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/30 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .border-teal-500\/30 { border-color: rgba(13,148,136,0.25); }
+    html:not(.dark) .hover\:bg-teal-500\/30:hover { background-color: rgba(13,148,136,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m54-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m54-a { animation: m54-pulse 2.8s ease-in-out infinite; }
+      .m54-a:nth-child(2){animation-delay:.25s} .m54-a:nth-child(3){animation-delay:.5s} .m54-a:nth-child(4){animation-delay:.75s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha5/modulo-5-4.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha5/modulo-5-4.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha5/modulo-5-4.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha5/modulo-5-4.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-5-4.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha5/modulo-5-4.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<a class="skip" href="#conteudo">Skip to content</a>
+<!-- NAV (curso/trilhaN/ — T5 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentals</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Technique I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Technique II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap" href="../trilha4/index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Step-by-step</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-teal-400 bg-teal-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Advanced</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">My journey</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Appearance</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Topic</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Dark</button><button data-inema-set-theme="claro" type="button">Clear</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Focus</button><button data-inema-set-theme="contraste" type="button">High contrast</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Source</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">System</button><button data-inema-set-font="leitura" type="button">Reading</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Size</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Width</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Narrow</button><button data-inema-set-linewidth="68" type="button">Intermediate</button><button data-inema-set-linewidth="75" type="button">Broad</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Subtext</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compact</button><button data-inema-set-leading="1.7" type="button">Comfortable</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Accent</span>
+<div class="inema-accent-grid">
+<button aria-label="Emerald accent" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Blue accent" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Purple accent" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Amber accent" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Teal accent" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Pink accent" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Toggle light/dark theme" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="5-4" data-inema-track="5" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Navigation path" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-teal-400" href="../../index.html">Start</a><span>/</span>
+<a class="hover:text-teal-400" href="index.html">Track 5</a><span>/</span>
+<span class="text-teal-400">Module 5.4</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-teal-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-teal-500/20 text-teal-400 text-xs font-semibold rounded-full mb-4">MODULE 5.4</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🎬 Content OS</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">The OS for people who create content. The pie is <strong class="text-neutral-300">balanced</strong>: you reverse-engineer competitors, build a <strong class="text-teal-400">title factory</strong> that listens to your audience, generates thumbnail briefs, repurposes everything — and ties it together with rules that kill the hype. Here, content becomes a production line without losing your voice.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">7</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">~50</div><div class="text-xs text-neutral-400">Minutes</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Advanced</div><div class="text-xs text-neutral-400">Level</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Practical</div><div class="text-xs text-neutral-400">Type</div></div>
+</div>
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Module 5.4 progress" class="inema-ring" data-inema-meter="modulo:5-4"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:5-4"><strong data-inema-meter-frac="">0 of 0</strong> topics read · <span data-inema-section-counter="">Section 1 of 7</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Page index" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">In this module</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-1">1. The balanced pie chart</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-2">2. Reverse engineering</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-3">3. Title factory</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-4">4. Thumbnail briefs</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-5">5. Repurpose</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-6">6. Producer + orchestrator</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-7">7. No-hype rules</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Detailed content</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🍕 The Content OS pizza: balanced</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t1-p1">In Tax OS, context accounted for ~34%; in Sales OS, tools and skills were in charge. In <strong class="text-teal-400">Content OS—the pie chart is balanced</strong>: no single layer dominates. Context and skills carry the weight, agents orchestrate, and rules &amp; hooks — which usually come last — step in to protect the <strong class="text-neutral-100">your voice</strong> from the automatic hype.</p>
+<!-- SVG A: distribuição equilibrada (barra das 6 camadas) -->
+<div class="rounded-2xl border border-teal-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Distribution of the 6 layers in Content OS: Context 22%, Skills 22%, Agents 16%, Tools 14%, Rules 14%, and Identity 12%—a balanced pie, with no dominant layer." class="w-full h-auto" role="img" viewbox="0 0 760 250">
+<defs>
+<pattern height="32" id="m54a-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#14b8a6" opacity="0.1" r="1.3"></circle></pattern>
+<filter height="180%" id="m54a-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+</defs>
+<rect fill="url(#m54a-grid)" height="250" width="760" x="0" y="0"></rect>
+<text fill="#2dd4bf" font-family="Inter,sans-serif" font-size="15" font-weight="600" x="60" y="40">The pie chart, unfolded into a bar — 6 layers, totaling 100%</text>
+<g filter="url(#m54a-glow)">
+<rect fill="#14b8a6" height="46" rx="6" width="141" x="60" y="64"></rect>
+<rect fill="#2dd4bf" height="46" width="141" x="201" y="64"></rect>
+<rect fill="#0ea5e9" height="46" width="102" x="342" y="64"></rect>
+<rect fill="#38bdf8" height="46" width="90" x="444" y="64"></rect>
+<rect fill="#0d9488" height="46" width="90" x="534" y="64"></rect>
+<rect fill="#5eead4" height="46" rx="6" width="76" x="624" y="64"></rect>
+</g>
+<g font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle">
+<text fill="#042f2a" x="130" y="93">22%</text>
+<text fill="#042f2a" x="271" y="93">22%</text>
+<text fill="#04293b" x="393" y="93">16%</text>
+<text fill="#04293b" x="489" y="93">14%</text>
+<text fill="#042f2a" x="579" y="93">14%</text>
+<text fill="#042f2a" x="662" y="93">12%</text>
+</g>
+<g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+<rect fill="#14b8a6" height="14" rx="3" width="14" x="70" y="150"></rect><text fill="#cbd5e1" x="92" y="162">Context</text>
+<rect fill="#2dd4bf" height="14" rx="3" width="14" x="300" y="150"></rect><text fill="#cbd5e1" x="322" y="162">Skills</text>
+<rect fill="#0ea5e9" height="14" rx="3" width="14" x="520" y="150"></rect><text fill="#cbd5e1" x="542" y="162">Agents</text>
+<rect fill="#38bdf8" height="14" rx="3" width="14" x="70" y="186"></rect><text fill="#cbd5e1" x="92" y="198">Tools</text>
+<rect fill="#0d9488" height="14" rx="3" width="14" x="300" y="186"></rect><text fill="#cbd5e1" x="322" y="198">Rules &amp; Hooks</text>
+<rect fill="#5eead4" height="14" rx="3" width="14" x="520" y="186"></rect><text fill="#cbd5e1" x="542" y="198">Identity</text>
+</g>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-teal-400">How to read:</strong> no slice crushes the others — that’s what “balanced” means. The slices <span class="text-teal-400">teal</span> are the foundation/action layers; the <span class="text-sky-400">cyans</span> (Tools and Agents) are the threads leading outward. The numbers are a reference, not a formula.</p>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> The usual question</h3>
+<p class="text-neutral-300 text-sm">As with every OS: <strong class="text-neutral-100">Which layer matters most here?</strong> e <strong class="text-neutral-100">what goes stale fastest?</strong>. In the content, what goes stale quickly is the <strong>trends context</strong> (what’s trending changes every week); what’s stable is the <strong>your voice</strong> — that’s why it becomes a rule, not data to recollect.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t1-p2">Because the balance tells you there’s no shortcut through a single layer here. Someone who only stacks content-generation skills without competitor context produces generic content; someone who only researches and never packages anything becomes an analyst, not a creator. The Content OS delivers when both halves work together.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Balance</div><div class="text-xs text-neutral-400">no layer is in charge</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Perishable context</div><div class="text-xs text-neutral-400">trends go stale quickly</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Stable voice</div><div class="text-xs text-neutral-400">becomes a rule, not data</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Two halves</div><div class="text-xs text-neutral-400">research + production</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">🔬 Reverse-engineering competitors</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t2-p1">The Content OS context starts by looking outward. Pull the <strong class="text-teal-400">top 10 videos</strong> for each competitor in your niche and reverse-engineer it: the <strong class="text-neutral-100">rhythm</strong>, o <strong class="text-neutral-100">angle</strong>, o <strong class="text-neutral-100">default</strong> and how they <strong class="text-neutral-100">tell the story</strong> of the video. Add a scan of what’s trending. This prepares your context and becomes the compendium the OS reads when it creates.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-4-t2-p2">One <strong>compendium</strong> (<span class="font-mono text-xs">substrate/compendium.md</span>) is the distilled reference the OS actually reads—not the raw data. You scan dozens of videos (the <strong>raw</strong>), and an inexpensive model summarizes it into <strong>nuggets</strong>: the few sentences that matter. The harness reads the compendium, not the mountain of transcripts.</p>
+</div>
+<!-- SVG B: engenharia reversa -> compêndio -->
+<div class="rounded-2xl border border-teal-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Top competitor videos go into a reverse-engineering extractor that isolates pacing, angle, storyline, and brand voice; the distilled result goes into the compendium the OS reads." class="w-full h-auto" role="img" viewbox="0 0 760 320">
+<defs>
+<lineargradient id="m54b-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#2dd4bf"></stop><stop offset="1" stop-color="#14b8a6"></stop></lineargradient>
+<filter height="180%" id="m54b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m54b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#14b8a6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m54b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m54b-grid)" height="320" width="760" x="0" y="0"></rect>
+<g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+<g class="m54-a"><rect fill="#0e1b26" height="44" rx="10" stroke="#38bdf8" stroke-width="2" width="170" x="34" y="56"></rect><text fill="#bfe6ff" text-anchor="middle" x="119" y="83">🎬 top video · channel A</text></g>
+<g class="m54-a"><rect fill="#0e1b26" height="44" rx="10" stroke="#38bdf8" stroke-width="2" width="170" x="34" y="138"></rect><text fill="#bfe6ff" text-anchor="middle" x="119" y="165">🎬 top video · channel B</text></g>
+<g class="m54-a"><rect fill="#0e1b26" height="44" rx="10" stroke="#38bdf8" stroke-width="2" width="170" x="34" y="220"></rect><text fill="#bfe6ff" text-anchor="middle" x="119" y="247">🎬 trends of the week</text></g>
+</g>
+<g fill="none" marker-end="url(#m54b-ah)" opacity="0.5" stroke="#38bdf8" stroke-width="1.8">
+<path d="M204,78 C250,100 250,140 296,150"></path><path d="M204,160 L296,160"></path><path d="M204,242 C250,220 250,180 296,170"></path>
+</g>
+<rect fill="#0c1f1c" height="172" rx="14" stroke="url(#m54b-grad)" stroke-width="2" width="190" x="300" y="74"></rect>
+<text fill="#2dd4bf" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="395" y="100">Reverse engineering</text>
+<g font-family="Inter,sans-serif" font-size="12" font-weight="600">
+<rect fill="#0e2a26" height="26" rx="7" stroke="#2dd4bf" stroke-width="1.4" width="154" x="318" y="116"></rect><text fill="#99f6e4" text-anchor="middle" x="395" y="133">rhythm &amp; pacing</text>
+<rect fill="#0e2a26" height="26" rx="7" stroke="#2dd4bf" stroke-width="1.4" width="154" x="318" y="148"></rect><text fill="#99f6e4" text-anchor="middle" x="395" y="165">angle</text>
+<rect fill="#0e2a26" height="26" rx="7" stroke="#2dd4bf" stroke-width="1.4" width="154" x="318" y="180"></rect><text fill="#99f6e4" text-anchor="middle" x="395" y="197">storyline</text>
+<rect fill="#0e2a26" height="26" rx="7" stroke="#2dd4bf" stroke-width="1.4" width="154" x="318" y="212"></rect><text fill="#99f6e4" text-anchor="middle" x="395" y="229">brand voice</text>
+</g>
+<path d="M490,160 L560,160" fill="none" marker-end="url(#m54b-ah)" opacity="0.6" stroke="#38bdf8" stroke-width="1.8"></path>
+<g filter="url(#m54b-glow)"><rect fill="#0e2a26" height="80" rx="13" stroke="url(#m54b-grad)" stroke-width="2" width="166" x="566" y="120"></rect></g>
+<text fill="#2dd4bf" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="649" y="153">📚 compendium</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="649" y="174">nuggets the OS reads</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-teal-400">How to read:</strong> the raw videos come in on the left; the extractor isolates the patterns that matter; only the distillate (the compendium) remains for the OS to consult. You don’t paste transcripts into the context—you paste conclusions.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+<h4 class="font-bold text-teal-400 mb-4">✓ Useful reverse engineering</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Look <strong>rhythm, angle, and storyline</strong>, not just the theme.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Separate hype merchants from the legitimate ones.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Becomes a distilled compendium — reusable in every video.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Shallow copy</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Copy the competitor’s title without understanding why.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Dump 50 transcripts into the context and hope for the best.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Chasing trends and losing your own voice.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t2-p3">Because it’s what takes your content out of guesswork. By mapping what works in the niche—and why—you make data-driven decisions instead of acting out of envy. And since everything becomes a distilled compendium, your next idea starts with context instead of a blank page.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Top 10 videos</div><div class="text-xs text-neutral-400">the sample to dissect</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Pace &amp; angle</div><div class="text-xs text-neutral-400">what actually gets copied</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Compendium</div><div class="text-xs text-neutral-400">the distillate the OS reads</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Hype vs. legit</div><div class="text-xs text-neutral-400">What game are you playing</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 (PRÁTICO · copy-run) -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">🏭 Title factory (with personas)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t3-p1">This is the Content OS signature skill: a <strong class="text-teal-400">title factory</strong> that generates hundreds of candidates, does <strong class="text-neutral-100">A/B</strong> between them and—and here’s the key—invokes <strong class="text-neutral-100">teams of agents embodying the personas</strong> of the most common audience avatars (by age, by profile). Each persona gives honest feedback: “this is too clickbaity,” “you’re promising too much,” “I’ll drop off in minute two because you’re rambling.” The result is a title tested with people who will actually click.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-4-t3-p2">A <strong>persona</strong> here it's an agent that pretends to be a type of viewer of yours (e.g., “skeptical beginner,” “time-strapped business owner”). <strong>A/B</strong> is comparing two options to see which one wins. <strong>Avatar</strong> is a portrait of a typical follower. You don’t ask "what’s a good title?" in a vacuum—you ask a jury that thinks like your audience.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3 flex items-center"><span class="mr-2">🎯</span> Copy-run objective</h3>
+<p class="text-neutral-300 leading-relaxed mb-4 text-sm">Generate dozens of titles for a video and submit them to a jury of 3 personas from your audience, applying your anti-hype rules, then come away with 2 finalists ready for A/B testing.</p>
+<!-- COPY-RUN BOX -->
+<div class="rounded-xl border border-teal-500/30 bg-dark-800 overflow-hidden mb-3">
+<div class="flex items-center justify-between px-4 py-2 bg-teal-500/10 border-b border-teal-500/30">
+<span class="text-xs font-semibold text-teal-400">⌨️ COPY-RUN · paste into Claude Code</span>
+<span class="text-[11px] text-neutral-500 font-mono">skills/fabrica-de-titulos</span>
+</div>
+<pre class="font-mono text-[13px] leading-relaxed text-neutral-300 p-4 overflow-x-auto whitespace-pre-wrap">Você é minha fábrica de títulos do Content OS.
+Tema do vídeo: &lt;tema do vídeo&gt;.
+Promessa central (a transformação que ele entrega): &lt;o resultado que o espectador ganha&gt;.
+
+1. Gere 30 títulos candidatos (até 60 caracteres), variando o gatilho:
+   curiosidade, contraste, número, medo de perder, "como eu / como fazer".
+2. Monte um júri de 3 personas da minha audiência:
+   - &lt;persona 1: ex. "Ana, 24, iniciante, cética com hype"&gt;
+   - &lt;persona 2: ex. "Bruno, 38, dono de negócio, sem tempo"&gt;
+   - &lt;persona 3: ex. "Lia, 30, já me acompanha, quer profundidade"&gt;
+3. Cada persona dá nota 0 a 10 a cada título + UMA frase de porquê
+   (ex.: "clickbait demais", "não fala comigo", "eu clicaria na hora").
+4. Aplique as minhas regras no-hype: descarte todo título com
+   "insano", "chocante", "você não vai acreditar" ou promessa que o
+   vídeo não cumpre.
+5. Devolva os 3 finalistas em tabela (título · nota média · maior objeção)
+   e marque os 2 que eu deveria levar para teste A/B.
+
+Não invente métricas de audiência; baseie as notas só nas personas que defini.</pre>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1">The parts in <span class="font-mono text-teal-400">&lt;...&gt;</span> you replace it with your data. Save the prompt as <span class="font-mono">skills/fabrica-de-titulos/SKILL.md</span> so you can call it the same thing every time.</p>
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-teal-400 mb-3 flex items-center"><span class="mr-2">✅</span> How to verify</h3>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-teal-400 mt-0.5">✓</span><span>One came out <strong>table with 3 finalists</strong>, each with an average score and the toughest objection.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400 mt-0.5">✓</span><span>No finalist contains a word banned by the no-hype rule.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400 mt-0.5">✓</span><span>The 2 marked for A/B are the highest-scoring ones with weak objections—not the most sensational.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400 mt-0.5">✓</span><span>The feedback sounds like YOUR audience (the "beginner" persona complains about jargon; the "short on time" persona complains about rambling).</span></li>
+</ul>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t3-p3">Because the title decides whether the video gets watched. Instead of guessing on your own, the factory tests dozens of options against a jury that imitates your real audience—and filters out hype before you fall in love with a title that will burn you. It’s scale with judgment, not generation in the dark.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Title factory</div><div class="text-xs text-neutral-400">hundreds, not 3</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Persona jury</div><div class="text-xs text-neutral-400">the simulated audience</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">A/B</div><div class="text-xs text-neutral-400">2 finalists to test</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">No-hype filter</div><div class="text-xs text-neutral-400">cut the sensationalism</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">🖼️ Thumbnail briefs</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t4-p1">Thumbnails are now AI-generated, but the important part isn’t generating them—it’s the <strong class="text-teal-400">brief</strong>. The author goes through dozens of variations until finding the one that combines title and image, <strong class="text-neutral-100">works on mobile</strong>, communicates the video's “TL;DR” and — ideally — shows the <strong class="text-neutral-100">result/transformation</strong> before the video even opens. The thumbnail skill packages this brief so you don't have to start from scratch for every cover.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-4-t4-p2"><strong>TL;DR</strong> ("too long; didn't read") is the one-line summary: the whole idea of the video at a glance. <strong>Thumbnail</strong> is the clickable cover. A <strong>brief</strong> is the structured prompt you give the image generator: what to show, the emotion, the text, the framing—so the AI doesn’t have to guess.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-4">What a good thumbnail brief locks down</h3>
+<div class="space-y-6 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Readable on mobile</h4><p class="text-neutral-300 text-sm">Most people watch on their phones. If the face or text disappears in a small rectangle, the cover has failed—the brief calls for high contrast and few elements.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Tell the TL;DR</h4><p class="text-neutral-300 text-sm">The cover conveys the central idea without the title. The image and title don’t repeat the same thing; they add to each other.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Shows the transformation</h4><p class="text-neutral-300 text-sm">The “before → after,” the promised result. Viewers see the benefit before clicking—and click for it.</p></div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300 text-sm">Ask the OS to generate the brief <strong class="text-neutral-100">together</strong> with the finalist titles — so the cover is aligned from the start with the title the jury picked. Mismatched cover and title is the #1 mistake made by people who automate only half the process.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t4-p3">Because the cover is the second filter after the title—and what most reduces the click-through rate. Packaging the brief into a skill ensures every thumbnail follows the same criteria (mobile, TL;DR, transformation), instead of relying on your inspiration that day.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Brief &gt; generate</div><div class="text-xs text-neutral-400">the request is the asset</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Mobile-first</div><div class="text-xs text-neutral-400">legible at small sizes</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Visual TL;DR</div><div class="text-xs text-neutral-400">idea at a glance</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Transformation</div><div class="text-xs text-neutral-400">the gain before the click</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">♻️ Repurposing engines</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t5-p1">A video isn't a video: it's raw material. The <strong class="text-teal-400">repurposing engines</strong> take the YouTube script and turn it into <strong class="text-neutral-100">LinkedIn post</strong>, and the general content in <strong class="text-neutral-100">a resource on Gumroad</strong>. Each engine is a skill that knows the target format—it's not “translation,” it's repackaging for the right platform while preserving your voice.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-4-t5-p2"><strong>Repurpose</strong> (repurpose) is turning content into a new format for another platform. <strong>Gumroad</strong> is a store for selling PDFs, templates, and courses. <strong>LinkedIn post</strong> has its own rhythm (short hook, line breaks). A repurposing engine is the skill that handles this format conversion on its own.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">The reuse chain—one source, many destinations</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-teal-400">roteiro-youtube.md</span>  (a fonte)
+   │
+   ├── <span class="text-sky-400">repurpose-linkedin</span>    : post com gancho + quebras de linha
+   ├── <span class="text-sky-400">repurpose-gumroad</span>     : recurso/PDF à venda
+   └── <span class="text-sky-400">repurpose-newsletter</span>  : e-mail na sua voz</pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+<h4 class="font-bold text-teal-400 mb-4">✓ Repurpose done right</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Repackages content to fit each platform’s pace.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Keep your voice; don't turn it into robotic text.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Turns 1 production into several assets.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Copy and paste</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Pastes the exact same script on LinkedIn.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Losing your voice in a generic summary.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Repurpose content that didn’t even perform.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t5-p3">Because it’s the biggest reach multiplier per hour worked. The expensive part—researching, scripting, recording—is already done. Repurposing engines extract 3 to 5 extra assets from every production, without making you rewrite from scratch for each platform.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">1 source, N destinations</div><div class="text-xs text-neutral-400">the video is raw material</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Format engine</div><div class="text-xs text-neutral-400">each destination, its own skill</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Preserved voice</div><div class="text-xs text-neutral-400">repackages, doesn't outsource</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Leverage</div><div class="text-xs text-neutral-400">reach per hour</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">🤖 Agents: Producer + Orchestrator</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t6-p1">At the top, two agents. The <strong class="text-teal-400">producer</strong> takes the idea through to publication—chooses which skills to call and in what order. The <strong class="text-teal-400">orchestrator</strong> handles the writing and editing, including via <span class="font-mono text-sm">Descript CLI</span>, and wraps it all up in a <strong class="text-neutral-100">care package</strong>: the finished package that goes to the human editor for final polish. Remember the course order: agents come only after context, skills, and rules are solid.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-4-t6-p2">A <strong>CLI</strong> (command-line interface) is a program you operate with text commands—the agent can call the <strong>Descript CLI</strong> to edit video without clicking anything. A <strong>care package</strong> is the organized deliverable (cuts, captions, notes) that the agent prepares for the human editor to finalize.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5"><div class="text-2xl mb-2">🎯</div><div class="font-semibold mb-1">Producer</div><p class="text-xs text-neutral-400">From idea to publication. Decides which skills to call (titles, thumbnail, repurpose) and in what order.</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5"><div class="text-2xl mb-2">🎛️</div><div class="font-semibold mb-1">Orchestrator</div><p class="text-xs text-neutral-400">Writing + editing via Descript CLI. Assembles the care package and delivers it to the human editor.</p></div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> The order matters</h3>
+<p class="text-neutral-300 text-sm">These agents only work because the layers beneath them exist: the competitor compendium (context), the title factory and repurposing (skills), and the no-hype rules (guardrails). Promoting an agent before that is “hiring a manager without a team”—it has nothing to orchestrate.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t6-p3">Because it’s what turns standalone skills into a production line. With a producer and orchestrator, you request "new video about X" and the OS chains together research, titles, cover art, and clips—delivering a package that the editor only has to polish. You move out of operations and into direction.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Producer</div><div class="text-xs text-neutral-400">idea → publication</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Orchestrator</div><div class="text-xs text-neutral-400">writing + editing</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Descript CLI</div><div class="text-xs text-neutral-400">command-based editing</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Care package</div><div class="text-xs text-neutral-400">editor package</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" data-inema-topic="modulo-5-4#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">🚫 No-Hype Rules &amp; the 30-40s Hook</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Mark a question about this topic" type="button"><span aria-hidden="true">?</span><span>I have a question</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t7-p1">The Content OS guardrails protect your credibility. The <strong class="text-teal-400">no-hype rule</strong> prohibits words like "insane" and any overpromising — what the video doesn't deliver, the title doesn't promise. And there's the rule of <strong class="text-neutral-100">30–40 second hook</strong>: the opening that holds the viewer’s attention, assembled in a <strong class="text-neutral-100">anti-formula</strong>, without the tired cliché of every thumbnail farm.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 New here?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-4-t7-p2">A <strong>rule</strong> is a strong suggestion to the model (non-deterministic). A <strong>hook/hook</strong>, in the OS sense, is deterministic — always/never. Here, "30-40s hook" uses the word in the sense of <em>video opening</em>: the first few seconds that grab attention. <strong>Overpromising</strong> is promising more than you deliver.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+<h4 class="font-bold text-teal-400 mb-4">✓ Under the no-hype rule</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Promise only what the video delivers.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>A 30–40s hook that delivers value early.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>An anti-formula opening, in your voice.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Banned by the rule</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"Insane," "shocking," "you won’t believe it."</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Promise a result the video doesn't deliver.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Wasting 2 minutes before showing anything.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> The mistake to avoid</h3>
+<p class="text-neutral-300 text-sm">Leave hype as a "soft rule" that you ignore when rushing the upload. If credibility is non-negotiable for your brand, raise no-hype to a <strong>deterministic hook</strong>: a reflex that blocks publication if the title contains a banned word. Deterministic where it matters.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Why learn</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-4-t7-p3">Because scale without guardrails destroys your brand. The more content the OS produces, the greater the risk that a sensational headline slips through. The no-hype rule and anti-formula hook ensure that speed doesn’t turn into embarrassment—you grow while keeping your audience’s trust.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">No-hype</div><div class="text-xs text-neutral-400">prohibits "insane" &amp; the like.</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">30–40s hook</div><div class="text-xs text-neutral-400">the opening that hooks you</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Anti-formula</div><div class="text-xs text-neutral-400">avoid the cliché</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Rule → hook</div><div class="text-xs text-neutral-400">deterministic where it hurts</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Mark as read</span>
+<span class="inema-label-done">Read</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-teal-900/40 via-dark-800 to-dark-800 rounded-xl border border-teal-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Balanced pie</strong><span class="text-neutral-400"> — research and production work together; neither layer dominates.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Reverse engineering → compendium</strong><span class="text-neutral-400"> — the pace, angle, and storyline of top videos become reusable distillates.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Persona-based title factory</strong><span class="text-neutral-400"> — hundreds + A/B + a jury that thinks like your audience.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Thumbnail + repurpose briefs</strong><span class="text-neutral-400"> — mobile cover/TL;DR/transformation; one video becomes several assets.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Agents + no-hype rules</strong><span class="text-neutral-400"> — producer/orchestrator link things together; the no-hype approach protects the brand.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-teal-400 mb-2">Next module:</h3>
+<p class="text-neutral-300">5.5 — Consulting OS 💼</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to the Track</a>
+<a class="flex-1 text-center px-6 py-3 bg-teal-600 text-white rounded-lg font-semibold hover:bg-teal-500 transition-colors" href="modulo-5-5.html">Next module →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>AIOS Engineering · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>

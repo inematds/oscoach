@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Módulo 5.2 · Sales OS | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "oscoach",
+    "tracks": [
+      { "n": "1", "title": "Fundamentos", "modules": [
+        { "id": "1-1", "title": "O que é um Sistema Operacional de IA", "topics": 7, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "As 6 camadas e o gráfico de pizza", "topics": 7, "href": "curso/trilha1/modulo-1-2.html" },
+        { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
+      ]},
+      { "n": "2", "title": "Técnica I · Base", "modules": [
+        { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
+        { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      ]},
+      { "n": "3", "title": "Técnica II · Capacidade", "modules": [
+        { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
+        { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      ]},
+      { "n": "4", "title": "Passo a passo", "modules": [
+        { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "start — objetivo + Identidade", "topics": 7, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "next — Substrato", "topics": 7, "href": "curso/trilha4/modulo-4-3.html" },
+        { "id": "4-4", "title": "next — Regras", "topics": 7, "href": "curso/trilha4/modulo-4-4.html" },
+        { "id": "4-5", "title": "Habilidades → Ferramentas → Agentes", "topics": 7, "href": "curso/trilha4/modulo-4-5.html" },
+        { "id": "4-6", "title": "audit — pontuar contra o objetivo", "topics": 8, "href": "curso/trilha4/modulo-4-6.html" }
+      ]},
+      { "n": "5", "title": "Avançado", "modules": [
+        { "id": "5-1", "title": "Tax & Bookkeeping OS", "topics": 7, "href": "curso/trilha5/modulo-5-1.html" },
+        { "id": "5-2", "title": "Sales OS", "topics": 7, "href": "curso/trilha5/modulo-5-2.html" },
+        { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
+        { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
+        { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
+        { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (teal) */
+    html:not(.dark) .text-teal-400 { color: #0d9488; }
+    html:not(.dark) .bg-teal-500\/20 { background-color: rgba(13,148,136,0.12); }
+    html:not(.dark) .bg-teal-500\/10 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/20 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/30 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .border-teal-500\/30 { border-color: rgba(13,148,136,0.25); }
+    html:not(.dark) .hover\:bg-teal-500\/30:hover { background-color: rgba(13,148,136,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    .copy-btn.copied { color: #2dd4bf; }
+
+    @keyframes m52-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m52-a { animation: m52-pulse 2.8s ease-in-out infinite; }
+      .m52-a:nth-child(2){animation-delay:.25s} .m52-a:nth-child(3){animation-delay:.5s}
+      .m52-a:nth-child(4){animation-delay:.75s} .m52-a:nth-child(5){animation-delay:1s}
+    }
+    @media (prefers-reduced-motion: reduce) { .m52-a { animation: none !important; } }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha5/modulo-5-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha5/modulo-5-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha5/modulo-5-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha5/modulo-5-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha5/modulo-5-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-5-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="skip" href="#conteudo">Saltar al contenido</a>
+<!-- NAV (curso/trilhaN/ — T5 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap" href="../trilha4/index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Paso a paso</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-teal-400 bg-teal-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avanzado</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">Mi recorrido</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Apariencia</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Oscuro</button><button data-inema-set-theme="claro" type="button">Claro</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Enfoque</button><button data-inema-set-theme="contraste" type="button">Alto contraste</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Fuente</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">Sistema</button><button data-inema-set-font="leitura" type="button">Lectura</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tamaño</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Ancho</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Estrecho</button><button data-inema-set-linewidth="68" type="button">Medio</button><button data-inema-set-linewidth="75" type="button">Amplio</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Entre líneas</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compacto</button><button data-inema-set-leading="1.7" type="button">Cómodo</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+<div class="inema-accent-grid">
+<button aria-label="Acento esmeralda" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Acento azul" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Acento morado" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Acento ámbar" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Acento teal" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Acento rosa" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Alternar tema claro/oscuro" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="5-2" data-inema-track="5" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Ruta de navegación" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-teal-400" href="../../index.html">Inicio</a><span>/</span>
+<a class="hover:text-teal-400" href="index.html">Ruta 5</a><span>/</span>
+<span class="text-teal-400">Módulo 5.2</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-teal-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-teal-500/20 text-teal-400 text-xs font-semibold rounded-full mb-4">MÓDULO 5.2</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📈 Sales OS</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">En el ámbito de las ventas, la presión aumenta: <strong class="text-teal-400">las herramientas y el contexto lideran juntos</strong>. Vas a montar la cadena que va del scraper al CRM, crear tu propio enriquecimiento y — el corazón del módulo — calificar leads <strong class="text-neutral-100">con fricción intencional</strong>: 50 llamadas buenas valen más que 200 malas.</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">7</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">~45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Avanzado</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Práctico</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+<!-- progresso do módulo -->
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Progreso del módulo 5.2" class="inema-ring" data-inema-meter="modulo:5-2"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:5-2"><strong data-inema-meter-frac="">0 de 0</strong> temas leídos · <span data-inema-section-counter="">Sección 1 de 7</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Índice de la página" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">En este módulo</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-1">1. La pizza del Sales OS</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-2">2. Contexto: correo en frío, ICP</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-3">3. Herramientas: scrapers → CRM</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-4">4. Skills: enriquecimiento</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-5">5. Calificación con fricción</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-6">6. Agentes y anti-spray</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-7">7. Práctico: calificar leads</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🍕 La pizza del Sales OS — herramientas en la parte superior</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t1-p1">Si en Tax OS el contexto reinaba por sí solo (~34%), en Sales OS el stack queda más <strong class="text-teal-400">ajustado</strong>: el contexto baja a ~30% y las <strong class="text-neutral-100">las herramientas suben a ~20%</strong>, compartiendo el liderazgo. La forma de la pizza es parecida, pero las proporciones cuentan otra historia: ventas es un dominio de fontanería —scrapers, CRM, correo electrónico.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-2-t1-p2"><strong>ICP</strong> (<em>Perfil del cliente ideal</em>) es el perfil de tu cliente ideal. <strong>Lead</strong> es un contacto o empresa que puede convertirse en cliente. <strong>CRM</strong> es el sistema que guarda esos contactos y el historial. <strong>SDR</strong> (<em>Sales Development Representative</em>) es el vendedor de prospección, que califica y agenda la demo.</p>
+</div>
+<!-- distribuição em barras -->
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-6 mb-6">
+<h3 class="text-lg font-semibold text-teal-400 mb-4">Distribución de las capas (Sales)</h3>
+<div class="space-y-3 text-sm">
+<div><div class="flex justify-between mb-1"><span class="text-neutral-300">Contexto</span><span class="text-teal-400 font-semibold">30%</span></div><div class="h-2 rounded-full bg-dark-600"><div class="h-2 rounded-full bg-teal-400" style="width:30%"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-neutral-300">Herramientas</span><span class="text-teal-400 font-semibold">20%</span></div><div class="h-2 rounded-full bg-dark-600"><div class="h-2 rounded-full bg-teal-400" style="width:20%"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-neutral-300">Skills</span><span class="text-teal-400 font-semibold">16%</span></div><div class="h-2 rounded-full bg-dark-600"><div class="h-2 rounded-full bg-teal-400" style="width:16%"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-neutral-300">Agentes</span><span class="text-teal-400 font-semibold">14%</span></div><div class="h-2 rounded-full bg-dark-600"><div class="h-2 rounded-full bg-teal-400" style="width:14%"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-neutral-300">Reglas y ganchos</span><span class="text-teal-400 font-semibold">12%</span></div><div class="h-2 rounded-full bg-dark-600"><div class="h-2 rounded-full bg-teal-400" style="width:12%"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-neutral-300">Identidad</span><span class="text-teal-400 font-semibold">8%</span></div><div class="h-2 rounded-full bg-dark-600"><div class="h-2 rounded-full bg-teal-400" style="width:8%"></div></div></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+<h4 class="font-bold text-teal-400 mb-4">✓ Lo que aporta el dominio</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Contexto: ICP, correo en frío, acuerdos ganados/perdidos.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Herramientas: scrapers de Apify, CRM, correo electrónico.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Skills: enriquecimiento, calificación, humanización del copy.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Lo que no se resuelve por sí solo</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Un ejército de agentes SDR sin leads calificados.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Copy "humanizada" enviada a la base equivocada.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Volumen de envíos sin una regla para darse de baja.</span></li>
+</ul>
+</div>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t1-p3">Porque determinan dónde inviertes energía. Al saber que las herramientas valen ~20%, priorizas la integración scraper→CRM en vez de pulir un agente vistoso. En ventas es donde «la infraestructura &gt; el modelo» se vuelve más evidente: el resultado viene del flujo de datos, no de la elocuencia de la IA.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Contexto 30%</div><div class="text-xs text-neutral-400">ICP y estructuras</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Herramientas 20%</div><div class="text-xs text-neutral-400">la porción que sube</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Stack ajustado</div><div class="text-xs text-neutral-400">más equilibrado</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Plomería</div><div class="text-xs text-neutral-400">flujo &gt; elocuencia</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">📚 Contexto: cold email, ICP, demografía</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t2-p1">El contexto de ventas es el conocimiento sobre <strong class="text-neutral-100">a quién sirves y cómo te comunicas con ellos</strong>. Aquí entran las estructuras de cold email que funcionan, la definición precisa del ICP, la demografía de los leads y, no menos importante, el historial de negocios ganados y perdidos. Eso es lo que evita que el scraper recopile basura.</p>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔎</span> Lo que vive en el contexto de ventas</h3>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li><strong class="text-neutral-100">ICP detallado</strong> — segmento, tamaño, cargo del contacto, señal de dolor.</li>
+<li><strong class="text-neutral-100">Estructuras de correo en frío</strong> — las estructuras que ya han convertido.</li>
+<li><strong class="text-neutral-100">Demografía</strong> — dónde y cómo se parecen tus mejores clientes.</li>
+<li><strong class="text-neutral-100">Won / lost</strong> — por qué ganaste y por qué perdiste negocios.</li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dónde guardar los leads</h3>
+<p class="text-neutral-300 text-sm">Pregúntate desde el principio: ¿los leads viven en un <strong class="text-neutral-100">¿Salesforce, un CRM dedicado o tu «imperio de Google Sheets»?</strong> La respuesta define la conexión que vas a construir en el siguiente tema y dónde quedan registrados los negocios ganados y perdidos.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t2-p2">Porque el ICP es el filtro de todo lo que viene después. Si no está bien definido, el scraper trae contactos irrelevantes, el enriquecimiento desperdicia tokens y la calificación no tiene un criterio. Un contexto claro aquí es lo que permite que funcione la fricción del tema 5.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">ICP</div><div class="text-xs text-neutral-400">cliente ideal</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Cold email</div><div class="text-xs text-neutral-400">estructuras que convierten</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Won/Lost</div><div class="text-xs text-neutral-400">aprender del historial</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Dónde guardar</div><div class="text-xs text-neutral-400">CRM o Sheets</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">🔌 Herramientas: scrapers → leads → CRM</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t3-p1">Esta es la porción de ~20%. El autor usa la <strong class="text-teal-400">skill de Apify</strong> (sin crear una CLI propia: el skill ya lo resuelve) con diferentes <em>actors</em> para captar leads de LinkedIn, Google Maps y agregadores. Esos leads se convierten en un archivo que se incorpora al CRM, y el correo electrónico (entrante y saliente) se conecta mediante un CLI de workspace para que todo quede rastreable.</p>
+<!-- SVG: esteira scraper -> leads -> CRM -->
+<div class="rounded-2xl border border-teal-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Flujo de ventas: los actores de Apify (LinkedIn, Google Maps) generan un archivo de leads, que se guarda en el CRM, del que salen y al que llegan correos electrónicos rastreados por un CLI de workspace." class="w-full h-auto" role="img" viewbox="0 0 900 220">
+<defs>
+<lineargradient id="m52a-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#2dd4bf"></stop><stop offset="1" stop-color="#14b8a6"></stop></lineargradient>
+<filter height="180%" id="m52a-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m52a-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#14b8a6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m52a-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#2dd4bf"></path></marker>
+</defs>
+<rect fill="url(#m52a-grid)" height="220" width="900" x="0" y="0"></rect>
+<g fill="none" opacity="0.7" stroke="#2dd4bf" stroke-width="2.4">
+<path d="M212,110 L268,110" marker-end="url(#m52a-ah)"></path>
+<path d="M468,110 L524,110" marker-end="url(#m52a-ah)"></path>
+<path d="M724,110 L778,110" marker-end="url(#m52a-ah)"></path>
+</g>
+<g class="m52-a" filter="url(#m52a-glow)"><rect fill="#0c2422" height="96" rx="14" stroke="#2dd4bf" stroke-width="2.5" width="176" x="36" y="62"></rect></g>
+<text fill="#5eead4" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="124" y="98">Apify actors</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="124" y="118">LinkedIn</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="124" y="135">Google Maps</text>
+<g class="m52-a" filter="url(#m52a-glow)"><rect fill="#0c2422" height="96" rx="14" stroke="#14b8a6" stroke-width="2.5" width="176" x="292" y="62"></rect></g>
+<text fill="#5eead4" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="380" y="104">📄 leads</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="124">archivo sin procesar</text>
+<g class="m52-a" filter="url(#m52a-glow)"><rect fill="#0c2422" height="96" rx="14" stroke="#14b8a6" stroke-width="2.5" width="176" x="548" y="62"></rect></g>
+<text fill="#5eead4" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="636" y="104">🗃️ CRM</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="636" y="124">base de leads</text>
+<g filter="url(#m52a-glow)"><rect fill="#0c2422" height="96" rx="14" stroke="#38bdf8" stroke-width="2.5" width="86" x="778" y="62"></rect></g>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="821" y="100">✉️</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="821" y="122">correo electrónico</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="821" y="138">CLI</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-teal-400">Cómo leer:</strong> los <em>actors</em> (en teal) alimentan el archivo de leads, que va al CRM; el correo electrónico (en cian) cierra el ciclo de comunicación. Observa la decisión de la Trilha 3: aquí la <strong>skill</strong> con el de Apify basta: no vale la pena mantener una CLI propia.</p>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> ¿Skill, CLI o MCP?</h3>
+<p class="text-neutral-300 text-sm">La pregunta de la Ruta 3 vuelve a aparecer: <em>¿skill, CLI, API o solo MCP?</em> Para el scraping, la skill lista de Apify «hace más de lo necesario», así que no inventes una CLI solo para mantenerla. Para el CRM y el correo, una CLI <em>seamless</em> se compensa con un uso intensivo.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t3-p2">Porque la cadena de datos es el esqueleto del Sales OS. Sin la ruta scraper→leads→CRM→correo, no tienes qué calificar ni a quién escribirle. Y porque enseña a actuar con intención: cada conexión que agregas se convierte en mantenimiento; construye solo lo que el uso justifica.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Apify actors</div><div class="text-xs text-neutral-400">LinkedIn, Maps</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Base de datos de leads</div><div class="text-xs text-neutral-400">en el CRM</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Skill &gt; CLI</div><div class="text-xs text-neutral-400">cuándo basta con la skill</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Intencional</div><div class="text-xs text-neutral-400">infra = mantenimiento</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">💎 Skills: enriquecimiento propio + humanizadores</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t4-p1">En vez de pagar por una herramienta como <strong class="text-neutral-100">Clay</strong>, el autor sugiere diseñar el <strong class="text-teal-400">tu propio sistema de enriquecimiento</strong>: a partir del lead en bruto, agregar datos y prepararlo. Y, al final de la salida, una serie de <strong class="text-teal-400">humanizadores</strong> garantiza que todo el texto suene "humano", no como "IA".</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-4">La secuencia de skills de ventas</h3>
+<div class="space-y-6 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Enriquecer</h4><p class="text-neutral-300 text-sm">Toma el lead sin procesar y agrega datos (cargo, empresa, señales) mediante scrapers — tu Clay casero.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Calificar</h4><p class="text-neutral-300 text-sm">Compáralo con el ICP y aplica fricción (tema 5) para descartar leads débiles antes de invertir esfuerzo.</p></div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center"><span class="text-teal-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1">Redactar + humanizar</h4><p class="text-neutral-300 text-sm">Genera el borrador del outreach y pásalo por los humanizadores para que suene como una persona, no como un robot.</p></div>
+</div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> Por qué interiorizar el enriquecimiento</h3>
+<p class="text-neutral-300 text-sm">Construir tu propio enriquecimiento reduce el costo de la suscripción y te da control sobre qué señales importan para el <em>tu</em> ICP y mantiene los datos dentro de tu OS, sin depender de un tercero para la parte más sensible del embudo.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t4-p2">Porque las skills representan ~16 % y definen la calidad del resultado. Un enriquecimiento propio bien hecho alimenta una calificación honesta; los humanizadores protegen tu reputación como remitente. Juntas, estas skills son lo que separa el "spam automatizado" de la "prospección que respeta al destinatario".</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Enriquecimiento propio</div><div class="text-xs text-neutral-400">Clay casero</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Humanizadores</div><div class="text-xs text-neutral-400">lenguaje humano</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Control de los datos</div><div class="text-xs text-neutral-400">dentro del OS</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Reputación</div><div class="text-xs text-neutral-400">no sonar como un robot</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">🎯 Calificación con fricción</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t5-p1">Esta es la idea más contraintuitiva del módulo: <strong class="text-teal-400">añadir fricción a propósito</strong>. La skill de calificación no intenta aprobar de inmediato; te hace volver: «sigue escaneando este archivo», «busca más información con otro scraper». El objetivo es no gastar 100 calls en 50 leads malos; es mejor 50 calls en leads reales.</p>
+<!-- SVG: funil com gate de fricção -->
+<div class="rounded-2xl border border-teal-500/30 bg-dark-900/40 p-3 sm:p-4 mb-3 overflow-hidden">
+<svg aria-label="Embudo de calificación: entran 200 leads sin procesar, pasan por un filtro de fricción que vuelve a escanearlos y descarta los débiles, y salen unos 50 leads calificados — menos volumen, más calidad." class="w-full h-auto" role="img" viewbox="0 0 900 240">
+<defs>
+<lineargradient id="m52b-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#2dd4bf"></stop><stop offset="1" stop-color="#14b8a6"></stop></lineargradient>
+<filter height="180%" id="m52b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m52b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#14b8a6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m52b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#2dd4bf"></path></marker>
+<marker id="m52b-ahr" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f87171"></path></marker>
+</defs>
+<rect fill="url(#m52b-grid)" height="240" width="900" x="0" y="0"></rect>
+<g class="m52-a" filter="url(#m52b-glow)"><rect fill="#0c2422" height="72" rx="14" stroke="#2dd4bf" stroke-width="2.5" width="180" x="40" y="84"></rect></g>
+<text fill="#5eead4" font-family="Inter,sans-serif" font-size="16" font-weight="700" text-anchor="middle" x="130" y="116">200 leads</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="130" y="136">en bruto</text>
+<path d="M220,120 L300,120" fill="none" marker-end="url(#m52b-ah)" opacity="0.7" stroke="#2dd4bf" stroke-width="2.4"></path>
+<!-- gate de fricção (diamante) -->
+<g filter="url(#m52b-glow)"><path d="M430,60 L530,120 L430,180 L330,120 Z" fill="#0c2422" stroke="#14b8a6" stroke-width="2.5"></path></g>
+<text fill="#5eead4" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="430" y="112">Fricción</text>
+<text fill="#99f6e4" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="430" y="132">¿encaja con el ICP?</text>
+<!-- loop de reescaneio -->
+<path d="M430,60 C500,18 360,18 412,58" fill="none" marker-end="url(#m52b-ah)" opacity="0.6" stroke="#5eead4" stroke-dasharray="6 6" stroke-width="1.8"></path>
+<text fill="#7f9b97" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="430" y="30">bucle: vuelve a escanear</text>
+<!-- reprovados -->
+<path d="M430,180 L430,214" fill="none" marker-end="url(#m52b-ahr)" opacity="0.7" stroke="#f87171" stroke-width="2.2"></path>
+<text fill="#f87171" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="500" y="208">150 descartados</text>
+<!-- qualificados -->
+<path d="M530,120 L610,120" fill="none" marker-end="url(#m52b-ah)" opacity="0.7" stroke="#2dd4bf" stroke-width="2.4"></path>
+<g filter="url(#m52b-glow)"><rect fill="#0c2422" height="72" rx="14" stroke="#38bdf8" stroke-width="2.5" width="240" x="620" y="84"></rect></g>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="16" font-weight="700" text-anchor="middle" x="740" y="116">~50 calificados</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="740" y="136">vale la llamada</text>
+</svg>
+</div>
+<p class="text-xs text-neutral-400 mb-6 px-1"><strong class="text-teal-400">Cómo leer:</strong> los 200 leads sin procesar (verde azulado) pasan por el filtro de fricción; lo que no coincide con el ICP se vuelve a escanear (bucle) o se descarta (rojo), y solo los ~50 que valen la pena (cian) siguen adelante. Menos volumen, mucha más calidad.</p>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> La fricción es una función</h3>
+<p class="text-neutral-300 text-sm">Estamos acostumbrados a querer que la IA "apruebe rápido". En el embudo de ventas, la virtud es lo contrario: la skill debe <strong class="text-neutral-100">dudar</strong>, pedir más datos y rechazar ante la duda. Cada lead malo que bloquea es una llamada ahorrada y una reputación de remitente preservada.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t5-p2">Porque es lo que hace sostenible el Sales OS. Sin fricción, la automatización se convierte en una máquina de spray-and-pray: muchos envíos, pocas conversiones y el dominio quemado. Con fricción, dedicas tiempo humano solo donde hay una posibilidad real, y ese es exactamente el comportamiento que implementa el copy-run del tema 7.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Fricción intencional</div><div class="text-xs text-neutral-400">dudar es bueno</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Bucle de verificación</div><div class="text-xs text-neutral-400">vuelve a escanear el lead</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Calidad &gt; volumen</div><div class="text-xs text-neutral-400">50 &gt; 200</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Si tienes dudas, no</div><div class="text-xs text-neutral-400">se rechaza por defecto</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">🤖 Agentes y reglas anti-spray</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t6-p1">Los agentes son «mini versiones de empleados que contratarías»: el <strong class="text-teal-400">SDR</strong> hace prospección, outreach, calificación e intenta agendar la demo; el <strong class="text-teal-400">orquestador</strong> combina enriquecer + calificar + redactar; y un <strong class="text-neutral-100">humano</strong> revisa todo antes de enviar. Pero lo que protege la marca son las reglas anti-spray.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6">
+<h4 class="font-bold text-teal-400 mb-4">✓ Reglas y ganchos del Sales OS</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>No envíes el mismo mensaje a cientos de personas.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Opt-out se convierte en un gancho: lo elimina del CRM y marca do-not-contact de inmediato.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-400">✓</span><span>Respetar la voz de la marca (playbook consultado en cada envío).</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ El antipatrón de disparar a todo</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Blast a más de X personas sin segmentación.</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Ignorar a quien pidió «déjame en paz».</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Ser insistente: la gente está cansada de eso e ignora.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> El vendedor buen samaritano</h3>
+<p class="text-neutral-300 text-sm">La identidad (solo 8%) resume el tono: alguien tan orgulloso del producto que ese orgullo es <strong class="text-neutral-100">contagioso</strong> — pero sin ser insistente. La presión aleja; el entusiasmo genuino acerca. Esa es la pauta de voz que deben mantener los humanizadores.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t6-p2">Porque los agentes sin barreras se convierten en un riesgo. Un SDR automatizado es potente y peligroso: puede enviar mil correos idénticos con un clic. Las reglas anti-spray y el gancho de opt-out mantienen el Sales OS dentro de la ley y con buena reputación, y la persona en el proceso hace la última verificación.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">SDR</div><div class="text-xs text-neutral-400">prospección</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Orquestador</div><div class="text-xs text-neutral-400">enrich+qualif+draft</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Opt-out</div><div class="text-xs text-neutral-400">gancho de no contactar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Humano en el bucle</div><div class="text-xs text-neutral-400">revisa antes de enviar</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 (PRÁTICO) -->
+<section class="mb-16" data-inema-topic="modulo-5-2#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">⚙️ Práctico: calificación de leads con fricción</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t7-p1">El prompt de abajo es <strong class="text-teal-400">copy-run</strong>: pégalo en Claude Code con tu archivo de leads a mano. Califica cada lead según el ICP con la fricción del tema 5; si hay dudas, <strong class="text-neutral-100">no aprueba</strong>. Cambia los fragmentos <span class="font-mono text-xs">&lt;...&gt;</span> según los tuyos.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🎯 Objetivo</p>
+<p class="text-sm text-neutral-300">Recibir una lista de leads y devolver un veredicto por lead (Calificado / Descalificado / Necesita enriquecimiento / Eliminar), con el motivo, sin escribir ningún correo todavía.</p>
+</div>
+<div class="bg-dark-900 border border-dark-600 rounded-xl overflow-hidden mb-4">
+<div class="flex items-center justify-between px-4 py-2 border-b border-dark-600 bg-dark-800/60">
+<span class="text-xs font-mono text-neutral-400">prompt · qualificar-leads.txt</span>
+<button class="copy-btn text-xs font-semibold text-teal-400 hover:text-teal-300 transition-colors" onclick="copyRun(this)" type="button">Copiar</button>
+</div>
+<pre class="font-mono text-[13px] leading-relaxed text-neutral-300 p-4 overflow-x-auto" data-copy="">Você é o qualificador de leads do meu Sales OS. Avalie cada lead contra o meu
+ICP com fricção de propósito: na dúvida, NÃO aprove. Prefira 50 bons a 200 ruins.
+
+Meu ICP (cliente ideal):
+- Segmento: &lt;SaaS B2B, 10–50 funcionários&gt;
+- Cargo do contato: &lt;fundador ou head de vendas&gt;
+- Sinal de dor: &lt;time de vendas sem CRM organizado&gt;
+- Desqualificadores: &lt;freelancer, sem site, fora de &lt;país&gt;&gt;
+
+Arquivos:
+- Leads: &lt;./leads/leads-brutos.csv&gt;
+- Do-not-contact: &lt;./rules/do-not-contact.md&gt;
+
+Para CADA lead, faça:
+1. Se o e-mail/domínio estiver na do-not-contact, marque REMOVER e pule.
+2. Compare com o ICP campo a campo. Se faltar dado para decidir, marque
+   PRECISA-ENRIQUECER e diga EXATAMENTE qual dado falta — não chute.
+3. Só marque QUALIFICADO se TODOS os critérios baterem e nenhum
+   desqualificador aparecer. Caso contrário, DESQUALIFICADO + motivo.
+4. Saída: tabela | lead | veredito | motivo | dado-faltante |.
+   Não escreva e-mails ainda; só qualifique. Mostre no fim a contagem por veredito.</pre>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">✅</span> Cómo verificar que funcionó</h3>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">1.</span><span>Todo lead que está en la <span class="font-mono text-xs">do-not-contact</span> aparece como <strong>ELIMINAR</strong>.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">2.</span><span>Ninguno <strong>CALIFICADO</strong> pasó sin cumplir todos los criterios del ICP.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">3.</span><span>Todo <strong>NECESITA-ENRIQUECER</strong> dice qué dato específico falta (no "quizás").</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">4.</span><span>La tabla tiene las columnas lead | veredicto | motivo | dato-faltante.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">5.</span><span>El total de CALIFICADOS es mucho menor que el de leads brutos (la fricción funcionó).</span></li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Siguiente paso</h3>
+<p class="text-neutral-300 text-sm">Solo después de tener la lista de CALIFICADOS, pide los borradores de outreach y pásalos por los <strong class="text-neutral-100">humanizadores</strong>. Nunca escribas copy antes de calificar; justamente eso evita el spray-and-pray.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-2-t7-p2">Porque transforma el concepto de fricción en un comportamiento real. Al ejecutar este copy-run, ves cómo la skill rechaza leads débiles frente a ti, y te llevas el criterio de "objetivo, bloque copiable y cómo verificar" para cualquier skill futura de tu Sales OS.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Copy-run</div><div class="text-xs text-neutral-400">copiar y ejecutar</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Veredicto por lead</div><div class="text-xs text-neutral-400">4 estados</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">No adivines</div><div class="text-xs text-neutral-400">dice qué dato falta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Calificar antes</div><div class="text-xs text-neutral-400">copy solo después</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-teal-900/40 via-dark-800 to-dark-800 rounded-xl border border-teal-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Pizza desequilibrada: contexto 30%, herramientas 20%</strong><span class="text-neutral-400"> — las ventas son fontanería.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Flujo scraper → leads → CRM → correo electrónico</strong><span class="text-neutral-400"> — basta con la skill de Apify; CLI solo para lo que se usa mucho.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Enriquecimiento propio + humanizadores</strong><span class="text-neutral-400"> — Clay casero y textos con lenguaje humano.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">La fricción es una función</strong><span class="text-neutral-400"> — ante la duda, no aprueba; 50 buenos &gt; 200 malos.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Anti-spam + opción de exclusión + humano en el ciclo</strong><span class="text-neutral-400"> — orgullo contagioso, sin ser insistente.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-teal-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300">5.3 — Support OS 🎧 (los tickets se convierten en playbooks)</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="modulo-5-1.html">← Módulo anterior</a>
+<a class="flex-1 text-center px-6 py-3 bg-teal-600 text-white rounded-lg font-semibold hover:bg-teal-500 transition-colors" href="modulo-5-3.html">Siguiente módulo →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Ingeniería de AIOS · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    function copyRun(btn) {
+      var box = btn.closest('.bg-dark-900') || btn.parentElement.parentElement;
+      var pre = box ? box.querySelector('[data-copy]') : null;
+      if (!pre) return;
+      var text = pre.innerText;
+      function done() { var old = btn.textContent; btn.textContent = 'Copiado!'; btn.classList.add('copied'); setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+      } else { fallbackCopy(text, done); }
+    }
+    function fallbackCopy(text, cb) {
+      try { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb && cb(); } catch (e) {}
+    }
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO (autoResume rola ao último ponto) -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>
