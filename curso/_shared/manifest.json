@@ -7,14 +7,14 @@
       { "id": "1-3", "title": "Glossário essencial", "topics": 8, "href": "curso/trilha1/modulo-1-3.html" }
     ]},
     { "n": "2", "title": "Técnica I · Base", "modules": [
-      { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 8, "href": "curso/trilha2/modulo-2-1.html" },
-      { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 8, "href": "curso/trilha2/modulo-2-2.html" },
-      { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 8, "href": "curso/trilha2/modulo-2-3.html" }
+      { "id": "2-1", "title": "Identidade — o arquivo-alma (CLAUDE.md)", "topics": 9, "href": "curso/trilha2/modulo-2-1.html" },
+      { "id": "2-2", "title": "Substrato & Contexto — o caminhão de lixo em chamas", "topics": 9, "href": "curso/trilha2/modulo-2-2.html" },
+      { "id": "2-3", "title": "Regras & Ganchos — as cercas", "topics": 9, "href": "curso/trilha2/modulo-2-3.html" }
     ]},
     { "n": "3", "title": "Técnica II · Capacidade", "modules": [
-      { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 8, "href": "curso/trilha3/modulo-3-1.html" },
-      { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 8, "href": "curso/trilha3/modulo-3-2.html" },
-      { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 8, "href": "curso/trilha3/modulo-3-3.html" }
+      { "id": "3-1", "title": "Habilidades — os verbos conquistados", "topics": 9, "href": "curso/trilha3/modulo-3-1.html" },
+      { "id": "3-2", "title": "Ferramentas & Conexões — os fios pra fora", "topics": 9, "href": "curso/trilha3/modulo-3-2.html" },
+      { "id": "3-3", "title": "Agentes — papéis com julgamento", "topics": 9, "href": "curso/trilha3/modulo-3-3.html" }
     ]},
     { "n": "4", "title": "Passo a passo", "modules": [
       { "id": "4-1", "title": "Instalar e entender o OS Coach", "topics": 7, "href": "curso/trilha4/modulo-4-1.html" },
@@ -30,7 +30,8 @@
       { "id": "5-3", "title": "Support OS", "topics": 7, "href": "curso/trilha5/modulo-5-3.html" },
       { "id": "5-4", "title": "Content OS", "topics": 7, "href": "curso/trilha5/modulo-5-4.html" },
       { "id": "5-5", "title": "Consulting OS", "topics": 7, "href": "curso/trilha5/modulo-5-5.html" },
-      { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 7, "href": "curso/trilha5/modulo-5-6.html" }
+      { "id": "5-6", "title": "Freedom OS & padrões de produção", "topics": 8, "href": "curso/trilha5/modulo-5-6.html" },
+      { "id": "5-7", "title": "OS que trabalha horas sozinho", "topics": 7, "href": "curso/trilha5/modulo-5-7.html" }
     ]}
   ]
 }

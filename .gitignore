@@ -4,3 +4,5 @@ doc/
 # cruft
 .DS_Store
 *.log
+.verificacao/
+__pycache__/
