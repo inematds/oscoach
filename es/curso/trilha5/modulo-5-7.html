@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="oscoach" name="inema-course"/>
+<title>Módulo 5.7 · OS que trabaja solo durante horas | AIOS</title>
+<!-- ANTI-FOUC (Erro #18) -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark': { dark: true, attr: null, cs: 'dark' }, 'claro': { dark: false, attr: null, cs: 'light' }, 'sepia': { dark: false, attr: 'sepia', cs: 'light' }, 'foco': { dark: null, attr: 'foco', cs: null }, 'contraste': { dark: true, attr: 'contraste', cs: 'dark' } };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style, scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale / 100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl(' + a[0] + ' ' + a[1] + '% ' + a[2] + '%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO (idêntico em toda página — Erro #28) -->
+<script data-inema-manifest="" type="application/json">
+{
+  "course": "oscoach",
+  "tracks": [
+    {
+      "n": "1",
+      "title": "Fundamentos",
+      "modules": [
+        {
+          "id": "1-1",
+          "title": "Qué es un Sistema Operativo de IA",
+          "topics": 7,
+          "href": "curso/trilha1/modulo-1-1.html"
+        },
+        {
+          "id": "1-2",
+          "title": "Las 6 capas y el gráfico circular",
+          "topics": 7,
+          "href": "curso/trilha1/modulo-1-2.html"
+        },
+        {
+          "id": "1-3",
+          "title": "Glosario esencial",
+          "topics": 8,
+          "href": "curso/trilha1/modulo-1-3.html"
+        }
+      ]
+    },
+    {
+      "n": "2",
+      "title": "Técnica I · Base",
+      "modules": [
+        {
+          "id": "2-1",
+          "title": "Identidad: el archivo del alma (CLAUDE.md)",
+          "topics": 9,
+          "href": "curso/trilha2/modulo-2-1.html"
+        },
+        {
+          "id": "2-2",
+          "title": "Sustrato y contexto: el camión de basura en llamas",
+          "topics": 9,
+          "href": "curso/trilha2/modulo-2-2.html"
+        },
+        {
+          "id": "2-3",
+          "title": "Reglas y ganchos — las cercas",
+          "topics": 9,
+          "href": "curso/trilha2/modulo-2-3.html"
+        }
+      ]
+    },
+    {
+      "n": "3",
+      "title": "Técnica II · Capacidad",
+      "modules": [
+        {
+          "id": "3-1",
+          "title": "Habilidades — los verbos conquistados",
+          "topics": 9,
+          "href": "curso/trilha3/modulo-3-1.html"
+        },
+        {
+          "id": "3-2",
+          "title": "Herramientas y conexiones: los cables hacia afuera",
+          "topics": 9,
+          "href": "curso/trilha3/modulo-3-2.html"
+        },
+        {
+          "id": "3-3",
+          "title": "Agentes — roles con criterio",
+          "topics": 9,
+          "href": "curso/trilha3/modulo-3-3.html"
+        }
+      ]
+    },
+    {
+      "n": "4",
+      "title": "Paso a paso",
+      "modules": [
+        {
+          "id": "4-1",
+          "title": "Instalar y entender OS Coach",
+          "topics": 7,
+          "href": "curso/trilha4/modulo-4-1.html"
+        },
+        {
+          "id": "4-2",
+          "title": "iniciar — objetivo + Identidad",
+          "topics": 7,
+          "href": "curso/trilha4/modulo-4-2.html"
+        },
+        {
+          "id": "4-3",
+          "title": "siguiente — Sustrato",
+          "topics": 7,
+          "href": "curso/trilha4/modulo-4-3.html"
+        },
+        {
+          "id": "4-4",
+          "title": "siguiente — Reglas",
+          "topics": 7,
+          "href": "curso/trilha4/modulo-4-4.html"
+        },
+        {
+          "id": "4-5",
+          "title": "Habilidades → Herramientas → Agentes",
+          "topics": 7,
+          "href": "curso/trilha4/modulo-4-5.html"
+        },
+        {
+          "id": "4-6",
+          "title": "audit — puntuar según el objetivo",
+          "topics": 8,
+          "href": "curso/trilha4/modulo-4-6.html"
+        }
+      ]
+    },
+    {
+      "n": "5",
+      "title": "Avanzado",
+      "modules": [
+        {
+          "id": "5-1",
+          "title": "Tax & Bookkeeping OS",
+          "topics": 7,
+          "href": "curso/trilha5/modulo-5-1.html"
+        },
+        {
+          "id": "5-2",
+          "title": "Sales OS",
+          "topics": 7,
+          "href": "curso/trilha5/modulo-5-2.html"
+        },
+        {
+          "id": "5-3",
+          "title": "Support OS",
+          "topics": 7,
+          "href": "curso/trilha5/modulo-5-3.html"
+        },
+        {
+          "id": "5-4",
+          "title": "Content OS",
+          "topics": 7,
+          "href": "curso/trilha5/modulo-5-4.html"
+        },
+        {
+          "id": "5-5",
+          "title": "Consulting OS",
+          "topics": 7,
+          "href": "curso/trilha5/modulo-5-5.html"
+        },
+        {
+          "id": "5-6",
+          "title": "Freedom OS y patrones de producción",
+          "topics": 8,
+          "href": "curso/trilha5/modulo-5-6.html"
+        },
+        {
+          "id": "5-7",
+          "title": "OS que trabaja horas por su cuenta",
+          "topics": 7,
+          "href": "curso/trilha5/modulo-5-7.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode — Parte 1: base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode — Parte 2: acento (teal — T5) */
+    html:not(.dark) .text-teal-400 { color: #0d9488; }
+    html:not(.dark) .bg-teal-500\/20 { background-color: rgba(13,148,136,0.12); }
+    html:not(.dark) .bg-teal-500\/10 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/20 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .bg-teal-900\/30 { background-color: rgba(13,148,136,0.08); }
+    html:not(.dark) .border-teal-500\/30 { border-color: rgba(13,148,136,0.25); }
+    html:not(.dark) .hover\:bg-teal-500\/30:hover { background-color: rgba(13,148,136,0.18); }
+
+    /* nav: hover das outras trilhas */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+
+    /* Light mode — Parte 3: gradientes + especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — Parte 4: nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Parte 5: bordas suavizadas no DARK */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG no claro */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes m56-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m56-a { animation: m56-pulse 2.8s ease-in-out infinite; }
+      .m56-a:nth-child(2){animation-delay:.3s} .m56-a:nth-child(3){animation-delay:.6s}
+    }
+  </style>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<link href="https://inematds.github.io/oscoach/curso/trilha5/modulo-5-7.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/oscoach/en/curso/trilha5/modulo-5-7.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha5/modulo-5-7.html" hreflang="es" rel="alternate"/><link href="https://inematds.github.io/oscoach/curso/trilha5/modulo-5-7.html" hreflang="x-default" rel="alternate"/><link href="https://inematds.github.io/oscoach/es/curso/trilha5/modulo-5-7.html" rel="canonical"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha5/modulo-5-7.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha5/modulo-5-7.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-5-7.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="skip" href="#conteudo">Saltar al contenido</a>
+<!-- NAV (curso/trilhaN/ — T5 ATIVA) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14 gap-2">
+<div class="flex items-center space-x-3 flex-shrink-0">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🧠</span><span class="font-bold text-lg hidden sm:inline">AIOS</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium hidden sm:inline" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center gap-1 sm:gap-1.5">
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors whitespace-nowrap" href="../trilha1/index.html"><span class="lg:hidden">T1</span><span class="hidden lg:inline">Fundamentos</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors whitespace-nowrap" href="../trilha2/index.html"><span class="lg:hidden">T2</span><span class="hidden lg:inline">Técnica I</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors whitespace-nowrap" href="../trilha3/index.html"><span class="lg:hidden">T3</span><span class="hidden lg:inline">Técnica II</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors whitespace-nowrap" href="../trilha4/index.html"><span class="lg:hidden">T4</span><span class="hidden lg:inline">Paso a paso</span></a>
+<a class="px-2.5 py-1.5 rounded-lg text-sm font-semibold text-teal-400 bg-teal-500/10 whitespace-nowrap" href="index.html"><span class="lg:hidden">T5</span><span class="hidden lg:inline">Avanzado</span></a>
+<span class="w-px h-6 bg-dark-600 mx-1 hidden sm:inline-block"></span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 hover:bg-dark-700 transition-colors" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span class="hidden md:inline">Mi recorrido</span>
+<span class="inema-journey-badge" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<div class="relative">
+<button aria-expanded="false" class="inema-appearance-trigger inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-semibold text-neutral-300 hover:text-neutral-100 transition-colors" data-inema-appearance-toggle="#inema-appearance-panel" type="button">
+<span aria-hidden="true">◑</span><span class="hidden md:inline">Apariencia</span>
+</button>
+<div class="inema-appearance-pop right-0" data-inema-appearance="" id="inema-appearance-panel">
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tema</span>
+<div class="inema-segment"><button data-inema-set-theme="inema-dark" type="button">Oscuro</button><button data-inema-set-theme="claro" type="button">Claro</button><button data-inema-set-theme="sepia" type="button">Sepia</button></div>
+<div class="inema-segment"><button data-inema-set-theme="foco" type="button">Enfoque</button><button data-inema-set-theme="contraste" type="button">Alto contraste</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Fuente</span>
+<div class="inema-segment"><button data-inema-set-font="inter" type="button">Inter</button><button data-inema-set-font="system" type="button">Sistema</button><button data-inema-set-font="leitura" type="button">Lectura</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Tamaño</span>
+<div class="inema-segment"><button data-inema-set-fontscale="100" type="button">A</button><button data-inema-set-fontscale="112" type="button">A+</button><button data-inema-set-fontscale="125" type="button">A++</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Ancho</span>
+<div class="inema-segment"><button data-inema-set-linewidth="60" type="button">Estrecho</button><button data-inema-set-linewidth="68" type="button">Medio</button><button data-inema-set-linewidth="75" type="button">Amplio</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Entre líneas</span>
+<div class="inema-segment"><button data-inema-set-leading="1.45" type="button">Compacto</button><button data-inema-set-leading="1.7" type="button">Cómodo</button></div>
+</div>
+<div class="inema-pref-group"><span class="inema-pref-group__label">Acento</span>
+<div class="inema-accent-grid">
+<button aria-label="Acento esmeralda" data-inema-set-accent="emerald" type="button"></button>
+<button aria-label="Acento azul" data-inema-set-accent="blue" type="button"></button>
+<button aria-label="Acento morado" data-inema-set-accent="purple" type="button"></button>
+<button aria-label="Acento ámbar" data-inema-set-accent="amber" type="button"></button>
+<button aria-label="Acento teal" data-inema-set-accent="teal" type="button"></button>
+<button aria-label="Acento rosa" data-inema-set-accent="rose" type="button"></button>
+</div>
+</div>
+</div>
+</div>
+<button aria-label="Alternar tema claro/oscuro" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main data-inema-module="5-7" data-inema-track="5" id="conteudo">
+<!-- BREADCRUMB -->
+<nav aria-label="Ruta de navegación" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-teal-400" href="../../index.html">Inicio</a><span>/</span>
+<a class="hover:text-teal-400" href="index.html">Ruta 5</a><span>/</span>
+<span class="text-teal-400">Módulo 5.7</span>
+</div>
+</nav>
+<!-- HEADER do módulo -->
+<header class="bg-gradient-to-br from-teal-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-teal-500/20 text-teal-400 text-xs font-semibold rounded-full mb-4">MÓDULO 5.7</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">⏱️ OS que trabaja durante horas por sí solo (ejecución larga)</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Cómo dejar a un agente (Codex o Claude Code) trabajando durante <strong class="text-neutral-300">horas sin perder el rumbo</strong>: objetivo con <strong class="text-teal-400">prueba de finalización</strong>, estado en archivos, reglas para detenerse y un modo headless con límites. Es lo que separa "pedir una tarea" de "entregar un trabajo prolongado".</p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">8</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">~58</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Avanzado</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-teal-400">Ejecución prolongada</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+<div class="flex items-center gap-3 mt-8">
+<div aria-label="Progreso del módulo 5.7" class="inema-ring" data-inema-meter="modulo:5-7"><span class="inema-ring__value" data-inema-meter-pct="">0%</span></div>
+<div class="inema-meter-label" data-inema-meter="modulo:5-7"><strong data-inema-meter-frac="">0 de 0</strong> temas leídos · <span data-inema-section-counter="">Sección 1 de 8</span></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="lg:flex lg:gap-10">
+<!-- TOC sticky + scrollspy -->
+<aside class="hidden lg:block lg:w-56 flex-shrink-0">
+<nav aria-label="Índice de la página" class="sticky top-20 self-start" data-inema-toc="">
+<p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-3">En este módulo</p>
+<ol class="space-y-1 text-sm">
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-1">1. Por qué el agente se pierde</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-2">2. La carpeta longrun/</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-3">3. goal.md nivel 3</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-4">4. /goal en Codex y Claude Code</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-5">5. Cuándo llamar a una persona</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-6">6. Modo headless</a></li>
+<li><a class="inema-toc-link block py-1 text-neutral-400 hover:text-teal-400" href="#topico-7">7. Práctica: primer longrun</a></li>
+</ol>
+</nav>
+</aside>
+<!-- ARTIGO -->
+<article class="inema-prose flex-1 min-w-0">
+<h2 class="text-2xl font-bold mb-8">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-1" id="topico-1" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold pt-1">🧭 Por qué un agente se pierde después de horas</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t1-p1">Un agente que trabaja durante minutos suele hacerlo bien. Después de horas, aparece el problema: la conversación se llena, el sistema <strong class="text-teal-400">compacta</strong> (resume) lo anterior y se pierden detalles importantes. El agente empieza a repetir "voy a terminar y hacer el commit" sin terminar, o vuelve a abrir un elemento que ya estaba hecho. Esto es <strong class="text-neutral-100">contexto degradado</strong>, y no es falta de inteligencia: es falta de memoria fuera de la conversación.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t1-p2"><strong>La compactación</strong> ocurre cuando el agente resume la conversación anterior para que quepa más contenido. El resumen es útil, pero olvida detalles. <strong>Contexto degradado</strong> sucede cuando, tras varias compactaciones, el agente ya no recuerda bien lo que acordó.</p>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">🔥</span> Señales de que el contexto se ha degradado</h3>
+<p class="text-neutral-300 text-sm">Repetir la misma frase de cierre sin cerrar; reabrir un elemento ya completado; olvidar una regla acordada al principio; dar vueltas sin producir nada nuevo. Si ves esto, la sesión ya ha pasado su límite.</p>
+</div>
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-teal-400 mb-2 flex items-center"><span class="mr-2">✓</span> La solución</h3>
+<p class="text-neutral-300 text-sm">Sacar la memoria de la conversación y ponerla en archivos: el objetivo con una prueba de que está listo, el estado actual, el plan y las notas. Después de cada compactación, el agente vuelve a leer los archivos y retoma el rumbo. Eso es lo que organiza el kit <a class="text-primary hover:underline" href="https://inematds.github.io/execucao-longa/guia/" rel="noopener" target="_blank">execucao-longa</a> .</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t1-p3">Porque la ejecución larga solo funciona si el rumbo está en archivos y no en la cabeza del agente. Entender por qué se pierde permite saber qué protecciones preparar en los próximos temas.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">La compactación</div><div class="text-xs text-neutral-400">la conversación se resume</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Contexto degradado</div><div class="text-xs text-neutral-400">el agente olvida lo acordado</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Memoria en archivos</div><div class="text-xs text-neutral-400">el rumbo fuera de la conversación</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">3.ª compactación</div><div class="text-xs text-neutral-400">hora de una sesión nueva</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-2" id="topico-2" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold pt-1">📁 La carpeta longrun/ (nuevo-longrun.sh y los 7 archivos)</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t2-p1">El kit crea una carpeta propia para cada trabajo largo. Ejecutas <span class="font-mono text-sm">tools/novo-longrun.sh &lt;projeto&gt; &lt;slug&gt;</span> y crea <span class="font-mono text-sm">longrun/&lt;data&gt;-&lt;slug&gt;/</span> con siete archivos. Cada uno tiene una función y, juntos, forman la memoria que sobrevive a la compactación.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t2-p2">O <strong>slug</strong> es un nombre corto del trabajo, sin espacios (p. ej., <span class="font-mono text-xs">limpar-docs</span>). O <strong>canal</strong> es un archivo donde el agente solo añade notas: hechos, aprendizajes y trampas que la compactación suele borrar.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Los 7 archivos creados por novo-longrun.sh</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-teal-400">longrun/2026-10-12-meu-projeto/</span>
+   ├── goal.md        <span class="text-neutral-500"># el resultado + la prueba de que está listo</span>
+   ├── plan.md        <span class="text-neutral-500"># los pasos</span>
+   ├── state.md       <span class="text-neutral-500"># dónde estoy ahora</span>
+   ├── progress.md    <span class="text-neutral-500"># lo que ya se ha hecho</span>
+   ├── failures.md    <span class="text-neutral-500"># lo que salió mal</span>
+   ├── decisions.md   <span class="text-neutral-500"># lo que se decidió</span>
+   └── canal.md       <span class="text-neutral-500"># notas sobre lo que se pierde en la compactación</span></pre>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> Regla de oro</h3>
+<p class="text-neutral-300 text-sm">Después de cada compactación o reanudación, el agente vuelve a leer en este orden: <strong>goal, state, plan, canal</strong>. Durante el trabajo, registra pronto en canal y hace commit en cada punto de control.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t2-p3">Porque es la carpeta la que transforma «un agente que se pierde» en «un agente que retoma el trabajo por su cuenta». Quien tiene el rumbo por escrito nunca empieza desde cero.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">novo-longrun.sh</div><div class="text-xs text-neutral-400">crea la carpeta</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">goal + plan + state</div><div class="text-xs text-neutral-400">rumbo y posición</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">failures + decisions</div><div class="text-xs text-neutral-400">lo que no se debe repetir</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">canal</div><div class="text-xs text-neutral-400">solo añade</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-3" id="topico-3" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold pt-1">🎯 goal.md nivel 3: comando → salida</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t3-p1">O <span class="font-mono text-sm">goal.md</span> indica el resultado en una frase y, lo más importante, <strong class="text-teal-400">cómo demostrar que está listo</strong>. Cada criterio es un par <span class="font-mono text-sm">comando → salida esperada</span>. En el nivel 3, los criterios abarcan <strong class="text-neutral-100">función</strong> (hace lo que debía), <strong class="text-neutral-100">regresión</strong> (no rompió lo que ya funcionaba) y <strong class="text-neutral-100">límite</strong> (no se pudo cumplir haciendo trampa).</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t3-p2">Un <strong>hacer trampa</strong> es cumplir el criterio sin hacer el trabajo de verdad, por ejemplo, borrar las pruebas que fallan para obtener «0 fallos». La regresión y el límite sirven para cerrar esa puerta.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Ejemplo de prueba de que está listo, nivel 3</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-teal-400"># goal.md</span>
+<span class="text-neutral-100">Resultado:</span> todas las páginas del sitio pasan el validador.
+
+<span class="text-neutral-100">Prueba de que está listo (nivel 3):</span>
+1. función    <span class="text-sky-400">npm test</span>                  → 0 fallos
+2. regresión <span class="text-sky-400">ls tests/ | wc -l</span>         → siguen siendo ≥ 48 pruebas
+3. límite    <span class="text-sky-400">git diff --stat tests/</span>    → vacío (tests/ intacto)</pre>
+</div>
+<div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-amber-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Por qué «0 fallos» no basta</h3>
+<p class="text-neutral-300 text-sm">Un agente apresurado puede borrar la prueba que falla. Por eso, el ejemplo exige 0 fallos <strong>e</strong> al menos 48 pruebas <strong>e</strong> la carpeta tests/ intacta. Tres pruebas juntas, ningún atajo.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t3-p3">Porque el agente solo se detiene cuando la prueba pasa. Si la prueba es débil, «termina» antes de tiempo y mal; si es sólida, trabaja hasta acertar de verdad.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">comando → resultado</div><div class="text-xs text-neutral-400">prueba que se puede medir</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Función</div><div class="text-xs text-neutral-400">hace lo que debía</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Regresión</div><div class="text-xs text-neutral-400">no rompe lo anterior</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Límite</div><div class="text-xs text-neutral-400">sin atajos</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-4" id="topico-4" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold pt-1">▶️ Ejecutar /goal en Codex y Claude Code</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t4-p1">Con el <span class="font-mono text-sm">goal.md</span> listo, inicias el trabajo con el comando <span class="font-mono text-sm">/goal</span>, que existe tanto en el <strong class="text-teal-400">Codex</strong> como en el <strong class="text-teal-400">Claude Code</strong>. Indicas el objetivo y el agente empieza a trabajar hasta que la prueba pase. El mismo kit sirve para ambos ejecutores, como la identidad portátil del módulo 5.1.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t4-p2">O <strong>/goal</strong> es un comando que fija un objetivo y mantiene al agente intentándolo hasta cumplirlo, en vez de detenerse con la primera respuesta.</p>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-2 flex items-center"><span class="mr-2">🔎</span> Atención en Claude Code</h3>
+<p class="text-neutral-300 text-sm">Allí, la prueba debe <strong>aparecer en la salida</strong> de la conversación. El evaluador de /goal solo lee la conversación; no abrirá tus archivos. Así que haz que el agente ejecute el comando de la prueba y muestre el resultado.</p>
+</div>
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-teal-400 mb-2 flex items-center"><span class="mr-2">✓</span> Mientras se ejecuta</h3>
+<p class="text-neutral-300 text-sm">Acompaña sin interrumpir. Vuelve a leer el canal de vez en cuando. Intervén solo ante las señales del siguiente tema.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t4-p3">Porque /goal es el botón de «ir y volver más tarde». Sin él, tendrías que empujar al agente en cada paso.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">/goal</div><div class="text-xs text-neutral-400">objetivo fijo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Codex y Claude Code</div><div class="text-xs text-neutral-400">el mismo kit en ambos</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Prueba en la salida</div><div class="text-xs text-neutral-400">el evaluador solo lee la conversación</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Sin interrumpir</div><div class="text-xs text-neutral-400">acompañar desde lejos</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-5" id="topico-5" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold pt-1">🛑 Cuándo detenerse y llamar a una persona</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t5-p1">Un trabajo largo no significa trabajar sin ti. Hay tres señales de que es hora de detener al agente y actuar: <strong class="text-red-400">tres ciclos sin avances medibles</strong>; el agente <strong class="text-red-400">repite «voy a terminar y hacer commit» sin terminar</strong> o vuelve a abrir un elemento ya hecho (el contexto se degradó); y la <strong class="text-red-400">3.ª compactación</strong>.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t5-p2">Un <strong>ciclo sin avances medibles</strong> es una ronda en la que no mejora ningún número de la prueba (los mismos tests fallan, el mismo recuento). <strong>Handoff</strong> es el resumen de traspaso que la siguiente sesión lee para continuar.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"><div class="bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1 text-teal-400">1. Sin avances</h4><p class="text-neutral-300 text-sm">3 ciclos seguidos sin que mejore ninguna medición.</p></div><div class="bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1 text-teal-400">2. El contexto se degradó</h4><p class="text-neutral-300 text-sm">Repite el cierre sin cerrar o vuelve a abrir un elemento ya hecho.</p></div><div class="bg-dark-800 rounded-xl p-5 border border-dark-600"><h4 class="font-semibold mb-1 text-teal-400">3. 3.ª compactación</h4><p class="text-neutral-300 text-sm">Guarda el handoff, abre una sesión nueva y ejecuta /prime.</p></div></div>
+<div class="bg-amber-900/20 rounded-xl border border-amber-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-amber-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Llama también a una persona cuando</h3>
+<p class="text-neutral-300 text-sm">haya crédito o una API implicados, una acción irreversible o externa, falte una credencial o se trate de una decisión de negocio. Esto se relaciona con las barreras del módulo de Reglas y Ganchos: el agente no decide por sí solo qué es costoso o irreversible.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t5-p3">Porque saber detenerse es parte del método. El error costoso es dejar que el agente dé vueltas en falso durante horas.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">3 ciclos</div><div class="text-xs text-neutral-400">sin avances</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Contexto degradado</div><div class="text-xs text-neutral-400">repite y vuelve a abrir</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">3.ª compactación</div><div class="text-xs text-neutral-400">handoff + sesión nueva</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Humano en el bucle</div><div class="text-xs text-neutral-400">crédito, riesgo, decisión</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-6" id="topico-6" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold pt-1">🤖 Modo headless: loop-longrun.sh con límites</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t6-p1">En el modo <strong class="text-teal-400">headless</strong> nadie está mirando la pantalla. El script <span class="font-mono text-sm">tools/loop-longrun.sh &lt;pasta&gt;</span> repite ciclos, cada uno con un <span class="font-mono text-sm">codex exec</span> con un límite de tiempo. La prueba decide si se continúa. El bucle se detiene solo al concluir, al estancarse o al alcanzar un límite.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t6-p2"><strong>Headless</strong> es ejecutar en segundo plano, sin ventana ni interacción. <strong>Límite</strong> es un máximo (de tiempo, de memoria) que detiene el proceso antes de que dañe la máquina.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">El bucle del modo headless</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-teal-400">tools/loop-longrun.sh</span> longrun/2026-10-12-meu-projeto
+   │
+   ├── cada ciclo = un <span class="text-sky-400">codex exec</span> con límite de tiempo
+   ├── quien decide continuar es el <span class="text-sky-400">prueba</span>, no el agente
+   └── se detiene solo: <span class="text-neutral-100">completado</span> · <span class="text-neutral-100">estancamiento</span> · <span class="text-neutral-100">límite</span></pre>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">🔥</span> Límites siempre</h3>
+<p class="text-neutral-300 text-sm"><strong>Tiempo de espera</strong> en cada ciclo, <strong>memoria</strong> limitada con <span class="font-mono text-xs">systemd-run --user --scope -p MemoryMax=</span> e <strong>salida breve</strong> de las herramientas. Sin límite, un bucle olvidado puede bloquear el ordenador.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t6-p3">Porque es lo que permite dormir mientras el agente trabaja, con seguridad. Los límites son el cinturón de seguridad.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">loop-longrun.sh</div><div class="text-xs text-neutral-400">ciclos automáticos</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">codex exec</div><div class="text-xs text-neutral-400">uno por ciclo</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Tiempo de espera + MemoryMax</div><div class="text-xs text-neutral-400">los límites</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Se detiene solo</div><div class="text-xs text-neutral-400">completado, estancamiento, límite</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" data-inema-topic="modulo-5-7#topico-7" id="topico-7" style="scroll-margin-top:5rem">
+<div class="flex items-start gap-4 mb-4">
+<span class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold pt-1">🛠️ PRÁCTICO: tu primer longrun + medir-sessao.py</h2>
+</div>
+<div class="ml-0 sm:ml-16">
+<div class="flex justify-start mb-5">
+<button aria-pressed="false" data-inema-doubt-toggle="" title="Marcar una duda en este tema" type="button"><span aria-hidden="true">?</span><span>Tengo una duda</span></button>
+</div>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t7-p1">Es hora de ponerse manos a la obra. Elige un trabajo pequeño y verificable (algo que un comando pueda demostrar que terminó) y ejecuta el ciclo completo. Al final, <span class="font-mono text-sm">tools/medir-sessao.py</span> muestra la duración, las compactaciones, los tokens y la caché de la sesión, para que veas cuánto costó el trabajo.</p>
+<div class="bg-dark-800 border border-teal-500/30 rounded-xl p-4 mb-6">
+<p class="text-sm text-teal-400 font-semibold mb-1">🌱 ¿Nuevo aquí?</p>
+<p class="text-sm text-neutral-300" data-inema-block="m5-7-t7-p2">O <strong>.jsonl</strong> es el archivo de registro de la sesión que guardan Claude Code y Codex.  <span class="font-mono text-xs">medir-sessao.py</span> lee ese registro y devuelve los números.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<p class="text-xs text-neutral-500 mb-2 font-semibold">Paso a paso del primer longrun</p>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><span class="text-neutral-500"># 1. crear la carpeta del trabajo</span>
+tools/novo-longrun.sh meu-projeto limpar-docs
+
+<span class="text-neutral-500"># 2. abrir y completar el goal.md (resultado + prueba de nivel 3)</span>
+longrun/&lt;data&gt;-limpar-docs/goal.md
+
+<span class="text-neutral-500"># 3. iniciar /goal en Codex o Claude Code</span>
+/goal longrun/&lt;data&gt;-limpar-docs/goal.md
+
+<span class="text-neutral-500"># 4. hacer seguimiento: volver a leer goal → state → plan → canal después de compactar</span>
+
+<span class="text-neutral-500"># 5. al final, medir la sesión (duración, compactaciones, tokens, caché)</span>
+tools/medir-sessao.py &lt;sessao&gt;.jsonl</pre>
+</div>
+<div class="bg-teal-900/20 rounded-xl border border-teal-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-teal-400 mb-2 flex items-center"><span class="mr-2">✓</span> Comprueba al final</h3>
+<p class="text-neutral-300 text-sm">La prueba de goal.md pasó, el canal tiene notas útiles y tienes los números de la sesión. Si se detuvo antes, consulta en failures.md qué lo bloqueó y ajusta la prueba.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">🔗</span> Guía y área</h3>
+<p class="text-neutral-300 text-sm">Guía completa: <a class="text-primary hover:underline" href="https://inematds.github.io/execucao-longa/guia/" rel="noopener" target="_blank">inematds.github.io/execucao-longa/guia</a>. Área con materiales: <a class="text-primary hover:underline" href="https://eventos.inema.pro/execucao-longa/" rel="noopener" target="_blank">eventos.inema.pro/execucao-longa</a>.</p>
+</div>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Por qué aprender</h3>
+<p class="text-neutral-300 leading-relaxed mb-6" data-inema-block="m5-7-t7-p3">Porque la ejecución prolongada se aprende haciéndola una vez. El primer longrun pequeño enseña más que leerlo todo dos veces.</p>
+<h3 class="text-lg font-semibold text-teal-400 mb-3">Conceptos clave</h3>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Primer longrun</div><div class="text-xs text-neutral-400">pequeño y verificable</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">medir-sessao.py</div><div class="text-xs text-neutral-400">números de la sesión</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">failures.md</div><div class="text-xs text-neutral-400">qué lo bloqueó</div></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3"><div class="text-teal-400 font-semibold text-sm">Guía + área</div><div class="text-xs text-neutral-400">para profundizar</div></div>
+</div>
+<div class="flex justify-start mt-6">
+<button aria-pressed="false" data-inema-read-toggle="" type="button">
+<span aria-hidden="true" class="inema-ico-todo">○</span>
+<span aria-hidden="true" class="inema-ico-done"><svg fill="none" height="16" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="16"><path d="M5 12l5 5L20 6"></path></svg></span>
+<span class="inema-label-todo">Marcar como leído</span>
+<span class="inema-label-done">Leído</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-teal-900/40 via-dark-800 to-dark-800 rounded-xl border border-teal-500/30 p-6 sm:p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🎉</span> Llegaste al final</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Por qué el agente se pierde</strong><span class="text-neutral-400"> — compactación y contexto degradado; el rumbo está en los archivos.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">La carpeta longrun/</strong><span class="text-neutral-400"> — novo-longrun.sh crea los 7 archivos.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">goal.md nivel 3</strong><span class="text-neutral-400"> — comando → salida, cubriendo función, regresión y límite.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">/goal</strong><span class="text-neutral-400"> — en Codex y Claude Code, con la prueba en la salida.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Detenerse y llamar a una persona</strong><span class="text-neutral-400"> — 3 ciclos sin avance, contexto degradado, 3.ª compactación.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Headless con límites</strong><span class="text-neutral-400"> — loop-longrun.sh con límite de tiempo y MemoryMax; la prueba decide si continuar.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-teal-400 mt-1">✓</span><div><strong class="text-neutral-100">Primer longrun</strong><span class="text-neutral-400"> — medido con medir-sessao.py.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-teal-400 mb-2">Fin de la Ruta 5 — y del curso:</h3>
+<p class="text-neutral-300">Completaste las 5 rutas. Ahora elige un dominio, construye tu OS y ejecuta <span class="font-mono text-sm">/os-coach audit</span> para puntuarlo frente a tu objetivo.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="modulo-5-6.html">← Módulo anterior</a>
+<a class="flex-1 text-center px-6 py-3 bg-teal-600 text-white rounded-lg font-semibold hover:bg-teal-500 transition-colors" href="../../index.html">Volver al inicio →</a>
+</div>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Ingeniería de AIOS · INEMA.CLUB — 2026 · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- SCRIPTS NÚCLEO v1 -->
+<script>
+    function toggleTopic(button) {
+      var topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      var explanation = topicItem.querySelector('.topic-explanation');
+      var willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(id) { var m = document.getElementById(id); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(function (m) { m.classList.add('hidden'); }); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      var themeToggle = document.getElementById('theme-toggle');
+      var darkIcon = document.getElementById('theme-toggle-dark-icon');
+      var lightIcon = document.getElementById('theme-toggle-light-icon');
+      var html = document.documentElement;
+      function sync() { var isDark = html.classList.contains('dark'); if (darkIcon) darkIcon.classList.toggle('hidden', isDark); if (lightIcon) lightIcon.classList.toggle('hidden', !isDark); }
+      sync();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark'); var nowDark = html.classList.contains('dark'); html.style.colorScheme = nowDark ? 'dark' : 'light';
+        try { localStorage.setItem('theme', nowDark ? 'dark' : 'light'); } catch (e) {}
+        try { var p = JSON.parse(localStorage.getItem('inema.prefs') || '{}'); p.theme = nowDark ? 'inema-dark' : 'claro'; localStorage.setItem('inema.prefs', JSON.stringify(p)); } catch (e) {}
+        sync();
+      });
+    })();
+  </script>
+<!-- learn.js + INEMA.init() POR ÚLTIMO -->
+<script src="../../../assets/learn.js"></script>
+<script>
+    if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init({ autoResume: true }); }
+  </script>
+</body>
+</html>
